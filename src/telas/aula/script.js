@@ -2,7 +2,7 @@ import React, {useState} from "react";
 
 //Função de verificaResposta
 export const pontuacao = (score, setScore)=>{
-    setScore(score + 1);
+    setScore(score + 0.1);
 };
 
 //função de mudança de velocidade de video

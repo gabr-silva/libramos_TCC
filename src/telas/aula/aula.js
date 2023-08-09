@@ -1,9 +1,10 @@
 import  React, { useState } from 'react';
 import { View, Text, TouchableOpacity} from 'react-native';
 import {Video, ResizeMode} from 'expo-av';
+import * as Progress from 'react-native-progress';
 
 import { pontuacao, cameraLenta, palavras } from './script';
-import style from './style';
+import style from './style_aula';
 
 export default function Aula(){
 
@@ -25,9 +26,9 @@ export default function Aula(){
     </View>
             {/* Topo da tela onde fica o horário, bateria etc */}
             <Text style={style.barraIni}></Text>
-
+        <View style={style.fundo}>
             <View>
-                <Text style={style.pontuacao}>pontuacao: {score}</Text>
+             <Progress.Bar progress={score} width={400} height={15}/>
             </View>
 
             {/* função de video */}
@@ -71,5 +72,12 @@ export default function Aula(){
                     <Text style={style.botaoAlternativas}>{alternativas[1]}</Text>
                     </TouchableOpacity>
                 </View>
+                
+                <View>
+                    <TouchableOpacity>
+                        <Text style={style.btnConfirmar}>Confirmar</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
     </>
 }

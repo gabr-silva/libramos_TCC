@@ -4,8 +4,16 @@ import { StyleSheet } from "react-native";
 const style = StyleSheet.create({
     topo: {
         width: "100%",
-        height: 578 / 768
+        height: 578 / 768,
+        backgroundColor: 'black'
     },
+    
+    fundo:{
+        width: "100%",
+        height: "100%",
+        backgroundColor: 'black'
+    },
+
     botaoVel: {
         padding: 10,
         width: "100%",
@@ -52,6 +60,9 @@ const style = StyleSheet.create({
         borderRadius: 10,
         marginHorizontal: 50
     },
+    btnConfirmar: {
+        color: 'white'
+    }
     }
 );
 export default style; 
