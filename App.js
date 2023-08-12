@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 
 import Aula from './src/telas/aula/aula';
 
+
 export default function App() {
   return (
     <SafeAreaView>

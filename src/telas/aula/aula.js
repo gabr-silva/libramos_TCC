@@ -12,7 +12,19 @@ export default function Aula(){
     const [score, setScore] = useState(0);
     const [vel, setVel] = useState(1)
     const [alternativas, setAlternativas] = useState([])
-    const [cor, setCor] = useState('blue')
+    const [cor, setCor] = useState(['blue'])
+    const [resposta, setResposta] = useState([])
+
+const Resposta = (escolha) => {
+    if (resposta.includes(escolha)) {
+      const AtualizarResposta = resposta.filter((item) => item !== escolha);
+      
+     setResposta(AtualizarResposta);
+    } else {
+      const AtualizarResposta = [...resposta, escolha];
+      setResposta(AtualizarResposta);
+    }
+  };
 
     /*essa função faz com que o metodo setAlternativas seja chamado 
     ao iniciar o ciclo de vida da tela
@@ -56,9 +68,12 @@ export default function Aula(){
 
                 {/*Campos onde fica as alternativas */}
                 <View style={style.footer}>
-                    <TouchableOpacity onPress={() => pontuacao(score, setScore)} style={style.button}>
+
+                    <TouchableOpacity onPress={() => Resposta(alternativas[0])} style={style.button}>
                     <Text style={style.botaoAlternativas}>{alternativas[0]}</Text>
                     </TouchableOpacity>
+
+
                     <TouchableOpacity onPress={() => pontuacao(score, setScore)} style={style.button}>
                     <Text style={style.botaoAlternativas}>{alternativas[1]}</Text>
                     </TouchableOpacity>
@@ -66,12 +81,13 @@ export default function Aula(){
 
                 <View style={style.footer}>
                     <TouchableOpacity onPress={() => pontuacao(score, setScore)} style={style.button}>
-                    <Text style={style.botaoAlternativas}>{alternativas[0]}</Text>
+                    <Text style={style.botaoAlternativas}>{alternativas[2]}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => pontuacao(score, setScore)} style={style.button}>
-                    <Text style={style.botaoAlternativas}>{alternativas[1]}</Text>
+                    <Text style={style.botaoAlternativas}>{alternativas[3]}</Text>
                     </TouchableOpacity>
                 </View>
+                
                 
                 <View>
                     <TouchableOpacity>

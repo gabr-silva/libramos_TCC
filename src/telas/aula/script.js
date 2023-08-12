@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 //Função de verificaResposta
 export const pontuacao = (score, setScore)=>{
@@ -6,7 +7,7 @@ export const pontuacao = (score, setScore)=>{
 };
 
 //função de mudança de velocidade de video
-export const cameraLenta = (vel, setcor, setVel)=>{
+export const cameraLenta = (vel,  setcor, setVel)=>{
     if (vel === 1) {
         // se for igual a 1, define a nova velocidade para 0.5 e a cor para "red"
         setVel(0.5);
@@ -29,4 +30,8 @@ export const palavras = () => {
             [listaPalavra[i], listaPalavra[j]] = [listaPalavra[j], listaPalavra[i]]; 
         }
         return listaPalavra
+}
+
+export const escolharResposta = (texto, resposta) => {
+    
 }
