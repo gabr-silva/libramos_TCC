@@ -1,37 +1,33 @@
-import  React, { useState } from 'react';
+import  React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity} from 'react-native';
 import {Video, ResizeMode} from 'expo-av';
 import * as Progress from 'react-native-progress';
 
-import { pontuacao, cameraLenta, palavras } from './script';
+import { pontuacao, cameraLenta, palavras} from './script';
+import BotaoResposta from '../components/Botaoresposta';
 import style from './style_aula';
 
 export default function Aula(){
 
     const video = React.useRef(null);
     const [score, setScore] = useState(0);
-    const [vel, setVel] = useState(1)
-    const [alternativas, setAlternativas] = useState([])
-    const [cor, setCor] = useState(['blue'])
-    const [resposta, setResposta] = useState([])
+    const [vel, setVel] = useState(1);
+    const [cor, setCor] = useState(['blue']);
 
-const Resposta = (escolha) => {
-    if (resposta.includes(escolha)) {
-      const AtualizarResposta = resposta.filter((item) => item !== escolha);
-      
-     setResposta(AtualizarResposta);
-    } else {
-      const AtualizarResposta = [...resposta, escolha];
-      setResposta(AtualizarResposta);
-    }
-  };
+    const [opcoes, setOpcoes] = useState([])
+    const [opcoesSelecionadas, setOpcoesSelecionadas] = useState([])
 
     /*essa função faz com que o metodo setAlternativas seja chamado 
     ao iniciar o ciclo de vida da tela
     */
-    useState(() => {
-        setAlternativas(palavras());
-      });
+
+    useEffect(() => {
+        setOpcoes(palavras());
+      }, []);
+
+      useEffect(() => {
+        console.log("Array alternativas:", opcoesSelecionadas);
+    }, [opcoesSelecionadas]);
 
     return <>
     <View style={style.topo}>
@@ -68,32 +64,33 @@ const Resposta = (escolha) => {
 
                 {/*Campos onde fica as alternativas */}
                 <View style={style.footer}>
+                    <BotaoResposta
+                    escolha={opcoes[0]}
+                    alternativa={opcoesSelecionadas}
+                    setAlternativa={setOpcoesSelecionadas}/>
 
-                    <TouchableOpacity onPress={() => Resposta(alternativas[0])} style={style.button}>
-                    <Text style={style.botaoAlternativas}>{alternativas[0]}</Text>
-                    </TouchableOpacity>
-
-
-                    <TouchableOpacity onPress={() => pontuacao(score, setScore)} style={style.button}>
-                    <Text style={style.botaoAlternativas}>{alternativas[1]}</Text>
-                    </TouchableOpacity>
+                    <BotaoResposta
+                    escolha={opcoes[1]}
+                    alternativa={opcoesSelecionadas}
+                    setAlternativa={setOpcoesSelecionadas}/>
                 </View>
-
                 <View style={style.footer}>
-                    <TouchableOpacity onPress={() => pontuacao(score, setScore)} style={style.button}>
-                    <Text style={style.botaoAlternativas}>{alternativas[2]}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => pontuacao(score, setScore)} style={style.button}>
-                    <Text style={style.botaoAlternativas}>{alternativas[3]}</Text>
-                    </TouchableOpacity>
+                    <BotaoResposta escolha={opcoes[2]}
+                    alternativa={opcoesSelecionadas}
+                    setAlternativa={setOpcoesSelecionadas}/>
+
+                    <BotaoResposta escolha={opcoes[3]}
+                    alternativa={opcoesSelecionadas}
+                    setAlternativa={setOpcoesSelecionadas}/>
                 </View>
-                
-                
                 <View>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                    onPress={() => pontuacao(score, setScore, opcoesSelecionadas)}
+                    >
                         <Text style={style.btnConfirmar}>Confirmar</Text>
                     </TouchableOpacity>
                 </View>
+
             </View>
     </>
 }
