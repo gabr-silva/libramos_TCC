@@ -62,6 +62,10 @@ export default function Aula(){
                 </View>
 
 
+                <View style={style.selecaoOpcao}>
+                    <Text>{opcoesSelecionadas.join(' ')}</Text>
+                </View>
+
                 {/*Campos onde fica as alternativas */}
                 <View style={style.footer}>
                     <BotaoResposta

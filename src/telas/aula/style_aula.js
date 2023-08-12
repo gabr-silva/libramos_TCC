@@ -60,8 +60,15 @@ const style = StyleSheet.create({
         borderRadius: 10,
         marginHorizontal: 50
     },
-    btnConfirmar: {
-        color: 'white'
+    selecaoOpcao:{
+        width: "100%",
+        height: 25,
+        backgroundColor: 'lightgray',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'cyan',
+        color: 'white',
+        marginTop: 20,
     }
     }
 );

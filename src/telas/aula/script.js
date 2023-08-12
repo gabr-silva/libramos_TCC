@@ -31,7 +31,7 @@ export const cameraLenta = (vel,  setcor, setVel)=>{
     Obs:Mudar futuramente para a coletar no BD a palavra que contem resposta e outras aleatórias
 */
 export const palavras = () => {
-        listaPalavra = ["Ola", "Tchau" , "Prazer", "Qual o seu nome?"]
+        listaPalavra = ["ola", "tchau" , "prazer", "qual o seu nome?"]
 
         for (let i = listaPalavra.length - 1; i > 0; i--) { 
             const j = Math.floor(Math.random() * (i + 1)); 
