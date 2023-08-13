@@ -2,15 +2,17 @@ import React, {useState} from "react";
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 //Função de verificaResposta
-export const pontuacao = (score, setScore, opcoesSelecionadas)=>{ 
+export const pontuacao = (score, setScore, opcoesSelecionadas, setPonto)=>{ 
 
     
     const palavraResposta = opcoesSelecionadas.join(' ')
     
     if (palavraResposta === "ola") {
          setScore(score + 0.1);
+         setPonto('Correto')
     } else {
         console.log("Resposta errada")
+        setPonto('Errado')
     }
 };
 

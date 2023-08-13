@@ -69,7 +69,26 @@ const style = StyleSheet.create({
         backgroundColor: 'cyan',
         color: 'white',
         marginTop: 20,
-    }
-    }
-);
+    },
+    modalContainer:{
+        flexDirection: 'row',
+        backgroundColor: '#303049',
+        width: 342,
+        height: 70,
+        top: 668,
+        left: 9,
+        borderRadius: 30,
+        alignItems: 'center',
+        textAlign: 'center'
+    },
+    modalTexto:{
+        fontSize: 32,
+        textAlign: 'center',
+    },
+    ModalBotaoFechar: {
+        marginStart: 20,
+        fontSize: 50
+    },
+
+});
 export default style; 

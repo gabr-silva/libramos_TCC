@@ -1,5 +1,5 @@
 import  React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity} from 'react-native';
+import { View, Text, TouchableOpacity, Modal, Button} from 'react-native';
 import {Video, ResizeMode} from 'expo-av';
 import * as Progress from 'react-native-progress';
 
@@ -16,6 +16,8 @@ const Aula = () => {
 
     const [opcoes, setOpcoes] = useState([])
     const [opcoesSelecionadas, setOpcoesSelecionadas] = useState([])
+    const [ponto, setPonto] = useState(false)
+    const [ModalVisivel, setModalVisivel] = useState('')
 
     /*essa função faz com que o metodo setAlternativas seja chamado 
     ao iniciar o ciclo de vida da tela
@@ -62,6 +64,7 @@ const Aula = () => {
                 </View>
 
 
+            {/*campo onde fica o testo que o usuario clicou*/}
                 <View style={style.selecaoOpcao}>
                     <Text>{opcoesSelecionadas.join(' ')}</Text>
                 </View>
@@ -87,13 +90,42 @@ const Aula = () => {
                     alternativa={opcoesSelecionadas}
                     setAlternativa={setOpcoesSelecionadas}/>
                 </View>
+
+
+                {/* Campo botao confirmar*/}
+                <Modal
+                animationType="slide"
+                transparent={true}
+                visible={ModalVisivel}
+                onRequestClose={() => {
+                    setModalVisivel(!ModalVisivel);
+                }}>
+                   <View style={style.modalContainer}>            
+                        {/* Texto */}
+                        <Text style={style.modalTexto}>
+                            {ponto}
+                        </Text>
+
+                        {/* Botão */}
+                        <TouchableOpacity
+                            onPress={() => {
+                                setModalVisivel(!ModalVisivel);
+                            }}
+                        >
+                            <Text style={style.ModalBotaoFechar}>{"->"}</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                </Modal>
+
                 <View>
                     <TouchableOpacity
-                    onPress={() => pontuacao(score, setScore, opcoesSelecionadas)}
+                    onPress={() => {pontuacao(score, setScore, opcoesSelecionadas, setPonto), setModalVisivel(!ModalVisivel)}}
                     >
                         <Text style={style.btnConfirmar}>Confirmar</Text>
                     </TouchableOpacity>
                 </View>
+                
 
             </View>
     </>
