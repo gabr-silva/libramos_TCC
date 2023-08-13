@@ -1,24 +1,14 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import Aula from './src/telas/aula/aula';
+import MenuTab from './src/telas/routes/menuRotas';
 
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <SafeAreaView>
-      <StatusBar />
-      <Aula />
-    </SafeAreaView>
+    <MenuTab />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

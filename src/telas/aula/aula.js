@@ -3,11 +3,11 @@ import { View, Text, TouchableOpacity} from 'react-native';
 import {Video, ResizeMode} from 'expo-av';
 import * as Progress from 'react-native-progress';
 
-import { pontuacao, cameraLenta, palavras} from './script';
+import { pontuacao, cameraLenta, palavras} from './script_aula';
 import BotaoResposta from '../components/Botaoresposta';
 import style from './style_aula';
 
-export default function Aula(){
+const Aula = () => {
 
     const video = React.useRef(null);
     const [score, setScore] = useState(0);
@@ -98,3 +98,5 @@ export default function Aula(){
             </View>
     </>
 }
+
+export default Aula

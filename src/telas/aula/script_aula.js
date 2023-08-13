@@ -7,7 +7,7 @@ export const pontuacao = (score, setScore, opcoesSelecionadas)=>{
     
     const palavraResposta = opcoesSelecionadas.join(' ')
     
-    if (palavraResposta === "Ola Qual o seu nome?") {
+    if (palavraResposta === "ola") {
          setScore(score + 0.1);
     } else {
         console.log("Resposta errada")
