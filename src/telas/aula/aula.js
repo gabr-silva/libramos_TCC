@@ -93,6 +93,14 @@ const Aula = () => {
 
 
                 {/* Campo botao confirmar*/}
+                <View>
+                    <TouchableOpacity
+                    onPress={() => {pontuacao(score, setScore, opcoesSelecionadas, setPonto), setModalVisivel(!ModalVisivel)}}
+                    >
+                        <Text style={style.btnConfirmar}>Confirmar</Text>
+                    </TouchableOpacity>
+                </View>
+                
                 <Modal
                 animationType="slide"
                 transparent={true}
@@ -117,15 +125,6 @@ const Aula = () => {
                     </View>
 
                 </Modal>
-
-                <View>
-                    <TouchableOpacity
-                    onPress={() => {pontuacao(score, setScore, opcoesSelecionadas, setPonto), setModalVisivel(!ModalVisivel)}}
-                    >
-                        <Text style={style.btnConfirmar}>Confirmar</Text>
-                    </TouchableOpacity>
-                </View>
-                
 
             </View>
     </>
