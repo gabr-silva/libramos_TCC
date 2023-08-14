@@ -1,10 +1,9 @@
 import React, {useState} from "react";
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-//Função de verificaResposta
+//Função de verificar resposta
 export const pontuacao = (score, setScore, opcoesSelecionadas, setPonto)=>{    
     const palavraResposta = opcoesSelecionadas.join(' ')
-    
     if (palavraResposta === "ola") {
          setScore(score + 0.1);
          setPonto('Correto')

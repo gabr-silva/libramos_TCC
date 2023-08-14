@@ -12,7 +12,7 @@ const Aula = () => {
     const video = React.useRef(null);
     const [score, setScore] = useState(0);
     const [vel, setVel] = useState(1);
-    const [cor, setCor] = useState(['blue']);
+    const [cor, setCor] = useState('blue');
 
     const [opcoes, setOpcoes] = useState([])
     const [opcoesSelecionadas, setOpcoesSelecionadas] = useState([])
@@ -36,7 +36,7 @@ const Aula = () => {
             <View>
              <Progress.Bar progress={score} width={400} height={15}/>
             </View>
-
+      <Text>O que significa esse sinal?</Text>
             {/* função de video */}
             <Video
                 ref={video}
