@@ -6,28 +6,29 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 //telas de navegação
 import Menu from '../modulos/modulos'; // Certifique-se de que o caminho esteja correto
 import Aula from '../aula/aula'; // Certifique-se de que o caminho esteja correto
+import Dicionario from '../dicionarios/dicionarios'
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-const RotaMenu = () => {
+function ModuloTabs() {
     return (
-        <Stack.Navigator initialRouteName='Menu'>
-            <Stack.Screen name="Menu" component={Menu} options={{ headerShown: false }} />
-            <Stack.Screen name="Aula" component={Aula} options={{ tabBarVisible: false, headerShown:false }} />
+      <Tab.Navigator>
+        <Tab.Screen name="Modulos" component={Menu} options={{ headerShown: false }}/>
+        <Tab.Screen name="Dicionario" component={Dicionario} options={{ headerShown: false }}/>
+      </Tab.Navigator>
+    );
+  }
+  
+  function App() {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Modulo" component={ModuloTabs} options={{ headerShown: false }}/>
+          <Stack.Screen name="Aula" component={Aula} options={{ headerShown: false }}/>
         </Stack.Navigator>
+      </NavigationContainer>
     );
 }
 
-const MenuTab = () => {
-    return (
-        <NavigationContainer>
-            <Tab.Navigator initialRouteName='Modulos'>
-                <Tab.Screen name="Modulos" component={RotaMenu} options={{ headerShown: false }} />
-            </Tab.Navigator>
-        </NavigationContainer>
-    );
-}
-
-
-export default MenuTab;
+export default App;

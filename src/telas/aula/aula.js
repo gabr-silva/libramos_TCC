@@ -27,10 +27,6 @@ const Aula = () => {
         setOpcoes(palavras());
       }, []);
 
-      useEffect(() => {
-        console.log("Array alternativas:", opcoesSelecionadas);
-    }, [opcoesSelecionadas]);
-
     return <>
     <View style={style.topo}>
     </View>

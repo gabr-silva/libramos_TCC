@@ -2,9 +2,7 @@ import React, {useState} from "react";
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 //Função de verificaResposta
-export const pontuacao = (score, setScore, opcoesSelecionadas, setPonto)=>{ 
-
-    
+export const pontuacao = (score, setScore, opcoesSelecionadas, setPonto)=>{    
     const palavraResposta = opcoesSelecionadas.join(' ')
     
     if (palavraResposta === "ola") {
