@@ -44,7 +44,7 @@ const style = StyleSheet.create({
     },
     botaoTexto: {
         color: '#fff',
-        fontSize: 8,
+        fontSize: 15,
     },
     selecionado: {
        backgroundColor: 'green'

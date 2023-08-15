@@ -16,6 +16,10 @@ const Menu = ({navigation}) => {
             onPress={() => navigation.navigate('Aula')}
             imagemOrigen={require('../../../assets/favicon.png')}
            />
+           <BotaoImagem
+           onPress={() => navigation.navigate('Aula')}
+           imagemOrigen={require('../../../assets/adaptive-icon.png')}
+           />
         </View>
     </>
 } 

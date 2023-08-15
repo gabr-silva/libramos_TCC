@@ -8,7 +8,6 @@ export const pontuacao = (score, setScore, opcoesSelecionadas, setPonto)=>{
          setScore(score + 0.1);
          setPonto('Correto')
     } else {
-        console.log("Resposta errada")
         setPonto('Errado')
     }
 };

@@ -63,11 +63,10 @@ const style = StyleSheet.create({
     selecaoOpcao:{
         width: "100%",
         height: 25,
-        backgroundColor: 'lightgray',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'cyan',
-        color: 'white',
+        backgroundColor: 'white',
+        color: 'black',
         marginTop: 20,
     },
     modalContainer:{
@@ -89,6 +88,9 @@ const style = StyleSheet.create({
         marginStart: 20,
         fontSize: 50
     },
+    btnConfirmar: {
+        color: "blue"
+    }
 
 });
 export default style; 
