@@ -4,7 +4,7 @@ import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 //Função de verificar resposta
 export const pontuacao = (score, setScore, opcoesSelecionadas, setPonto)=>{    
     const palavraResposta = opcoesSelecionadas.join(' ')
-    if (palavraResposta === "ola") {
+    if (palavraResposta === "qual o seu nome?") {
          setScore(score + 0.1);
          setPonto('Correto')
     } else {
@@ -28,12 +28,15 @@ export const cameraLenta = (vel,  setcor, setVel)=>{
 /*Função que fara a coleta de palavras em embaralhar a sua ordem em um Array
     Obs:Mudar futuramente para a coletar no BD a palavra que contem resposta e outras aleatórias
 */
-export const palavras = () => {
-        listaPalavra = ["ola", "tchau" , "prazer", "qual o seu nome?"]
+export const palavras = (palavraCorreta) => {
 
-        for (let i = listaPalavra.length - 1; i > 0; i--) { 
-            const j = Math.floor(Math.random() * (i + 1)); 
-            [listaPalavra[i], listaPalavra[j]] = [listaPalavra[j], listaPalavra[i]]; 
-        }
-        return listaPalavra
+    listaPalavra = ["ola", "tchau" , "prazer", "alo", "tudo bem?", "até mais"]
+
+    for (let i = listaPalavra.length - 1; i > 0; i--) { 
+        const j = Math.floor(Math.random() * (i + 1)); 
+        [listaPalavra[i], listaPalavra[j]] = [listaPalavra[j], listaPalavra[i]]; 
+    }
+    const novaLista = listaPalavra.slice(0,3)
+    const campoAlternativa = [...novaLista, palavraCorreta]
+    return campoAlternativa
 }
