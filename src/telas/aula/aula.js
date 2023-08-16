@@ -14,7 +14,7 @@ const Aula = ({navigation}) => {
     const [vel, setVel] = useState(1);
     const [cor, setCor] = useState('blue');
 
-    const [palavraCorreta, setPalavraCorreta] = useState('Qual o seu nome?')
+    const [palavraCorreta, setPalavraCorreta] = useState('qual o seu nome?')
     const [opcoes, setOpcoes] = useState([])
     const [opcoesSelecionadas, setOpcoesSelecionadas] = useState([])
     const [ponto, setPonto] = useState(false)
@@ -36,7 +36,7 @@ const Aula = ({navigation}) => {
         <View style={style.fundo}>
             <View style={{flexDirection: "row"}}>
                 <TouchableOpacity onPress={() => navigation.navigate('Modulos')}>
-                    <Text style={{fontSize:20, color: 'white'}}>X</Text>
+                    <Text style={{fontSize:40, color: 'white'}}>{"<-"}</Text>
                 </TouchableOpacity>
              <Progress.Bar progress={score} width={400} height={15}/>
             </View>
