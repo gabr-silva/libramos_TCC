@@ -4,7 +4,7 @@ import {Video, ResizeMode} from 'expo-av';
 import * as Progress from 'react-native-progress';
 
 import { pontuacao, cameraLenta, palavras} from './script_aula';
-import BotaoResposta from '../components/Botaoresposta';
+import BotaoResposta from '../../components/Botaoresposta';
 import style from './style_aula';
 
 const Aula = ({navigation}) => {

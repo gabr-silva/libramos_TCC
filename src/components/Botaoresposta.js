@@ -10,7 +10,6 @@ const BotaoResposta = ({ escolha, alternativa, setAlternativa }) => {
         setAlternativa(atualizarResposta);
       }
     };
-
     /*
     O que estiver dentro do retorno servira para o que sera mostrado e o que será feito por outro componente
     * 
