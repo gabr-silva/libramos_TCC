@@ -17,15 +17,7 @@ const Menu = ({ navigation }) => {
           imagemOrigem={require('../../../assets/favicon.png')}
           onPress={() => navigation.navigate('Aula')} // Replace 'Aula' with your actual screen name
           aula={'Aula'}
-          />
-
-          <Modulo
-            style={{backgroundColor: 'pink'}} 
-            progresso={0.9}
-            imagemOrigem={require('../../../assets/favicon.png')}
-            onPress={() => navigation.navigate('Aula')} // Replace 'Aula' with your actual screen name
-            aula={'Aula'}
-            /> 
+          /> 
         </View>
         </>
     );
