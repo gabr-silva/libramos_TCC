@@ -7,6 +7,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Menu from '../modulos/modulos'; // Certifique-se de que o caminho esteja correto
 import Aula from '../aula/aula'; // Certifique-se de que o caminho esteja correto
 import Dicionario from '../dicionarios/dicionarios'
+import Perfil from '../perfil/perfil';
+import Ranking from '../ranking/ranking';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -16,6 +18,8 @@ function ModuloTabs() {
       <Tab.Navigator>
         <Tab.Screen name="Modulos" component={Menu} options={{ headerShown: false }}/>
         <Tab.Screen name="Dicionario" component={Dicionario} options={{ headerShown: false }}/>
+        <Tab.Screen name="Perfil" component={Perfil} options={{ headerShown: false }}/>
+        <Tab.Screen name="Ranking" component={Ranking} options={{ headerShown: false }}/>
       </Tab.Navigator>
     );
   }

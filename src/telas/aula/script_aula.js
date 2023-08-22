@@ -2,13 +2,14 @@ import React, {useState} from "react";
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 //Função de verificar resposta
-export const pontuacao = (score, setScore, opcoesSelecionadas, setPonto)=>{    
+export const pontuacao = (score, setScore, opcoesSelecionadas, setPonto, vida,  setVida)=>{    
     const palavraResposta = opcoesSelecionadas.join(' ')
     if (palavraResposta === "qual o seu nome?") {
          setScore(score + 0.1);
          setPonto('Correto')
     } else {
         setPonto('Errado')
+        setVida(vida - 1)
     }
 };
 
