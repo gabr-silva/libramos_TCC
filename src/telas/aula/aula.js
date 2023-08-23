@@ -102,29 +102,57 @@ const Aula = ({navigation}) => {
                         <Text style={style.btnConfirmar}>Confirmar</Text>
                     </TouchableOpacity>
                 </View>
-                <Modal
-                animationType="slide"
-                transparent={true}
-                visible={ModalVisivel}
-                onRequestClose={() => {
-                    setModalVisivel(!ModalVisivel);
-                }}>
-                   <View style={style.modalContainer}>            
-                        {/* Texto */}
-                        <Text style={style.modalTexto}>
-                            {ponto}
-                        </Text>
 
-                        {/* Botão */}
-                        <TouchableOpacity
-                            onPress={() => {
-                                setModalVisivel(!ModalVisivel);
-                            }}
-                        >
-                            <Text style={style.ModalBotaoFechar}>{"->"}</Text>
-                        </TouchableOpacity>
-                    </View>
-                </Modal>
+                {/* Componente para verificar quantas vidas o usúario tem*/}
+                {vida < 0 ? (
+                   <Modal
+                   animationType="slide"
+                   transparent={true}
+                   visible={ModalVisivel}
+                   onRequestClose={() => {
+                       setModalVisivel(!ModalVisivel);
+                   }}>
+                      <View style={style.modalContainerVida}>            
+                           {/* Texto */}
+                           <Text style={style.modalTextoVida}>
+                               Limite de vida atingida. GAME OVER!
+                           </Text>
+   
+                           {/* Botão */}
+                           <TouchableOpacity
+                               onPress={() => {
+                                   navigation.navigate('Modulos')
+                               }}
+                           >
+                               <Text style={style.ModalBotaoFecharVIda}>OK</Text>
+                           </TouchableOpacity>
+                       </View>
+                   </Modal>
+                ) : (                 
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={ModalVisivel}
+                    onRequestClose={() => {
+                        setModalVisivel(!ModalVisivel);
+                    }}>
+                       <View style={style.modalContainer}>            
+                            {/* Texto */}
+                            <Text style={style.modalTexto}>
+                                {ponto}
+                            </Text>
+    
+                            {/* Botão */}
+                            <TouchableOpacity
+                                onPress={() => {
+                                    setModalVisivel(!ModalVisivel);
+                                }}
+                            >
+                                <Text style={style.ModalBotaoFechar}>{"->"}</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </Modal>)}
+
             </View>
     </>
 }

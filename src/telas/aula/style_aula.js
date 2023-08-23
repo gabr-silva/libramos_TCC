@@ -74,7 +74,7 @@ const style = StyleSheet.create({
         backgroundColor: '#303049',
         width: 342,
         height: 70,
-        top: 668,
+        top: 600,
         left: 9,
         borderRadius: 30,
         alignItems: 'center',
@@ -93,46 +93,24 @@ const style = StyleSheet.create({
     },
 
     //style da parte de verificarVida
-    centeredView: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 22,
-      },
-      modalView: {
-        margin: 20,
-        backgroundColor: 'white',
+    modalContainerVida:{
+        backgroundColor: '#303049',
+        width: 342,
+        height: 60,
+        top: 600,
+        left: 20,
         borderRadius: 20,
-        padding: 35,
         alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-      },
-      button: {
-        borderRadius: 20,
-        padding: 10,
-        elevation: 2,
-      },
-      buttonOpen: {
-        backgroundColor: '#F194FF',
-      },
-      buttonClose: {
-        backgroundColor: '#2196F3',
-      },
-      textStyle: {
-        color: 'white',
-        fontWeight: 'bold',
-        textAlign: 'center',
-      },
-      modalText: {
-        marginBottom: 15,
-        textAlign: 'center',
-      },
+        textAlign: 'center'
+    },
+    modalTextoVida:{
+      fontSize: 20,
+      textAlign: 'center',
+    },
+    ModalBotaoFecharVIda:{
+        fontSize: 20,
+        color: "blue"
+    }
+       
 });
 export default style; 
