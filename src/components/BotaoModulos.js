@@ -22,7 +22,10 @@ const BotaoImagem = ({ onPress, imagemOrigem }) => {
 
 
 //função que contem a barra circular
-const Modulo = ({ progresso, imagemOrigem, onPress}) => {
+const Modulo = ({ aulasFinalizadas, totalAulas, imagemOrigem, onPress}) => {
+  const calculo = aulasFinalizadas / totalAulas
+  const progresso = parseFloat(calculo.toFixed(2))
+
   return (
     <View style={styles.container}>
     <Svg width={size} height={size} >
@@ -71,7 +74,7 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
-    resizeMode: 'contain', // This ensures the image fits within the circle
+    resizeMode: 'contain',
   },
 });
 

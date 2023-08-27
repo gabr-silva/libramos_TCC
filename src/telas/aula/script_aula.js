@@ -10,7 +10,7 @@ export const pontuacao = (score, setScore, opcoesSelecionadas, setPonto, vida,  
     } else {
         setPonto('Errado')
         setVida(vida - 1)
-    }
+    }   
 };
 
 //função de mudança de velocidade de video

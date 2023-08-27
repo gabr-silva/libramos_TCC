@@ -1,8 +1,11 @@
 import  React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Modal, Pressable, Alert} from 'react-native';
+import { View, Text, TouchableOpacity} from 'react-native';
 import {Video, ResizeMode} from 'expo-av';
 import * as Progress from 'react-native-progress';
 
+import AvançarBarra from '../../components/aula/AvançarBarra';
+import GameOver from '../../components/aula/GameOver';
+import AulaConcluida from '../../components/aula/AulaConcluida';
 import { pontuacao, cameraLenta, palavras} from './script_aula';
 import BotaoResposta from '../../components/Botaoresposta';
 import style from './style_aula';
@@ -20,7 +23,7 @@ const Aula = ({navigation}) => {
     const [opcoesSelecionadas, setOpcoesSelecionadas] = useState([])
     const [ponto, setPonto] = useState(false)
     const [vida, setVida] = useState(3)
-    const [ModalVisivel, setModalVisivel] = useState(false)
+    const [modalVisivel, setModalVisivel] = useState(false)
 
     /*essa função faz com que o metodo setAlternativas seja chamado 
     ao iniciar o ciclo de vida da tela
@@ -97,63 +100,35 @@ const Aula = ({navigation}) => {
                 {/* Campo botao confirmar*/}
                 <View>
                     <TouchableOpacity
-                    onPress={() => {pontuacao(score, setScore, opcoesSelecionadas, setPonto, vida, setVida), setModalVisivel(!ModalVisivel)}}
+                    onPress={() => {pontuacao(score, setScore, opcoesSelecionadas, setPonto, vida, setVida), setModalVisivel(!modalVisivel)}}
                     >
                         <Text style={style.btnConfirmar}>Confirmar</Text>
                     </TouchableOpacity>
                 </View>
 
+                {/*console.log(score)*/}
+
                 {/* Componente para verificar quantas vidas o usúario tem*/}
                 {vida < 0 ? (
-                   <Modal
-                   animationType="slide"
-                   transparent={true}
-                   visible={ModalVisivel}
-                   onRequestClose={() => {
-                       setModalVisivel(!ModalVisivel);
-                   }}>
-                      <View style={style.modalContainerVida}>            
-                           {/* Texto */}
-                           <Text style={style.modalTextoVida}>
-                               Limite de vida atingida. GAME OVER!
-                           </Text>
-   
-                           {/* Botão */}
-                           <TouchableOpacity
-                               onPress={() => {
-                                   navigation.navigate('Modulos')
-                               }}
-                           >
-                               <Text style={style.ModalBotaoFecharVIda}>OK</Text>
-                           </TouchableOpacity>
-                       </View>
-                   </Modal>
-                ) : (                 
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={ModalVisivel}
-                    onRequestClose={() => {
-                        setModalVisivel(!ModalVisivel);
-                    }}>
-                       <View style={style.modalContainer}>            
-                            {/* Texto */}
-                            <Text style={style.modalTexto}>
-                                {ponto}
-                            </Text>
-    
-                            {/* Botão */}
-                            <TouchableOpacity
-                                onPress={() => {
-                                    setModalVisivel(!ModalVisivel);
-                                }}
-                            >
-                                <Text style={style.ModalBotaoFechar}>{"->"}</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </Modal>)}
-
-            </View>
+                    <GameOver
+                        modalVisivel={modalVisivel}
+                        onClose={() => setModalVisivel(false)}
+                        navigation={navigation}
+                    />
+                ) : vida >= 0 && Math.abs(score - 1) < 0.0001 ?(
+                    <AulaConcluida
+                        modalVisivel={modalVisivel}
+                        onClose={() => setModalVisivel(false)}
+                        navigation={navigation}
+                    />
+                ) : (
+                    <AvançarBarra
+                        modalVisivel={modalVisivel}
+                        onClose={() => setModalVisivel(false)}
+                        ponto={ponto}
+                    />
+                )}
+                </View>
     </>
 }
 

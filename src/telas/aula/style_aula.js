@@ -69,48 +69,8 @@ const style = StyleSheet.create({
         color: 'black',
         marginTop: 20,
     },
-    modalContainer:{
-        flexDirection: 'row',
-        backgroundColor: '#303049',
-        width: 342,
-        height: 70,
-        top: 600,
-        left: 9,
-        borderRadius: 30,
-        alignItems: 'center',
-        textAlign: 'center'
-    },
-    modalTexto:{
-        fontSize: 32,
-        textAlign: 'center',
-    },
-    ModalBotaoFechar: {
-        marginStart: 20,
-        fontSize: 50
-    },
     btnConfirmar: {
         color: "blue"
-    },
-
-    //style da parte de verificarVida
-    modalContainerVida:{
-        backgroundColor: '#303049',
-        width: 342,
-        height: 60,
-        top: 600,
-        left: 20,
-        borderRadius: 20,
-        alignItems: 'center',
-        textAlign: 'center'
-    },
-    modalTextoVida:{
-      fontSize: 20,
-      textAlign: 'center',
-    },
-    ModalBotaoFecharVIda:{
-        fontSize: 20,
-        color: "blue"
-    }
-       
+    },    
 });
 export default style; 
