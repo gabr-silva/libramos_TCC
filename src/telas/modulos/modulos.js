@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from "react";
-import { View, Text} from 'react-native';
+import { View, Text, ScrollView} from 'react-native';
 
 import { Modulo } from "../../components/BotaoModulos";
+import BotaoPerfil from "../../components/BotaoPerfil";
 import { db } from "../../config/firebase";
 import style_modulo from "./style_modulos";
 
@@ -13,7 +14,13 @@ const Menu = ({ navigation }) => {
         <>
         <View style={style_modulo.topo}>
           <Text>Libramos</Text>
-        </View>
+          <BotaoPerfil 
+          imagemPerfil={require('../../../assets/capivaraTeste.png')}
+          onPress={() => navigation.navigate('Perfil')}
+          />
+        </View> 
+        
+        <ScrollView>
         <View style={style_modulo.modulo}>
           <Modulo 
           aulasFinalizadas={1}
@@ -30,6 +37,7 @@ const Menu = ({ navigation }) => {
           aula={'Aula'}
           /> 
         </View>
+        </ScrollView>
         </>
     );
 }

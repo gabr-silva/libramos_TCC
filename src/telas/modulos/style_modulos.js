@@ -4,7 +4,8 @@ const style_modulo = StyleSheet.create({
     topo:{
         width: 360,
         height: 95,
-        top: 25
+        top: 25,
+        flexDirection: 'row',
     },
     container: {
         width: 50, // Ajuste conforme necessário

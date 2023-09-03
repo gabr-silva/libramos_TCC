@@ -9,6 +9,7 @@ import Aula from '../aula/aula'; // Certifique-se de que o caminho esteja corret
 import Dicionario from '../dicionarios/dicionarios'
 import Perfil from '../perfil/perfil';
 import Ranking from '../ranking/ranking';
+import Mascote from '../mascote/mascote';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -18,21 +19,22 @@ function ModuloTabs() {
       <Tab.Navigator>
         <Tab.Screen name="Modulos" component={Menu} options={{ headerShown: false }}/>
         <Tab.Screen name="Dicionario" component={Dicionario} options={{ headerShown: false }}/>
-        <Tab.Screen name="Perfil" component={Perfil} options={{ headerShown: false }}/>
+        <Tab.Screen name="Mascote" component={Mascote} options={{ headerShown: false }}/>
         <Tab.Screen name="Ranking" component={Ranking} options={{ headerShown: false }}/>
       </Tab.Navigator>
     );
   }
   
-  function App() {
+  function rotas() {
     return (
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Modulo" component={ModuloTabs} options={{ headerShown: false }}/>
           <Stack.Screen name="Aula" component={Aula} options={{ headerShown: false }}/>
+          <Stack.Screen name="Perfil" component={Perfil} options={{ headerShown: false }}/>
         </Stack.Navigator>
       </NavigationContainer>
     );
 }
 
-export default App;
+export default rotas;
