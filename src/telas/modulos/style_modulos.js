@@ -1,18 +1,14 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet,  Dimensions} from "react-native";
+
+const { width, height } = Dimensions.get('window');
 
 const style_modulo = StyleSheet.create({
-    topo:{
-        width: 360,
-        height: 95,
-        top: 25,
+    topo: {
         flexDirection: 'row',
-    },
-    container: {
-        width: 50, // Ajuste conforme necessário
-        height: 50,
-        flex: 1,
-        flexDirection: 'column'
-      },
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%',
+    },  
 })
 
 export default style_modulo
