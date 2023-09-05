@@ -3,7 +3,7 @@ import { View, Text, ScrollView, Image} from 'react-native';
 
 import { Modulo } from "../../components/BotaoModulos";
 import BotaoPerfil from "../../components/BotaoPerfil";
-import Frequencia from "../../components/frequencia";
+import Frequencia from "../../components/Frequencia";
 import { db } from "../../config/firebase";
 import style_modulo from "./style_modulos";
 
@@ -14,7 +14,7 @@ const Menu = ({ navigation }) => {
     return (
         <>
         <View style={style_modulo.topo}>
-          <Text>Ola, Fulano!</Text>
+          <Text style={{color: 'white'}}>Ola, Fulano!</Text>
           <BotaoPerfil 
           imagemPerfil={require('../../../assets/capivaraTeste.png')}
           onPress={() => navigation.navigate('Perfil')}
@@ -33,7 +33,7 @@ const Menu = ({ navigation }) => {
           onPress={() => navigation.navigate('Aula')} // Replace 'Aula' with your actual screen name
           aula={'Aula'}
           />
-          <Modulo 
+          <Modulo
           aulasFinalizadas={5}
           totalAulas={10}
           imagemOrigem={require('../../../assets/capivaraTeste.png')}

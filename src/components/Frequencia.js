@@ -27,8 +27,8 @@ const style = StyleSheet.create({
         },
         
         fogo: {
-        width: width * 0.1, // Largura proporcional à largura da tela
-        height: height * 0.1, // Altura proporcional à largura da tela
+        width: width * 0.16, // Largura proporcional à largura da tela
+        height: width * 0.16, // Altura proporcional à largura da tela
         }, 
 })
 
