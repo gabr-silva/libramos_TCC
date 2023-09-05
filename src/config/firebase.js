@@ -1,20 +1,36 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from 'firebase/auth'
+import { getAuth, initializeAuth } from 'firebase/auth'
 import { getFirestore, collection, getDocs } from 'firebase/firestore'
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
+
+import {
+    API_KEY,
+    AUTH_DOMAIN,
+    PROJECT_ID,
+    STORAGE_BUCKET,
+    MESSAGING_SENDER_ID,
+    APP_ID,
+    MEASUREMENT_ID,
+} from "@env"
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAvs0M7IYr75MP05Uh4YX1eWd1qqM6CFUw",
-    authDomain: "libramos.firebaseapp.com",
-    databaseURL: "https://libramos-default-rtdb.firebaseio.com",
-    projectId: "libramos",
-    storageBucket: "libramos.appspot.com",
-    messagingSenderId: "871500203838",
-    appId: "1:871500203838:web:5907ac8c0f3a915350ce6f",
-    measurementId: "G-GM5F97R62X"
+    apiKey: API_KEY,
+    authDomain: AUTH_DOMAIN,
+    databaseURL: DATABASE_URL,
+    projectId: PROJECT_ID,
+    storageBucket: STORAGE_BUCKET,
+    messagingSenderId: MESSAGING_SENDER_ID,
+    appId: APP_ID,
+    measurementId: MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);
 
-export const auth = getAuth(app);
-export const db = getFirestore(app);
+const auth = initializeAuth(APP, {
+    persistence: getReactNativePersistence(AsyncStorage)
+})
+
+const db = getFirestore(app);
+
+export { auth, db};
