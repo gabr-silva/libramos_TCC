@@ -4,12 +4,17 @@ import { View, Text, ScrollView, Image} from 'react-native';
 import { Modulo } from "../../components/BotaoModulos";
 import BotaoPerfil from "../../components/BotaoPerfil";
 import Frequencia from "../../components/Frequencia";
-import { db } from "../../config/firebase";
 import style_modulo from "./style_modulos";
-
+import { pegarModulos } from "../../servicos/firestore";
 
 const Menu = ({ navigation }) => {
   const [modulos, setModulos] = useState([])
+  const [frequencia, setFrequencia] = useState(0)
+
+  useEffect(() => {
+    pegarModulos()
+  }, []); // O segundo argumento vazio garante que isso seja executado apenas uma vez
+
 
     return (
         <>
@@ -22,17 +27,21 @@ const Menu = ({ navigation }) => {
         </View> 
 
         <Frequencia 
-        frequencia={0}
+        frequencia={frequencia}
+        setFrequencia={setFrequencia}
         />
         <ScrollView>
         <View style={style_modulo.modulo}>
-          <Modulo 
-          aulasFinalizadas={1}
-          totalAulas={5}
-          imagemOrigem={require('../../../assets/favicon.png')}
-          onPress={() => navigation.navigate('Aula')} // Replace 'Aula' with your actual screen name
-          aula={'Aula'}
+        {modulos.map((modulo, index) => (
+          <Modulo
+            key={index}
+            aulasFinalizadas={modulo.aulasFinalizadas}
+            totalAulas={modulo.aulasTotal}
+            imagemOrigem={{ uri: modulo.imagem }}
+            onPress={() => navigation.navigate('Aula')} // Substitua 'Aula' pelo nome da tela real
+            aula={'Aula'}
           />
+        ))}
           <Modulo
           aulasFinalizadas={5}
           totalAulas={10}
