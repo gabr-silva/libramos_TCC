@@ -1,6 +1,6 @@
 import React from 'react';
-import { TouchableOpacity, Image, StyleSheet, Dimensions, View } from 'react-native';
-import { Svg, Circle } from 'react-native-svg';
+import { Dimensions, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Circle, Svg } from 'react-native-svg';
 
 
 //calculo para o tamanho do circulo
@@ -13,9 +13,9 @@ const circumference = radius * 2 * Math.PI;
 
 //botao que contem o caminho da imagem e a tela
 const BotaoImagem = ({ onPress, imagemOrigem }) => {
-  return (
+    return (
       <TouchableOpacity style={styles.button} onPress={onPress}>
-          <Image source={imagemOrigem} style={styles.image} />
+          <Image source={{ uri: `${imagemOrigem}`}} style={styles.image} />
       </TouchableOpacity>
   );
 };
@@ -77,4 +77,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export {Modulo, BotaoImagem};
+export { BotaoImagem, Modulo };
+

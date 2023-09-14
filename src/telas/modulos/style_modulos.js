@@ -1,4 +1,4 @@
-import { StyleSheet,  Dimensions} from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 
 const { width, height } = Dimensions.get('window');
 
@@ -12,7 +12,12 @@ const style_modulo = StyleSheet.create({
         backgroundColor: '#1C1C27',
         borderBottomColor: 'blue',
         borderWidth: 3,
-    },  
+    },
+    scrollView: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
 })
 
 export default style_modulo
