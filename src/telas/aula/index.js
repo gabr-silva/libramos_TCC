@@ -11,7 +11,7 @@ import BotaoResposta from '../../components/Botaoresposta';
 import style from './style_aula';
 
 
-const Aula = ({navigation}) => {
+export default function Aula ({navigation}){
 
     const video = React.useRef(null);
     const [score, setScore] = useState(0);
@@ -131,5 +131,3 @@ const Aula = ({navigation}) => {
                 </View>
     </>
 }
-
-export default Aula

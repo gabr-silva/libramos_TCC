@@ -5,9 +5,11 @@ import { Modulo } from "../../components/BotaoModulos";
 import BotaoPerfil from "../../components/BotaoPerfil";
 import Frequencia from "../../components/Frequencia";
 import { pegarModulos } from "../../servicos/firestore";
+import { auth } from "../../config/firebase";
 import style_modulo from "./style_modulos";
 
 const Menu = ({ navigation }) => {
+  const usuario = auth.currentUser;
   const [modulos, setModulos] = useState([])
   const [frequencia, setFrequencia] = useState(0)
   const [refreshing, setRefreshing] = useState(false)
@@ -29,11 +31,12 @@ const Menu = ({ navigation }) => {
   }, []);
 
 
+
     return (
         <>
         <SafeAreaView>
           <View style={style_modulo.topo}>
-            <Text style={{color: 'white'}}>Ola, Fulano!</Text>
+            <Text style={{color: 'white'}}>Ola, {usuario.email}</Text>
             <BotaoPerfil
             imagemPerfil={require('../../../assets/capivaraTeste.png')}
             onPress={() => navigation.navigate('Perfil')}

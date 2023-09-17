@@ -1,0 +1,83 @@
+import React, { useState } from "react";
+import {View, TouchableOpacity, Text, Alert } from "react-native";
+import { EntradaTexto } from "../../components/EntradaTexto";
+import { cadastrar } from "../../servicos/requisicoes";
+import { Alerta } from "../../components/Alerta";
+import style from "./style";
+
+export default function Cadastro({navigation}) {
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const [confirmarSenha, setConfirmarSenha] = useState('');
+    const [statusError, setStatusError] = useState('')
+    const [mensagemError, setMensagemError] = useState('')
+
+  async function realizarCadastro(){
+    if(email == ''){
+      setMensagemError('Preencha com seu email');
+      setStatusError('email')
+    } else if(senha == ''){
+      setMensagemError('Digite sua senha');
+      setStatusError('senha')
+    } else if(confirmarSenha == ''){
+      setMensagemError('Confirme seua senha');
+      setStatusError('confirmarSenha')
+    } else if (confirmarSenha != senha){
+      setMensagemError('As senhas não são iguais');
+      setStatusError('confirmarSenha')
+    } else {
+        const resultado = await cadastrar(email, senha, confirmarSenha)
+        if( resultado == 'sucesso'){
+          Alert.alert('Usuário cadastrado com sucesso!')
+          setEmail('')
+          setSenha('')
+          setConfirmarSenha('')
+          navigation.reset({
+            index: 0, 
+            routes: [{ name: 'Modulo' }],
+          });
+        }
+      else {
+        setStatusError('firebase')
+        setMensagemError(resultado)
+      }
+    }
+  }
+
+    return (
+        <View style={style.container}>
+          <EntradaTexto
+            label="E-mail"
+            value={email}
+            onChangeText={texto => setEmail(texto)}
+            error={statusError == 'email'}
+            messageError={mensagemError}
+          />
+          <EntradaTexto
+            label="Senha"
+            value={senha}
+            onChangeText={texto => setSenha(texto)} 
+            secureTextEntry
+            error={statusError == 'senha'}
+            messageError={mensagemError}
+          />
+          <EntradaTexto
+            label="Confirmar Senha"
+            value={confirmarSenha}
+            onChangeText={texto => setConfirmarSenha(texto)}
+            secureTextEntry
+            error={statusError == 'confirmarSenha'}
+            messageError={mensagemError}
+          />
+
+          <Alerta 
+            mensagem={mensagemError}
+            error={statusError == 'firebase'}
+            setError={setStatusError}
+          />
+        <TouchableOpacity onPress={() => realizarCadastro()}>
+          <Text>Cadastrar</Text>
+        </TouchableOpacity>
+    </View>
+    );
+}

@@ -4,12 +4,15 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 //telas de navegação
-import Menu from '../modulos/modulos'; // Certifique-se de que o caminho esteja correto
-import Aula from '../aula/aula'; // Certifique-se de que o caminho esteja correto
-import Dicionario from '../dicionarios/dicionarios'
-import Perfil from '../perfil/perfil';
-import Ranking from '../ranking/ranking';
-import Mascote from '../mascote/mascote';
+import Inicio from '../inicial';
+import Cadastro from '../Cadastro';
+import Login from '../login';
+import Menu from '../Modulos/index'; 
+import Aula from '../Aula/index';
+import Dicionario from '../Dicionarios/index'
+import Perfil from '../Perfil/index';
+import Ranking from '../Ranking/index';
+import Mascote from '../Mascote/index';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -29,6 +32,9 @@ function ModuloTabs() {
     return (
       <NavigationContainer>
         <Stack.Navigator>
+          <Stack.Screen name="Inicio" component={Inicio} options={{ headerShown: false }}/>
+          <Stack.Screen name="Cadastro" component={Cadastro} options={{ headerShown: false }}/>
+          <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}/>
           <Stack.Screen name="Modulo" component={ModuloTabs} options={{ headerShown: false }}/>
           <Stack.Screen name="Aula" component={Aula} options={{ headerShown: false }}/>
           <Stack.Screen name="Perfil" component={Perfil} options={{ headerShown: false }}/>
