@@ -22,6 +22,7 @@ const BotaoImagem = ({ onPress, imagemOrigem }) => {
 
 //função que contem a barra circular
 const Modulo = ({ aulasFinalizadas, totalAulas, imagemOrigem, onPress}) => {
+  
   const calculo = aulasFinalizadas / totalAulas
   const progresso = parseFloat(calculo.toFixed(2))
 
