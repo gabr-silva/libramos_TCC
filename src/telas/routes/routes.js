@@ -1,18 +1,18 @@
-import React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React from 'react';
 
 //telas de navegação
-import Inicio from '../inicial';
 import Cadastro from '../Cadastro';
-import Login from '../login';
-import Menu from '../Modulos/index'; 
-import Aula from '../Aula/index';
-import Dicionario from '../Dicionarios/index'
+import Dicionario from '../Dicionarios/index';
+import Mascote from '../Mascote/index';
 import Perfil from '../Perfil/index';
 import Ranking from '../Ranking/index';
-import Mascote from '../Mascote/index';
+import Aula from '../aula/index';
+import Inicio from '../inicial';
+import Login from '../login';
+import Menu from '../modulos/index';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();

@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { RefreshControl, SafeAreaView, ScrollView, Text, View } from 'react-native';
 
 import { auth } from "../../config/firebase";
-import { db } from "../../config/firebase";
 
 import { Modulo } from "../../components/BotaoModulos";
 import BotaoPerfil from "../../components/BotaoPerfil";
 import Frequencia from "../../components/Frequencia";
-import { CriarModulos, PegarModulos } from "../../servicos/firestore";;
+import { CriarModulos, PegarModulos } from "../../servicos/firestore";
 import style_modulo from "./style_modulos";
 
 const Menu = ({ navigation }) => {
@@ -58,12 +57,10 @@ const Menu = ({ navigation }) => {
             
           <View style={style_modulo.modulo}>
           {
-            
-            modulos.map((modulo)=> { 
-              console.log(modulo.aulas_concluida)
+            modulos.map((modulo)=> {
+              barra = modulo.aulas_concluida / modulo.aula_total
               return (
-              <Modulo nome={modulo.nome} aulasFinalizadas={modulo.aulas_concluida}
-              totalAulas={modulo.aula_total} imagemOrigem={modulo.imagem}
+              <Modulo nome={modulo.nome} barra={barra} imagemOrigem={modulo.imagem}
               onPress={() => navigation.navigate('Aula')}
               key={modulo.id} />
               )

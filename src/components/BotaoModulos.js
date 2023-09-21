@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, Image, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Circle, Svg } from 'react-native-svg';
 
 
@@ -21,13 +21,13 @@ const BotaoImagem = ({ onPress, imagemOrigem }) => {
 };
 
 //função que contem a barra circular
-const Modulo = ({ aulasFinalizadas, totalAulas, imagemOrigem, onPress}) => {
+const Modulo = ({nome, barra, imagemOrigem, onPress}) => {
   
-  const calculo = aulasFinalizadas / totalAulas
-  const progresso = parseFloat(calculo.toFixed(2))
+  const progresso = parseFloat(barra.toFixed(2))
 
   return (
     <View style={styles.container}>
+    <Text>{nome}</Text>
     <Svg width={size} height={size} >
       <Circle
         cx={size / 2}
@@ -60,7 +60,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: size,
     height: size,
-    marginTop: 10
+    marginTop: 10,
+    marginBottom: 25,
   },
   button: {
     position: 'absolute',

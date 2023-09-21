@@ -1,4 +1,4 @@
-import { doc, setDoc, collection, getDocs, query, where, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, orderBy, query, setDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
 
 /*async function pegarID(uidUsuario){
@@ -25,7 +25,7 @@ export async function CriarModulos(usuario){
         const usuarioDocRef = doc(db, "usuarios", uid) //cria uma referencia ao documento  do banco com base no UID
         const moduloColecaoRef = collection(db, "modulos") //cria uma referencia a coleção de  modulos
 
-        const querySnapshot = await getDocs(moduloColecaoRef); //obtem a lista de todos os modulos e armazena
+        const querySnapshot = await getDocs(moduloColecaoRef);
 
         //forEach = repete sobre cada modulo da lista o codigo
         querySnapshot.forEach(async (modulo) => {
@@ -65,9 +65,11 @@ export async function PegarModulos(usuario) {
                 ...dados
             }
         })
-        const querySnapshot = await getDocs(collection(db, "modulos"));
+        const modulosQuery = query(collection(db, "modulos"), orderBy('aula', 'asc'))
+        const querySnapshotSorted = await getDocs(modulosQuery);
+        
         let modulos = []
-        querySnapshot.forEach((doc) => {
+        querySnapshotSorted.forEach((doc) => {
             let modulo = {id: doc.id, ...doc.data()}
             modulos.push(modulo)
 
@@ -76,6 +78,7 @@ export async function PegarModulos(usuario) {
                 modulo.aulas_concluida = userDados[doc.id].aulas_concluida;
             }
         });
+        console.log(modulos);
         return modulos
     }catch(error){
         console.log(error)
