@@ -6,14 +6,18 @@ import { Alerta } from "../../components/Alerta";
 import style from "./style";
 
 export default function Cadastro({navigation}) {
-    const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
-    const [confirmarSenha, setConfirmarSenha] = useState('');
-    const [statusError, setStatusError] = useState('')
-    const [mensagemError, setMensagemError] = useState('')
+  const [nome, setNome] = useState('')
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [confirmarSenha, setConfirmarSenha] = useState('');
+  const [statusError, setStatusError] = useState('')
+  const [mensagemError, setMensagemError] = useState('')
 
   async function realizarCadastro(){
-    if(email == ''){
+    if(nome == ''){
+      setMensagemError('Preencha com um nome');
+      setStatusError('nome')
+    }else if(email == ''){
       setMensagemError('Preencha com seu email');
       setStatusError('email')
     } else if(senha == ''){
@@ -26,7 +30,7 @@ export default function Cadastro({navigation}) {
       setMensagemError('As senhas não são iguais');
       setStatusError('confirmarSenha')
     } else {
-        const resultado = await cadastrar(email, senha, confirmarSenha)
+        const resultado = await cadastrar(nome, email, senha, confirmarSenha)
         if( resultado == 'sucesso'){
           Alert.alert('Usuário cadastrado com sucesso!')
           setEmail('')
@@ -46,6 +50,13 @@ export default function Cadastro({navigation}) {
 
     return (
         <View style={style.container}>
+          <EntradaTexto
+            label="Nome"
+            value={nome}
+            onChangeText={texto => setNome(texto)}
+            error={statusError == 'nome'}
+            messageError={mensagemError}
+          />
           <EntradaTexto
             label="E-mail"
             value={email}

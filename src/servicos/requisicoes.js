@@ -21,14 +21,13 @@ function VerificaoErros(error){
     return mensagem
 }
 
-export async function cadastrar(email, senha) {
-    try {
-        
+export async function cadastrar(nome, email, senha) {
+    try {  
         const resultado = await createUserWithEmailAndPassword(auth, email, senha)
         const usuario = resultado.user;
         await setDoc(doc(db, "usuarios", usuario.uid), {
+            nome: nome,
             email: usuario.email,
-            senha: senha
         });
         return "sucesso"
     }catch(error) {
