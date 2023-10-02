@@ -47,3 +47,4 @@ export async function logar(email, senha) {
     });
     return resultado
 }
+

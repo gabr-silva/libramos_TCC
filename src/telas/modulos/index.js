@@ -6,11 +6,12 @@ import { auth } from "../../config/firebase";
 import { Modulo } from "../../components/BotaoModulos";
 import BotaoPerfil from "../../components/BotaoPerfil";
 import Frequencia from "../../components/Frequencia";
-import { CriarModulos, PegarModulos } from "../../servicos/firestore";
+import { CriarModulos, PegarModulos, PegarDados } from "../../servicos/firestore";
 import style_modulo from "./style_modulos";
 
 const Menu = ({ navigation }) => {
   const usuario = auth.currentUser;
+  const [nome, setNome] = useState('')
   const [modulos, setModulos] = useState([])
   const [frequencia, setFrequencia] = useState(0)
   const [refreshing, setRefreshing] = useState(false)
@@ -25,21 +26,22 @@ const Menu = ({ navigation }) => {
 
 
   useEffect(() => {
-      async function carregarDadosModulos() {
+      async function carregarDados() {
+      const dados = await PegarDados(usuario)
+      setNome(dados.nome)
       await CriarModulos(usuario)
       const modulosFireStore = await PegarModulos(usuario)
       setModulos(modulosFireStore)
     }
-    carregarDadosModulos()
+    
+    carregarDados()
   }, [PegarModulos]);
-
-
 
     return (
         <>
         <SafeAreaView>
           <View style={style_modulo.topo}>
-            <Text style={{color: 'white'}}>Ola, {usuario.email}</Text>
+            <Text style={{color: 'white'}}>Ola, {nome}</Text>
             <BotaoPerfil
             imagemPerfil={require('../../../assets/capivaraTeste.png')}
             onPress={() => navigation.navigate('Perfil')}

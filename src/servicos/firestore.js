@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs, orderBy, query, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, orderBy, query, setDoc, where } from "firebase/firestore";
 import { db } from "../config/firebase";
 
 /*async function pegarID(uidUsuario){
@@ -20,7 +20,6 @@ export async function CriarModulos(usuario){
     try {
         const uid = usuario.uid //uid do usuario
         const modulosAdicionados = []; //nova lista de modulos que irá ser adicionada
-
         
         const usuarioDocRef = doc(db, "usuarios", uid) //cria uma referencia ao documento  do banco com base no UID
         const moduloColecaoRef = collection(db, "modulos") //cria uma referencia a coleção de  modulos
@@ -54,10 +53,10 @@ export async function CriarModulos(usuario){
 
 export async function PegarModulos(usuario) {
     try {
-        const usuarioDocRef = doc(db, "usuarios", usuario.uid)
-        const subColecaoModulosRef = collection(usuarioDocRef, 'modulos')
-        const queryUser = await getDocs(subColecaoModulosRef)
-        const userDados = {}
+        const usuarioDocRef = doc(db, "usuarios", usuario.uid) //cria uma referencia dos dados a partir do uid do usuario
+        const subColecaoModulosRef = collection(usuarioDocRef, 'modulos') //dentro da referencia do usuario, pega a coleção modulos
+        const queryUser = await getDocs(subColecaoModulosRef) //pega todos os documentos da referencia dos modulos
+        const userDados = {} //guardara todos os dados
         queryUser.forEach((doc)=> {
             const dados = doc.data()
             userDados[doc.id] = {
@@ -65,10 +64,10 @@ export async function PegarModulos(usuario) {
                 ...dados
             }
         })
-        const modulosQuery = query(collection(db, "modulos"), orderBy('aula', 'asc'))
+        const modulosQuery = query(collection(db, "modulos"), orderBy('aula', 'asc')) // ordena os modulos, a partir do campo aula dentro de cada documento
         const querySnapshotSorted = await getDocs(modulosQuery);
         
-        let modulos = []
+        let modulos = [] //guardara a lista de modulos ordenada
         querySnapshotSorted.forEach((doc) => {
             let modulo = {id: doc.id, ...doc.data()}
             modulos.push(modulo)
@@ -78,11 +77,29 @@ export async function PegarModulos(usuario) {
                 modulo.aulas_concluida = userDados[doc.id].aulas_concluida;
             }
         });
-        console.log(modulos);
         return modulos
     }catch(error){
         console.log(error)
         return "erro"
     }
     ;
+}
+
+export async function PegarDados(usuario) {
+      const usuarioRef = doc(db, "usuarios", usuario.uid);
+    
+      try {
+        // Verifique se o documento existe
+        const usuarioQuery = await getDoc(usuarioRef);
+        
+        if (usuarioQuery.exists()) {
+          // Obter os dados do documento
+          const dadosUsuario = usuarioQuery.data();
+          return dadosUsuario;
+        } else {
+          throw new Error('Documento de usuário não encontrado');
+        }
+      } catch (error) {
+        throw error;
+      }
 }
