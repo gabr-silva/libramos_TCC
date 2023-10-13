@@ -17,7 +17,16 @@ const style_modulo = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-      },
+    },
+    containerAnimacao:{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    imagem: {
+        width: width,
+        height: height
+    }
 })
 
 export default style_modulo

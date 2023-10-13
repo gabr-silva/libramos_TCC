@@ -3,16 +3,20 @@ import { View, Text, TouchableOpacity} from 'react-native';
 import {Video, ResizeMode} from 'expo-av';
 import * as Progress from 'react-native-progress';
 
+import { auth } from '../../config/firebase';
+
 import AvançarBarra from '../../components/aula/AvançarBarra';
 import GameOver from '../../components/aula/GameOver';
 import AulaConcluida from '../../components/aula/AulaConcluida';
 import { pontuacao, cameraLenta, palavras} from './script_aula';
 import BotaoResposta from '../../components/Botaoresposta';
+import { PegarFrequencia } from '../../servicos/firestore';
 import style from './style_aula';
 
 
 export default function Aula ({navigation}){
 
+    const usuario = auth.currentUser;
     const video = React.useRef(null);
     const [score, setScore] = useState(0);
     const [vel, setVel] = useState(1);
@@ -31,6 +35,13 @@ export default function Aula ({navigation}){
     useEffect(() => {
         setOpcoes(palavras(palavraCorreta));
       }, []);
+
+      useEffect(() => {
+        // Chame a função PegarFrequencia quando necessário
+        if (vida >= 0 && Math.abs(score - 1) < 0.0001) {
+          PegarFrequencia(usuario, 2);
+        }
+      }, [vida, score, usuario]);
 
     return <>
     <View style={style.topo}>
@@ -120,6 +131,7 @@ export default function Aula ({navigation}){
                         modalVisivel={modalVisivel}
                         onClose={() => setModalVisivel(false)}
                         navigation={navigation}
+                        usuario={usuario}
                     />
                 ) : (
                     <AvançarBarra

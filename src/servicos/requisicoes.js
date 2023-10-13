@@ -28,6 +28,7 @@ export async function cadastrar(nome, email, senha) {
         await setDoc(doc(db, "usuarios", usuario.uid), {
             nome: nome,
             email: usuario.email,
+            frequencia: 0,
         });
         return "sucesso"
     }catch(error) {

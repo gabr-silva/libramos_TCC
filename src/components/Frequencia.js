@@ -3,20 +3,7 @@ import { View, Image, Text, Dimensions, StyleSheet } from "react-native";
 
 const { width, height } = Dimensions.get('window');
 
-const Frequencia = ({frequencia, setFrequencia}) => { 
-
-  const verificarFrequencia = () => {
-    const atual = new Date();
-    const horarioFinal = new Date();
-    horarioFinal.setHours(23, 59, 59, 998);
-
-    if (atual <= horarioFinal) {
-      setFrequencia(frequencia + 1);
-    } else {
-      setFrequencia(0);
-    }
-  };
-
+const Frequencia = ({frequencia}) => { 
 
     return (
         <>
