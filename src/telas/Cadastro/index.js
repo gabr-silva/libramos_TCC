@@ -4,6 +4,7 @@ import { EntradaTexto } from "../../components/EntradaTexto";
 import { cadastrar } from "../../servicos/requisicoes";
 import { Alerta } from "../../components/Alerta";
 import style from "./style";
+import { handleForgotPassword } from "firebase/auth"
 
 export default function Cadastro({navigation}) {
   const [nome, setNome] = useState('')
@@ -46,6 +47,13 @@ export default function Cadastro({navigation}) {
         setMensagemError(resultado)
       }
     }
+  }
+
+  async function handleForgotPassword () {
+    auth()
+    .sendPasswordResetEmail(email)
+    .then(() => Alert.alert ("Redefinir senha", "Enviamos um email para você"))
+    .catch(error => console.log (error))
   }
 
     return (
