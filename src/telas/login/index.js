@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, TouchableOpacity, Text, CommonActions } from "react-native";
 import { EntradaTexto } from "../../components/EntradaTexto";
-import { logar } from "../../servicos/requisicoes";
+import { logar, redefinirSenha } from "../../servicos/requisicoes";
 import { auth } from "../../config/firebase";
 import { Alerta } from "../../components/Alerta";
 
@@ -57,6 +57,10 @@ export default function Login({navigation}) {
                 
             <TouchableOpacity onPress={() => realizarLogin()}>
                 <Text>Logar</Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity onPress={() => redefinirSenha()}>
+                <Text>Redefinir senha</Text>
             </TouchableOpacity>
         </View>
     )

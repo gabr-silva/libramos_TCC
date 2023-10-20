@@ -4,7 +4,6 @@ import { EntradaTexto } from "../../components/EntradaTexto";
 import { cadastrar } from "../../servicos/requisicoes";
 import { Alerta } from "../../components/Alerta";
 import style from "./style";
-import { handleForgotPassword } from "firebase/auth"
 
 export default function Cadastro({navigation}) {
   const [nome, setNome] = useState('')
