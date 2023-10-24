@@ -1,7 +1,6 @@
-import { auth } from "../config/firebase";
-import { db } from "../config/firebase";
-import { createUserWithEmailAndPassword, AuthErrorCodes, signInWithEmailAndPassword } from "firebase/auth";
-import { collection, setDoc, addDoc, doc } from "firebase/firestore";
+import { AuthErrorCodes, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { auth, db } from "../config/firebase";
 
 function VerificaoErros(error){
     let mensagem ='';
@@ -23,12 +22,14 @@ function VerificaoErros(error){
 
 export async function cadastrar(nome, email, senha) {
     try {  
+        const registro = sub(new Date(), {days: 1})
         const resultado = await createUserWithEmailAndPassword(auth, email, senha)
         const usuario = resultado.user;
         await setDoc(doc(db, "usuarios", usuario.uid), {
             nome: nome,
             email: usuario.email,
             frequencia: 0,
+            ultimoRegistro: registro
         });
         return "sucesso"
     }catch(error) {
