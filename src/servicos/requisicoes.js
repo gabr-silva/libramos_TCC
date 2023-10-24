@@ -49,14 +49,15 @@ export async function logar(email, senha) {
     return resultado
 }
 
-export async function redefinirSenha () {
-    const resultado = await sendPasswordResetEmail()
-    .then(() => {
-        alert("Email de redefinição de senha enviado.")
-    })
+export async function redefinirSenha() {
+        const resultadoRedef = await sendPasswordResetEmail(auth)
+        .then(() => {
+    // Email de redefinição de senha enviado
+        })
     .catch((error) => {
         return 'erro'
     });
-    return resultado
-  }
+    return resultadoRedef
+}
+
 
