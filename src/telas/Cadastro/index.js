@@ -1,38 +1,102 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import {View, TouchableOpacity, Text, Alert } from "react-native";
 import { EntradaTexto } from "../../components/EntradaTexto";
 import { cadastrar } from "../../servicos/requisicoes";
 import { Alerta } from "../../components/Alerta";
+import * as Progress from 'react-native-progress';
 import style from "./style";
 
 export default function Cadastro({navigation}) {
   const [nome, setNome] = useState('')
+  const [userName, setUserName] = useState('')
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [forcaSenha, setForcaSenha] = useState(0) 
   const [confirmarSenha, setConfirmarSenha] = useState('');
   const [statusError, setStatusError] = useState('')
   const [mensagemError, setMensagemError] = useState('')
 
+
+const validarNome = (nome) => {
+  const regex = /^[A-Za-z]+$/;
+  return regex.test(nome)
+}
+
+const validarUserName = (userName) => {
+  const regex = /^[A-Za-z0-9._]*$/;
+  return regex.test(userName)
+}
+
+const validarSenha = (senha) => {
+    const tamanhoMinimo = 8
+    const possuiLetrasMinusculas = /[a-z]/.test(senha);
+    const possuiLetrasMaiusculas = /[A-Z]/.test(senha);
+    const possuiNumeros = /\d/.test(senha);
+    const possuiCaracteresEspeciais = /[@#$%^&+=]/.test(senha);
+
+    const nivelSenha =  
+    (possuiLetrasMinusculas ? 0.25 : 0) +
+    (possuiLetrasMaiusculas ? 0.25 : 0) +
+    (possuiNumeros ? 0.25 : 0) +
+    (possuiCaracteresEspeciais ? 0.25 : 0);
+    
+    setForcaSenha(nivelSenha)
+}
+const corBarra =(forcaSenha) => {
+  if (forcaSenha >= 0.75) {
+    return "green"; // senha forte
+  } else if (forcaSenha >= 0.5) {
+    return "yellow"; // senha média
+  } else {
+    return "red"; // senha fraca
+  }
+}
+
   async function realizarCadastro(){
+    //verificação do campo nome
     if(nome == ''){
       setMensagemError('Preencha com um nome');
       setStatusError('nome')
-    }else if(email == ''){
+    }else if (!validarNome(nome)){
+      setMensagemError('Nome deve conter apenas letras')
+      setStatusError('nome')
+    }
+    
+    //verificação do campo userName
+    else if(userName == ''){
+      setMensagemError('Preencha com um userName');
+      setStatusError('userName')
+    }else if(validarUserName(userName) && userName.length < 3){
+      setMensagemError('useName deve conter mais de 3 digitos e letras sem acentos')
+      setStatusError('userName')
+    }
+
+    //verificação do campo email
+    else if(email == ''){
       setMensagemError('Preencha com seu email');
       setStatusError('email')
-    } else if(senha == ''){
+    } 
+    
+    //verificação do campo senha
+    else if(senha == ''){
       setMensagemError('Digite sua senha');
       setStatusError('senha')
-    } else if(confirmarSenha == ''){
+    } 
+
+    //verificação do campo de confirmar senha
+    else if(confirmarSenha == ''){
       setMensagemError('Confirme seua senha');
       setStatusError('confirmarSenha')
     } else if (confirmarSenha != senha){
       setMensagemError('As senhas não são iguais');
       setStatusError('confirmarSenha')
     } else {
-        const resultado = await cadastrar(nome, email, senha, confirmarSenha)
-        if( resultado == 'sucesso'){
+        const resultado = await cadastrar(nome, userName, email, senha)
+        console.log(resultado);
+        if(resultado === "sucesso"){
           Alert.alert('Usuário cadastrado com sucesso!')
+          setNome('')
+          setUserName('')
           setEmail('')
           setSenha('')
           setConfirmarSenha('')
@@ -58,6 +122,13 @@ export default function Cadastro({navigation}) {
             messageError={mensagemError}
           />
           <EntradaTexto
+            label="UserName"
+            value={userName}
+            onChangeText={texto => setUserName(texto)}
+            error={statusError == 'userName'}
+            messageError={mensagemError}
+          />
+          <EntradaTexto
             label="E-mail"
             value={email}
             onChangeText={texto => setEmail(texto)}
@@ -67,11 +138,16 @@ export default function Cadastro({navigation}) {
           <EntradaTexto
             label="Senha"
             value={senha}
-            onChangeText={texto => setSenha(texto)} 
+            onChangeText={(texto) => {
+              setSenha(texto);
+              validarSenha(texto); // Atualize a força da senha instantaneamente
+            }}
             secureTextEntry
             error={statusError == 'senha'}
             messageError={mensagemError}
           />
+          <Progress.Bar progress={forcaSenha} width={250} height={10} color={corBarra(forcaSenha)}/>
+          <Text>Nivel de segurança</Text>
           <EntradaTexto
             label="Confirmar Senha"
             value={confirmarSenha}
@@ -88,6 +164,10 @@ export default function Cadastro({navigation}) {
           />
         <TouchableOpacity onPress={() => realizarCadastro()}>
           <Text>Cadastrar</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+          <Text>Já possui uma conta?</Text>
         </TouchableOpacity>
     </View>
     );

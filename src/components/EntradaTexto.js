@@ -39,7 +39,7 @@ export function EntradaTexto({
         right={
           secureTextEntry ?
           <TextInput.Icon
-            name={secureMode ? 'eye-off' : 'eye'}
+            icon={secureMode ? 'eye-off' : 'eye'}
             onPress={() => setSecureMode(!secureMode)}
           /> : null
         }
