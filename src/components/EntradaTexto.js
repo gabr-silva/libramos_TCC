@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { TextInput, HelperText } from 'react-native-paper';
+import { HelperText, TextInput } from 'react-native-paper';
 
 export function EntradaTexto({ 
   label, 
