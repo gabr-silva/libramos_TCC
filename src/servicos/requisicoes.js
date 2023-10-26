@@ -1,14 +1,8 @@
-<<<<<<< HEAD
 import { auth } from "../config/firebase";
 import { db } from "../config/firebase";
 import { createUserWithEmailAndPassword, AuthErrorCodes, signInWithEmailAndPassword } from "firebase/auth";
 import { collection, setDoc, query, doc, where, getDocs,} from "firebase/firestore";
 import { sub } from "date-fns";
-=======
-import { AuthErrorCodes, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
-import { auth, db } from "../config/firebase";
->>>>>>> ab2d9fa663dbc60fe0925d2c1ba2cabb67be6072
 
 function VerificaoErros(error){
     let mensagem ='';
@@ -30,7 +24,6 @@ function VerificaoErros(error){
     return mensagem
 }
 
-<<<<<<< HEAD
 export async function cadastrar(nome, userName, email, senha) {
     try { 
         const dataOntem = sub(new Date(), {days: 1})
@@ -52,26 +45,10 @@ export async function cadastrar(nome, userName, email, senha) {
             frequencia: 0,
             userName: userName,
             ultimoRegistro: dataOntem
-=======
-export async function cadastrar(nome, email, senha) {
-    try {  
-        const registro = sub(new Date(), {days: 1})
-        const resultado = await createUserWithEmailAndPassword(auth, email, senha)
-        const usuario = resultado.user;
-        await setDoc(doc(db, "usuarios", usuario.uid), {
-            nome: nome,
-            email: usuario.email,
-            frequencia: 0,
-            ultimoRegistro: registro
->>>>>>> ab2d9fa663dbc60fe0925d2c1ba2cabb67be6072
-        });
-        return "sucesso"
-    }
-    }catch(error) {
-        console.log(error)
-        if (error == "false") {
-            return "userName ja existe"
+            })
+            return "sucesso"
         }
+    }catch(error) {
         return VerificaoErros(error)
     };
 }

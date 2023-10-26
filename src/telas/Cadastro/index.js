@@ -92,7 +92,6 @@ const corBarra =(forcaSenha) => {
       setStatusError('confirmarSenha')
     } else {
         const resultado = await cadastrar(nome, userName, email, senha)
-        console.log(resultado);
         if(resultado === "sucesso"){
           Alert.alert('Usuário cadastrado com sucesso!')
           setNome('')
