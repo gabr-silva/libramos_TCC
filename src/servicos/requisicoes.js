@@ -1,6 +1,6 @@
 import { auth } from "../config/firebase";
 import { db } from "../config/firebase";
-import { createUserWithEmailAndPassword, AuthErrorCodes, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, AuthErrorCodes, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { collection, setDoc, query, doc, where, getDocs,} from "firebase/firestore";
 import { sub } from "date-fns";
 
@@ -65,3 +65,15 @@ export async function logar(email, senha) {
     return resultado
 }
 
+//mudar de senha
+export async function redefinirSenha(email) {
+    const auth = getAuth();
+    sendPasswordResetEmail(auth, email)
+    .then(() => {
+        // Email de redefinição	enviado
+        alert("O email de redefinição de senha foi enviado!")
+    })
+    .catch((error) => {
+        alert(error)
+    })
+}
