@@ -21,13 +21,11 @@ export default function RedefSenha({navigation}) {
                 }else{
                     navigation.reset({
                         index: 0, // Define o índice da rota que deve ser exibida após o reset
-                        routes: [{ name: 'Login' }], // Define a rota de destino após o reset
-                      });
+                        routes: [{ name: 'Inicio' }], // Define a rota de destino após o reset
+                    });
                 }
         }
     }
-
-    
 
     return (
         <View>
@@ -38,9 +36,6 @@ export default function RedefSenha({navigation}) {
                 error={statusError == 'email'}
                 messageError={mensagemError}
             />
-
-            <Alerta mensagem={mensagemError} error={statusError == 'firebase'}
-            setError={setStatusError}/>
             
             <TouchableOpacity onPress={() => redefinicaoSenha()}>
             <Text>Redefinir senha</Text>
