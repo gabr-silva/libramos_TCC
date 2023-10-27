@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { TextInput, HelperText } from 'react-native-paper';
+import { HelperText, TextInput } from 'react-native-paper';
 
 export function EntradaTexto({ 
   label, 
@@ -39,7 +39,7 @@ export function EntradaTexto({
         right={
           secureTextEntry ?
           <TextInput.Icon
-            name={secureMode ? 'eye-off' : 'eye'}
+            icon={secureMode ? 'eye-off' : 'eye'}
             onPress={() => setSecureMode(!secureMode)}
           /> : null
         }
