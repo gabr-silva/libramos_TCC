@@ -1,7 +1,7 @@
 import React from "react";
-import { Snackbar } from "react-native-paper";
+import { Snackbar, Text } from "react-native-paper";
 
-export function Alerta({mensagem, error=false, setError}) {
+export function Alerta({titulo, mensagem, error=false, setError}) {
     return (
         <Snackbar
             visible={error}
@@ -11,7 +11,10 @@ export function Alerta({mensagem, error=false, setError}) {
                 label: 'OK',
                 onPress: () => setError(false)
             }}>
-            {mensagem}
+            <React.Fragment>
+            {titulo && <strong>{titulo}</strong>}
+            <Text>{mensagem}</Text>
+            </React.Fragment>
         </Snackbar>
     )
 }

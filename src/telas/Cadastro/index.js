@@ -1,7 +1,7 @@
 import React, { useState} from "react";
 import {View, TouchableOpacity, Text, Alert } from "react-native";
 import { EntradaTexto } from "../../components/EntradaTexto";
-import { cadastrar } from "../../servicos/requisicoes";
+import { cadastrar} from "../../servicos/requisicoes";
 import { Alerta } from "../../components/Alerta";
 import * as Progress from 'react-native-progress';
 import style from "./style";
@@ -28,25 +28,27 @@ const validarUserName = (userName) => {
 }
 
 const validarSenha = (senha) => {
-    const tamanhoMinimo = 8
-    const possuiLetrasMinusculas = /[a-z]/.test(senha);
-    const possuiLetrasMaiusculas = /[A-Z]/.test(senha);
-    const possuiNumeros = /\d/.test(senha);
-    const possuiCaracteresEspeciais = /[@#$%^&+=]/.test(senha);
+    const tamanhoMinimo = 6
+    const letrasMinusculas = /[a-z]/.test(senha);
+    const letrasMaiusculas = /[A-Z]/.test(senha);
+    const numeros = /\d/.test(senha);
+    const caracteresEspeciais = /[!@#$%¨&*=+{}?/|*´`;:"'()]/.test(senha);
 
     const nivelSenha =  
-    (possuiLetrasMinusculas ? 0.25 : 0) +
-    (possuiLetrasMaiusculas ? 0.25 : 0) +
-    (possuiNumeros ? 0.25 : 0) +
-    (possuiCaracteresEspeciais ? 0.25 : 0);
+    (letrasMinusculas ? 0.25 : 0) +
+    (letrasMaiusculas ? 0.25 : 0) +
+    (numeros ? 0.25 : 0) +
+    (caracteresEspeciais ? 0.25 : 0);
     
     setForcaSenha(nivelSenha)
 }
 const corBarra =(forcaSenha) => {
-  if (forcaSenha >= 0.75) {
+  if(forcaSenha > 0.75 ){
+    return "#05f515"
+  }else if (forcaSenha > 0.5 && forcaSenha <= 0.75) {
     return "green"; // senha forte
-  } else if (forcaSenha >= 0.5) {
-    return "yellow"; // senha média
+  } else if (forcaSenha == 0.5) {
+    return "#fa9c50"; // senha média
   } else {
     return "red"; // senha fraca
   }
@@ -93,7 +95,7 @@ const corBarra =(forcaSenha) => {
     } else {
         const resultado = await cadastrar(nome, userName, email, senha)
         if(resultado === "sucesso"){
-          Alert.alert('Usuário cadastrado com sucesso!')
+          Alert.alert('Cadastro concluido', 'Um e-mail de confirmação foi enviado!!')
           setNome('')
           setUserName('')
           setEmail('')

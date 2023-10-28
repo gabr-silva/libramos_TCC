@@ -1,6 +1,6 @@
-import { auth } from "../config/firebase";
+import { auth} from "../config/firebase";
 import { db } from "../config/firebase";
-import { getAuth, createUserWithEmailAndPassword, AuthErrorCodes, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, AuthErrorCodes, signInWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail} from "firebase/auth";
 import { collection, setDoc, query, doc, where, getDocs,} from "firebase/firestore";
 import { sub } from "date-fns";
 
@@ -14,12 +14,11 @@ function VerificaoErros(error){
             mensagem = "Email inválido";
             break;
         case AuthErrorCodes.WEAK_PASSWORD:
-            mensagem = "A senha precisa de no minimo 6 caracteres"
+            mensagem = "A senha precisa ter no minimo 6 caracteres"
             break;
-        case false:
-            mensagem = "aaaaaa"
         default:
             mensagem = "Error ao cadastrar"
+            console.log(error);
     }
     return mensagem
 }
@@ -39,6 +38,7 @@ export async function cadastrar(nome, userName, email, senha) {
         else {
             const resultado = await createUserWithEmailAndPassword(auth, email, senha)
             const usuario = resultado.user;
+
             await setDoc(doc(db, "usuarios", usuario.uid), {
             nome: nome,
             email: usuario.email,
@@ -46,6 +46,9 @@ export async function cadastrar(nome, userName, email, senha) {
             userName: userName,
             ultimoRegistro: dataOntem
             })
+
+            const user = getAuth().currentUser
+            await sendEmailVerification(user)
             return "sucesso"
         }
     }catch(error) {
