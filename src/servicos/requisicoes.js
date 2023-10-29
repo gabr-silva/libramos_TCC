@@ -1,6 +1,6 @@
 import { auth} from "../config/firebase";
 import { db } from "../config/firebase";
-import { getAuth, createUserWithEmailAndPassword, AuthErrorCodes, signInWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail} from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, AuthErrorCodes, signInWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, signInWithGoogle} from "firebase/auth";
 import { collection, setDoc, query, doc, where, getDocs,} from "firebase/firestore";
 import { sub } from "date-fns";
 
@@ -57,15 +57,16 @@ export async function cadastrar(nome, userName, email, senha) {
 }
 
 export async function logar(email, senha) {
+    try{
         const resultado = await signInWithEmailAndPassword(auth, email, senha)
-        .then((dadosDoUsuario) => {
-            return "sucesso"
-        })   
-    .catch((error) => {
-        //return VerificaoErros(error)
+        if(resultado.user.emailVerified){
+            return 'sucesso';
+        } else {
+            return 'NaoVerificado';
+        }
+    } catch (error) {
         return 'erro'
-    });
-    return resultado
+    }
 }
 
 //mudar de senha

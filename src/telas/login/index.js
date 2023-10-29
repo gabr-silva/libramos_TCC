@@ -23,6 +23,9 @@ export default function Login({navigation}) {
             if (resultado == 'erro'){
                 setStatusError('firebase')
                 setMensagemError('email ou senha incorreta')
+            }else if (resultado == 'NaoVerificado'){
+                setStatusError('firebase')
+                setMensagemError('O seu email não foi verificado, olhe a sua caixa de E-mail')
             }else{
                 navigation.reset({
                     index: 0, // Define o índice da rota que deve ser exibida após o reset

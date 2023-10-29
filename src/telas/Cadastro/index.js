@@ -103,7 +103,7 @@ const corBarra =(forcaSenha) => {
           setConfirmarSenha('')
           navigation.reset({
             index: 0, 
-            routes: [{ name: 'Modulo' }],
+            routes: [{ name: 'Login' }],
           });
         }
       else {
@@ -169,6 +169,12 @@ const corBarra =(forcaSenha) => {
 
         <TouchableOpacity onPress={() => navigation.navigate("Login")}>
           <Text>Já possui uma conta?</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+          <View>
+            <Text>Google</Text>
+          </View>
         </TouchableOpacity>
     </View>
     );
