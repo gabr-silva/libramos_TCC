@@ -23,7 +23,7 @@ function VerificaoErros(error){
     return mensagem
 }
 
-export async function cadastrar(nome, userName, email, senha) {
+export async function cadastrar(nome, sobrenome, userName, email, senha) {
     try { 
         const dataOntem = sub(new Date(), {days: 1})
 
@@ -41,6 +41,7 @@ export async function cadastrar(nome, userName, email, senha) {
 
             await setDoc(doc(db, "usuarios", usuario.uid), {
             nome: nome,
+            sobrenome: sobrenome,
             email: usuario.email,
             frequencia: 0,
             userName: userName,

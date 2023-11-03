@@ -8,6 +8,7 @@ import style from "./style";
 
 export default function Cadastro({navigation}) {
   const [nome, setNome] = useState('')
+  const [Sobrenome, setSobrenome] = useState('')
   const [userName, setUserName] = useState('')
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -18,8 +19,28 @@ export default function Cadastro({navigation}) {
 
 
 const validarNome = (nome) => {
+
+  //.include se torna verdadeiro se contem espaço
+  if(nome.includes(' ')){
+    const nomeArrumado = nome.replace(/\s+/g, ' '); // caso tenha mais de um espaço irar remove-lo
+
+    const partesNome = nomeArrumado.split(' ') //separa os conteudos depois do espaço em array
+    if(partesNome[1].trim() !== ''){ //verifica se no segundo array não esta vazia
+      setNome(nomeArrumado)
+    } else {
+      const nomeSemEspaço = partesNome[0].trim() //se não tiver nada depois do espaço tira ele
+      setNome(nomeSemEspaço)
+    }
+  }
+  const regex = /^[A-Za-z\s]+$/;
+  return regex.test(nome) //valida para ver se só contem letras e espaço
+}
+
+const validarSobrenome = (Sobrenome) => {
+  const nomeSemEspaço = Sobrenome.trim() //se não tiver nada depois do espaço tira ele
+  setSobrenome(nomeSemEspaço)
   const regex = /^[A-Za-z]+$/;
-  return regex.test(nome)
+  return regex.test(nomeSemEspaço)
 }
 
 const validarUserName = (userName) => {
@@ -28,7 +49,6 @@ const validarUserName = (userName) => {
 }
 
 const validarSenha = (senha) => {
-    const tamanhoMinimo = 6
     const letrasMinusculas = /[a-z]/.test(senha);
     const letrasMaiusculas = /[A-Z]/.test(senha);
     const numeros = /\d/.test(senha);
@@ -56,43 +76,47 @@ const corBarra =(forcaSenha) => {
 
   async function realizarCadastro(){
     //verificação do campo nome
-    if(nome == ''){
-      setMensagemError('Preencha com um nome');
-      setStatusError('nome')
-    }else if (!validarNome(nome)){
+    if (!validarNome(nome)){
       setMensagemError('Nome deve conter apenas letras')
-      setStatusError('nome')
-    }
-    
+      setStatusError('nome')}
+
+    //verificação do campo sobrenome
+    else if (Sobrenome == '') {
+      setMensagemError('Preencha com um sobrenome')
+      setStatusError('sobrenome')
+    }else if(!validarSobrenome(Sobrenome)){
+        setMensagemError('Sobrenome deve conter apenas letras sem espaço')
+        setStatusError('sobrenome')}
+
     //verificação do campo userName
     else if(userName == ''){
       setMensagemError('Preencha com um userName');
       setStatusError('userName')
     }else if(validarUserName(userName) && userName.length < 3){
       setMensagemError('useName deve conter mais de 3 digitos e letras sem acentos')
-      setStatusError('userName')
-    }
+      setStatusError('userName')}
 
     //verificação do campo email
     else if(email == ''){
       setMensagemError('Preencha com seu email');
-      setStatusError('email')
-    } 
+      setStatusError('email')} 
     
     //verificação do campo senha
     else if(senha == ''){
       setMensagemError('Digite sua senha');
-      setStatusError('senha')
-    } 
+      setStatusError('senha')} 
 
     //verificação do campo de confirmar senha
     else if(confirmarSenha == ''){
       setMensagemError('Confirme seua senha');
       setStatusError('confirmarSenha')
-    } else if (confirmarSenha != senha){
+    } 
+    else if (confirmarSenha != senha){
       setMensagemError('As senhas não são iguais');
-      setStatusError('confirmarSenha')
-    } else {
+      setStatusError('confirmarSenha')}
+    
+    //após todos os campos estarem corretos
+    else {
         const resultado = await cadastrar(nome, userName, email, senha)
         if(resultado === "sucesso"){
           Alert.alert('Cadastro concluido', 'Um e-mail de confirmação foi enviado!!')
@@ -122,6 +146,14 @@ const corBarra =(forcaSenha) => {
             error={statusError == 'nome'}
             messageError={mensagemError}
           />
+          <EntradaTexto      
+            label="Sobrenome"
+            value={Sobrenome}
+            onChangeText={texto => setSobrenome(texto)}
+            error={statusError == 'sobrenome'}
+            messageError={mensagemError}
+            disable={!nome}
+          />
           <EntradaTexto
             label="UserName"
             value={userName}
@@ -147,8 +179,12 @@ const corBarra =(forcaSenha) => {
             error={statusError == 'senha'}
             messageError={mensagemError}
           />
-          <Progress.Bar progress={forcaSenha} width={250} height={10} color={corBarra(forcaSenha)}/>
-          <Text>Nivel de segurança</Text>
+          {senha.length > 0 && (
+            <>
+              <Progress.Bar progress={forcaSenha} width={250} height={10} color={corBarra(forcaSenha)}/>
+              <Text>Nível de Senha</Text>
+            </> 
+          )}
           <EntradaTexto
             label="Confirmar Senha"
             value={confirmarSenha}

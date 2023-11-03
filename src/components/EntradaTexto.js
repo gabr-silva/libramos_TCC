@@ -6,7 +6,8 @@ export function EntradaTexto({
   label, 
   value, 
   onChangeText, 
-  secureTextEntry, 
+  secureTextEntry,
+  disable,
   error, 
   messageError,
   pattern 
@@ -36,6 +37,7 @@ export function EntradaTexto({
         style={style.input}
         mode="outlined"
         activeOutlineColor='#1E8187'
+        disabled={disable}
         right={
           secureTextEntry ?
           <TextInput.Icon
