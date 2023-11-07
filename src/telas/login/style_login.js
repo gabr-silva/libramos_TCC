@@ -33,6 +33,17 @@ const style = StyleSheet.create({
     elevation: 5
   },
 
+  botaoEntrarDisponivel: {
+    backgroundColor: "red",
+    borderRadius: 25,
+    padding: 10,
+    alignItems: "center",
+    width: "100%",
+    marginTop: 30,
+    marginBottom: 15,
+    elevation: 5
+  },
+
   textoBotaoEntrar: {
     color: "#fff",
     fontSize: 18,

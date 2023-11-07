@@ -1,10 +1,10 @@
-import React, { useState} from "react";
-import {View, TouchableOpacity, Text, Alert } from "react-native";
+import React, {useState, useEffect} from "react";
+import {View, TouchableOpacity, Text, Alert, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { EntradaTexto } from "../../components/EntradaTexto";
 import { cadastrar} from "../../servicos/requisicoes";
 import { Alerta } from "../../components/Alerta";
 import * as Progress from 'react-native-progress';
-import style from "./style";
+import style from "./style_cadastro";
 
 export default function Cadastro({navigation}) {
   const [nome, setNome] = useState('')
@@ -16,7 +16,16 @@ export default function Cadastro({navigation}) {
   const [confirmarSenha, setConfirmarSenha] = useState('');
   const [statusError, setStatusError] = useState('')
   const [mensagemError, setMensagemError] = useState('')
+  const [botaoCadastrar, setBotaoCadastrar] = useState(false)
 
+  useEffect(() => {
+    // atualiza o estado do botão instantaneamente quando o email ou senha é alterado
+      if (nome.length >= 1 && Sobrenome.length >= 1 && userName.length >= 1 && email.length >= 1 && senha.length >= 1 && confirmarSenha.length >= 1) {
+        setBotaoCadastrar(true);
+      } else {
+        setBotaoCadastrar(false);
+    }
+  }, [nome,Sobrenome, userName, email, senha, confirmarSenha]);
 
 const validarNome = (nome) => {
 
@@ -137,69 +146,70 @@ const corBarra =(forcaSenha) => {
     }
   }
 
-    return (
-        <View style={style.container}>
-          <EntradaTexto
-            label="Nome"
-            value={nome}
-            onChangeText={texto => setNome(texto)}
-            error={statusError == 'nome'}
-            messageError={mensagemError}
-          />
-          <EntradaTexto      
-            label="Sobrenome"
-            value={Sobrenome}
-            onChangeText={texto => setSobrenome(texto)}
-            error={statusError == 'sobrenome'}
-            messageError={mensagemError}
-            disable={!nome}
-          />
-          <EntradaTexto
-            label="UserName"
-            value={userName}
-            onChangeText={texto => setUserName(texto)}
-            error={statusError == 'userName'}
-            messageError={mensagemError}
-          />
-          <EntradaTexto
-            label="E-mail"
-            value={email}
-            onChangeText={texto => setEmail(texto)}
-            error={statusError == 'email'}
-            messageError={mensagemError}
-          />
-          <EntradaTexto
-            label="Senha"
-            value={senha}
-            onChangeText={(texto) => {
-              setSenha(texto);
-              validarSenha(texto); // Atualize a força da senha instantaneamente
-            }}
-            secureTextEntry
-            error={statusError == 'senha'}
-            messageError={mensagemError}
-          />
-          {senha.length > 0 && (
-            <>
-              <Progress.Bar progress={forcaSenha} width={250} height={10} color={corBarra(forcaSenha)}/>
-              <Text>Nível de Senha</Text>
-            </> 
-          )}
-          <EntradaTexto
-            label="Confirmar Senha"
-            value={confirmarSenha}
-            onChangeText={texto => setConfirmarSenha(texto)}
-            secureTextEntry
-            error={statusError == 'confirmarSenha'}
-            messageError={mensagemError}
-          />
+  return (
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={style.container}>
+        <EntradaTexto
+          label="Nome"
+          value={nome}
+          onChangeText={texto => setNome(texto)}
+          error={statusError == 'nome'}
+          messageError={mensagemError}
+        />
+        <EntradaTexto      
+          label="Sobrenome"
+          value={Sobrenome}
+          onChangeText={texto => setSobrenome(texto)}
+          error={statusError == 'sobrenome'}
+          messageError={mensagemError}
+          disable={!nome}
+        />
+        <EntradaTexto
+          label="UserName"
+          value={userName}
+          onChangeText={texto => setUserName(texto)}
+          error={statusError == 'userName'}
+          messageError={mensagemError}
+        />
+        <EntradaTexto
+          label="E-mail"
+          value={email}
+          onChangeText={texto => setEmail(texto)}
+          error={statusError == 'email'}
+          messageError={mensagemError}
+        />
+        <EntradaTexto
+          label="Senha"
+          value={senha}
+          onChangeText={(texto) => {
+            setSenha(texto);
+            validarSenha(texto); // Atualize a força da senha instantaneamente
+          }}
+          secureTextEntry
+          error={statusError == 'senha'}
+          messageError={mensagemError}
+        />
+        {senha.length > 0 && (
+          <>
+            <Progress.Bar progress={forcaSenha} width={250} height={10} color={corBarra(forcaSenha)}/>
+            <Text>Nível de Senha</Text>
+          </> 
+        )}
+        <EntradaTexto
+          label="Confirmar Senha"
+          value={confirmarSenha}
+          onChangeText={texto => setConfirmarSenha(texto)}
+          secureTextEntry
+          error={statusError == 'confirmarSenha'}
+          messageError={mensagemError}
+        />
 
-          <Alerta 
-            mensagem={mensagemError}
-            error={statusError == 'firebase'}
-            setError={setStatusError}
-          />
-        <TouchableOpacity onPress={() => realizarCadastro()}>
+        <Alerta 
+          mensagem={mensagemError}
+          error={statusError == 'firebase'}
+          setError={setStatusError}
+        />
+        <TouchableOpacity style={botaoCadastrar ? style.botaoCadastrar : style.botaoCadastrarDisponivel} onPress={() => realizarCadastro()} disabled={!botaoCadastrar}>
           <Text>Cadastrar</Text>
         </TouchableOpacity>
 
@@ -212,6 +222,7 @@ const corBarra =(forcaSenha) => {
             <Text>Google</Text>
           </View>
         </TouchableOpacity>
-    </View>
-    );
+      </View>
+    </TouchableWithoutFeedback>
+  );
 }
