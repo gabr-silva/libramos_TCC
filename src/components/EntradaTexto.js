@@ -6,7 +6,8 @@ export function EntradaTexto({
   label, 
   value, 
   onChangeText, 
-  secureTextEntry, 
+  secureTextEntry,
+  disable,
   error, 
   messageError,
   pattern 
@@ -38,7 +39,6 @@ export function EntradaTexto({
         outlineColor="#d6ced9"
         activeOutlineColor='#00b4fc'
         backgroundColor="transparent"
-        
         theme={{ roundness: 25 }} // equivalente do borderRadius 
         right={
           secureTextEntry ?
