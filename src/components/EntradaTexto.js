@@ -35,7 +35,11 @@ export function EntradaTexto({
         onChangeText={onChangeText}
         style={style.input}
         mode="outlined"
-        activeOutlineColor='#1E8187'
+        outlineColor="#d6ced9"
+        activeOutlineColor='#00b4fc'
+        backgroundColor="transparent"
+        
+        theme={{ roundness: 25 }} // equivalente do borderRadius 
         right={
           secureTextEntry ?
           <TextInput.Icon
@@ -60,11 +64,11 @@ export function EntradaTexto({
         }, 
     input: {
         width: "100%",
-        borderColor: "#e6e6e6",
-        borderWidth: 1,
-        borderRadius: 5,
+        //borderColor: "#e6e6e6",
+        //borderWidth: 1,
+        //borderRadius: 5,
         paddingHorizontal: 10,
         marginTop: 10,
         backgroundColor: "#fff",
-    }
+    },
 });

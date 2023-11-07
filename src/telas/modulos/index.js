@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { RefreshControl, SafeAreaView, ScrollView, Text, View, Image } from 'react-native';
+import { Image, RefreshControl, SafeAreaView, ScrollView, Text, View } from 'react-native';
 
 import { auth } from "../../config/firebase";
 
+import AnimacaoCarregando from '../../../assets/AnimacaoCarregando.gif';
 import { Modulo } from "../../components/BotaoModulos";
 import BotaoPerfil from "../../components/BotaoPerfil";
 import Frequencia from "../../components/Frequencia";
-import AnimacaoCarregando from '../../../assets/AnimacaoCarregando.gif'
-import { CriarModulos, PegarModulos, PegarDados, PegarFrequencia } from "../../servicos/firestore";
+import { CriarModulos, PegarDados, PegarFrequencia, PegarModulos } from "../../servicos/firestore";
 import style_modulo from "./style_modulos";
 
 const Menu = ({ navigation }) => {
@@ -65,7 +65,7 @@ const Menu = ({ navigation }) => {
     <>
     <SafeAreaView>
       <View style={style_modulo.topo}>
-        <Text style={{color: 'white'}}>Ola, {nome}</Text>
+        <Text style={{color: 'white'}}>Olá, {nome}.</Text>
         <BotaoPerfil
         imagemPerfil={require('../../../assets/capivaraTeste.png')}
         onPress={() => navigation.navigate('Perfil')}
