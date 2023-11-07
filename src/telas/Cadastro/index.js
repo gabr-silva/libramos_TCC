@@ -73,7 +73,7 @@ const validarSenha = (senha) => {
 }
 const corBarra =(forcaSenha) => {
   if(forcaSenha > 0.75 ){
-    return "#05f515"
+    return "#05f515" //senha muito forte
   }else if (forcaSenha > 0.5 && forcaSenha <= 0.75) {
     return "green"; // senha forte
   } else if (forcaSenha == 0.5) {
@@ -90,36 +90,14 @@ const corBarra =(forcaSenha) => {
       setStatusError('nome')}
 
     //verificação do campo sobrenome
-    else if (Sobrenome == '') {
-      setMensagemError('Preencha com um sobrenome')
-      setStatusError('sobrenome')
-    }else if(!validarSobrenome(Sobrenome)){
+    else if(!validarSobrenome(Sobrenome)){
         setMensagemError('Sobrenome deve conter apenas letras sem espaço')
         setStatusError('sobrenome')}
-
     //verificação do campo userName
-    else if(userName == ''){
-      setMensagemError('Preencha com um userName');
-      setStatusError('userName')
-    }else if(validarUserName(userName) && userName.length < 3){
+    else if(validarUserName(userName) && userName.length < 3){
       setMensagemError('useName deve conter mais de 3 digitos e letras sem acentos')
       setStatusError('userName')}
 
-    //verificação do campo email
-    else if(email == ''){
-      setMensagemError('Preencha com seu email');
-      setStatusError('email')} 
-    
-    //verificação do campo senha
-    else if(senha == ''){
-      setMensagemError('Digite sua senha');
-      setStatusError('senha')} 
-
-    //verificação do campo de confirmar senha
-    else if(confirmarSenha == ''){
-      setMensagemError('Confirme seua senha');
-      setStatusError('confirmarSenha')
-    } 
     else if (confirmarSenha != senha){
       setMensagemError('As senhas não são iguais');
       setStatusError('confirmarSenha')}
