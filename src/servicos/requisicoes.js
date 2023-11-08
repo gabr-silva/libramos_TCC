@@ -48,9 +48,9 @@ export async function cadastrar(nome, sobrenome, userName, email, senha) {
             ultimoRegistro: dataOntem
             })
 
-            const user = getAuth().currentUser
-            await sendEmailVerification(user)
-            return "sucesso"
+           /*const user = getAuth().currentUser
+            await sendEmailVerification(user) - função para enviar um email de autenticação
+            */return "sucesso"
         }
     }catch(error) {
         return VerificaoErros(error)
@@ -58,7 +58,9 @@ export async function cadastrar(nome, sobrenome, userName, email, senha) {
 }
 
 export async function logar(email, senha) {
-    try{
+    const resultado = await signInWithEmailAndPassword(auth, email, senha)
+    
+    /*try{
         const resultado = await signInWithEmailAndPassword(auth, email, senha)
         if(resultado.user.emailVerified){
             return 'sucesso';
@@ -67,7 +69,16 @@ export async function logar(email, senha) {
         }
     } catch (error) {
         return 'erro'
-    }
+    }*/
+
+    .then((dadosDoUsuario) => {
+        return "sucesso"
+    })   
+    .catch((error) => {
+        //return VerificaoErros(error)
+        return 'erro'
+});
+return resultado
 }
 
 //mudar de senha

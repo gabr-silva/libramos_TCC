@@ -11,9 +11,9 @@ export default function Inicio({navigation}) {
         const estadoUsuario = auth.onAuthStateChanged(
             usuario => {
                 if(usuario){
-                    if(usuario.emailVerified){
+                    //if(usuario.emailVerified){
                     navigation.replace('Modulo')
-                    }
+                    //}
                 }
                 setCarregando(false)
             })

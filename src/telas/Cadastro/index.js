@@ -46,10 +46,20 @@ const validarNome = (nome) => {
 }
 
 const validarSobrenome = (Sobrenome) => {
-  const nomeSemEspaço = Sobrenome.trim() //se não tiver nada depois do espaço tira ele
-  setSobrenome(nomeSemEspaço)
-  const regex = /^[A-Za-z]+$/;
-  return regex.test(nomeSemEspaço)
+  //.include se torna verdadeiro se contem espaço
+  if(Sobrenome.includes(' ')){
+    const sobrenomeArrumado = Sobrenome.replace(/\s+/g, ' '); // caso tenha mais de um espaço irar remove-lo
+
+    const partesNome = sobrenomeArrumado.split(' ') //separa os conteudos depois do espaço em array
+    if(partesNome[1].trim() !== ''){ //verifica se no segundo array não esta vazia
+      setSobrenome(sobrenomeArrumado)
+    } else {
+      const nomeSemEspaço = partesNome[0].trim() //se não tiver nada depois do espaço tira ele
+      setSobrenome(nomeSemEspaço)
+    }
+  }
+  const regex = /^[A-Za-z\s]+$/;
+  return regex.test(nome) //valida para ver se só contem letras e espaço
 }
 
 const validarUserName = (userName) => {
