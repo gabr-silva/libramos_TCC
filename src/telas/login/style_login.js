@@ -7,6 +7,7 @@ const style = StyleSheet.create({
     alignItems: "center",
     padding: 20,
     backgroundColor: "#fff", // Cor de fundo da tela
+    
   },
   
   imagem: {
@@ -107,3 +108,4 @@ const style = StyleSheet.create({
 });
 
 export default style;
+
