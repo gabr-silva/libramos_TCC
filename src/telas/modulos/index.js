@@ -60,6 +60,13 @@ const Menu = ({ navigation }) => {
 
   }, [atualizaAuto]);
 
+  const VerificarProgresso = (progresso) => {
+    if(progresso == 0) {
+      navigation.navigate("Ensino")
+    } else {
+      navigation.navigate("Aula")
+    }
+  }
 
   return (
     <>
@@ -72,33 +79,31 @@ const Menu = ({ navigation }) => {
           />
         </View>
 
-        <ScrollView
-          refreshControl={
-            <RefreshControl refreshing={atualizaManual} onRefresh={onRefresh} />
-          }
-        >
-          <View style={style_modulo.scrollViewContent}>
-            {carregando ? (
-              <View style={style_modulo.containerAnimacao}>
-                <Image source={AnimacaoCarregando} style={style_modulo.imagem} />
-              </View>
-            ) : (
-              <>
-                <Frequencia frequencia={frequencia} />
-                {modulos.map((modulo) => {
-                  barra = modulo.aulas_concluida / modulo.aula_total;
-                  return (
-                    <View style={style_modulo.moduloContainer} key={modulo.id}>
-                      <Modulo
-                        nome={modulo.nome}
-                        barra={barra}
-                        imagemOrigem={modulo.imagem}
-                        onPress={() => navigation.navigate('Aula')}
-                      />
-                    </View>
-                  );
-                })}
-              </>
+      <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={atualizaManual} onRefresh={onRefresh} />
+      }>
+        <View style={style_modulo.modulo}>
+          {carregando ? ( // Renderizar tela de carregamento se carregando for verdadeiro
+            <View style={style_modulo.containerAnimacao}>
+              <Image source={AnimacaoCarregando} style={style_modulo.imagem} />
+            </View>
+          ) : (
+            <>
+              <Frequencia frequencia={frequencia} />
+              {modulos.map((modulo) => {
+                barra = modulo.aulas_concluida / modulo.aula_total;
+                return (
+                  <Modulo
+                    nome={modulo.nome}
+                    barra={barra}
+                    imagemOrigem={modulo.imagem}
+                    onPress={() => navigation.navigate('Aula')}
+                    key={modulo.id}
+                  />
+                );
+              })}
+            </>
             )}
           </View>
         </ScrollView>

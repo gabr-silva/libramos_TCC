@@ -50,7 +50,7 @@ export async function CriarModulos(usuario){
         querySnapshot.forEach(async (modulo) => {
             const moduloID = modulo.id //armazena o id do modulo
 
-            const moduloDocRef = doc(usuarioDocRef, "modulos", moduloID); //cria mua nova referencia ao documento modulo dentro do documento do usuario
+            const moduloDocRef = doc(usuarioDocRef, "modulos", moduloID); //cria uma nova referencia ao documento modulo dentro do documento do usuario
             const moduloDocSnapshot = await getDoc(moduloDocRef);
     
             //exist() verifica se já existe o modulo no documento do usuário, se não existir cria
