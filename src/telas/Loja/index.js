@@ -1,7 +1,7 @@
 import React from "react";
 import { Image, SafeAreaView, StyleSheet } from "react-native";
 
-const Ranking = () => {
+const Loja = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Image
@@ -29,4 +29,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Ranking;
+export default Loja;

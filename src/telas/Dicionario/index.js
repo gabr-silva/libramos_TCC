@@ -1,25 +1,22 @@
 import React from "react";
-import { Image, SafeAreaView, StyleSheet } from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 
-const Ranking = () => {
+const Dicionario = () => {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Image
-        source={require('../../../assets/img/capivara-construcao.jpg')} 
+        source={require('../../../assets/img//capivara-construcao.jpg')} 
         style={styles.backgroundImage}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    resizeMode: "contain",
-
   },
   backgroundImage: {
     flex: 1,
@@ -29,4 +26,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Ranking;
+export default Dicionario;

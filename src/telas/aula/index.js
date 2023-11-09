@@ -1,16 +1,16 @@
-import  React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity} from 'react-native';
-import {Video, ResizeMode} from 'expo-av';
+import { ResizeMode, Video } from 'expo-av';
+import React, { useEffect, useState } from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
 import * as Progress from 'react-native-progress';
 
 import { auth } from '../../config/firebase';
 
+import BotaoResposta from '../../components/Botaoresposta';
+import AulaConcluida from '../../components/aula/AulaConcluida';
 import AvançarBarra from '../../components/aula/AvançarBarra';
 import GameOver from '../../components/aula/GameOver';
-import AulaConcluida from '../../components/aula/AulaConcluida';
-import { pontuacao, cameraLenta, palavras} from './script_aula';
-import BotaoResposta from '../../components/Botaoresposta';
 import { PegarFrequencia } from '../../servicos/firestore';
+import { cameraLenta, palavras, pontuacao } from './script_aula';
 import style from './style_aula';
 
 
@@ -44,6 +44,7 @@ export default function Aula ({navigation}){
       }, [vida, score, usuario]);
 
     return <>
+    <View style={style.container}>
     <View style={style.topo}>
     </View>
             {/* Topo da tela onde fica o horário, bateria etc */}
@@ -140,6 +141,10 @@ export default function Aula ({navigation}){
                         ponto={ponto}
                     />
                 )}
+                
+            </View>
                 </View>
+                
     </>
+    
 }

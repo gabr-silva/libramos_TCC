@@ -28,23 +28,38 @@ const Modulo = ({nome, barra, imagemOrigem, onPress}) => {
   return (
     <View style={styles.container}>
     <Text>{nome}</Text>
-    <Svg width={size} height={size} >
-      <Circle
+    <Svg style={styles.circunferencia} >
+    <Circle
         cx={size / 2}
         cy={size / 2}
         r={radius}
-        stroke="#404258"
+        stroke="#3481D9" // cor do progresso
         strokeWidth={8}
+        strokeDasharray={[circumference]}
+        strokeDashoffset={circumference * (1 - progresso)}
         fill="transparent" />
+
         <Circle
         cx={size / 2}
         cy={size / 2}
         r={radius}
-        stroke="blue"
-        strokeWidth={4}
+        stroke="#fff" // separação entre as circunferencias
+        strokeWidth={10}
         strokeDasharray={[circumference]}
-        strokeDashoffset={circumference * (1 - progresso)}
-        fill="transparent" />
+        fill="transparent" 
+        
+        />
+
+      <Circle
+        cx={size / 2}
+        cy={size / 2}
+        r={radius}
+        stroke="#ccc" // cor da base
+        strokeWidth={10}
+        fill="transparent" 
+        position="absolute"
+        />
+
         </Svg>
         <BotaoImagem
         onPress={onPress}
@@ -60,22 +75,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: size,
     height: size,
-    marginTop: 10,
+    marginTop: 70,
     marginBottom: 25,
   },
+
   button: {
-    position: 'absolute',
+    //position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
-    left: 20,
-    top: 20,
-    width: size - 40,
-    height: size - 40,
+    left: 0,
+    bottom: 95,
+    width: size - 20,
+    height: size - 20,
+
+  circunferencia: {
+    width: size,
+    height: size,
+    position: 'absolute'
+  },
+
   },
   image: {
-    width: '100%',
-    height: '100%',
+    width: size - 15,
+    height: size - 15,
     resizeMode: 'contain',
+    borderRadius: size / 2,
+    overflow: 'hidden',
   },
 });
 
