@@ -63,45 +63,52 @@ const Menu = ({ navigation }) => {
 
   return (
     <>
-    <SafeAreaView>
-      <View style={style_modulo.topo}>
-        <Text style={{color: 'white'}}>Olá, {nome}.</Text>
-        <BotaoPerfil
-        imagemPerfil={require('../../../assets/capivaraTeste.png')}
-        onPress={() => navigation.navigate('Perfil')}
-        />
-      </View>
-
-      <ScrollView
-      refreshControl={
-        <RefreshControl refreshing={atualizaManual} onRefresh={onRefresh} />
-      }>
-        <View style={style_modulo.modulo}>
-          {carregando ? ( // Renderizar tela de carregamento se carregando for verdadeiro
-            <View style={style_modulo.containerAnimacao}>
-              <Image source={AnimacaoCarregando} style={style_modulo.imagem} />
-            </View>
-          ) : (
-            <>
-              <Frequencia frequencia={frequencia} />
-              {modulos.map((modulo) => {
-                barra = modulo.aulas_concluida / modulo.aula_total;
-                return (
-                  <Modulo
-                    nome={modulo.nome}
-                    barra={barra}
-                    imagemOrigem={modulo.imagem}
-                    onPress={() => navigation.navigate('Aula')}
-                    key={modulo.id}
-                  />
-                );
-              })}
-            </>
-            )}
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={style_modulo.topo}>
+          <Text style={{ color: 'white' }}>Olá, {nome}.</Text>
+          <BotaoPerfil
+            imagemPerfil={require('../../../assets/capivaraTeste.png')}
+            onPress={() => navigation.navigate('Perfil')}
+          />
         </View>
-      </ScrollView>
-    </SafeAreaView>
+
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={atualizaManual} onRefresh={onRefresh} />
+          }
+        >
+          <View style={style_modulo.scrollViewContent}>
+            {carregando ? (
+              <View style={style_modulo.containerAnimacao}>
+                <Image source={AnimacaoCarregando} style={style_modulo.imagem} />
+              </View>
+            ) : (
+              <>
+                <Frequencia frequencia={frequencia} />
+                {modulos.map((modulo) => {
+                  barra = modulo.aulas_concluida / modulo.aula_total;
+                  return (
+                    <View style={style_modulo.moduloContainer} key={modulo.id}>
+                      <Modulo
+                        nome={modulo.nome}
+                        barra={barra}
+                        imagemOrigem={modulo.imagem}
+                        onPress={() => navigation.navigate('Aula')}
+                      />
+                    </View>
+                  );
+                })}
+              </>
+            )}
+          </View>
+        </ScrollView>
+
+        <View>
+          {/* Conteúdo da barra inferior */}
+        </View>
+      </SafeAreaView>
     </>
   );
 }
+
 export default Menu;

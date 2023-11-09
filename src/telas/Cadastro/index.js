@@ -1,9 +1,9 @@
-import React, { useState} from "react";
-import {View, TouchableOpacity, Text, Alert } from "react-native";
-import { EntradaTexto } from "../../components/EntradaTexto";
-import { cadastrar} from "../../servicos/requisicoes";
-import { Alerta } from "../../components/Alerta";
+import React, { useState } from "react";
+import { Alert, Text, TouchableOpacity, View } from "react-native";
 import * as Progress from 'react-native-progress';
+import { Alerta } from "../../components/Alerta";
+import { EntradaTexto } from "../../components/EntradaTexto";
+import { cadastrar } from "../../servicos/requisicoes";
 import style from "./style";
 
 export default function Cadastro({navigation}) {
@@ -204,14 +204,11 @@ const corBarra =(forcaSenha) => {
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-          <Text>Já possui uma conta?</Text>
+        <Text style={{ marginTop: 20, marginBottom: 15, color: "#2359AF" }}>
+              Já tem uma conta? <Text style={{ fontWeight: "bold", color: "#2359AF" }}>Faça o Login</Text>
+        </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity>
-          <View>
-            <Text>Google</Text>
-          </View>
-        </TouchableOpacity>
     </View>
     );
 }

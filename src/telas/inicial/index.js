@@ -36,7 +36,7 @@ export default function Inicio({navigation}) {
         
         <View>
             <Image
-            source={require("../../../assets/img/libramos-logotipo.png")}l
+            source={require("../../../assets/img/libramos-logotipo-amarelo.png")}l
             style={style.imgLogotipo}
             />
             <Text style={style.textoOnboarding}>
@@ -54,8 +54,8 @@ export default function Inicio({navigation}) {
           </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-            <Text style={{ marginTop: 20, marginBottom: 15, color: "#1461AD" }}>
-              Já tem uma conta? <Text style={{ fontWeight: "bold", color: "#1B4B99" }}>Faça o Login</Text>
+            <Text style={{ marginTop: 20, marginBottom: 15, color: "#2359AF" }}>
+              Já tem uma conta? <Text style={{ fontWeight: "bold", color: "#2359AF" }}>Faça o Login</Text>
             </Text>
           </TouchableOpacity>
 
