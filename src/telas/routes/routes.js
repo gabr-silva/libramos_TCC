@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 
 //telas de navegação
+import Ensino from '../ensino';
 import Cadastro from '../Cadastro';
 import Dicionario from '../Dicionarios/index';
 import Mascote from '../Mascote/index';
@@ -40,6 +41,7 @@ function ModuloTabs() {
           <Stack.Screen name="Modulo" component={ModuloTabs} options={{ headerShown: false }}/>
           <Stack.Screen name="Aula" component={Aula} options={{ headerShown: false }}/>
           <Stack.Screen name="Perfil" component={Perfil} options={{ headerShown: false }}/>
+          <Stack.Screen name="Ensino" component={Ensino} options={{headerShown: false}}/>
         </Stack.Navigator>
       </NavigationContainer>
     );
