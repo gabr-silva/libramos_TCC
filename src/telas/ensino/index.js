@@ -5,6 +5,9 @@ import {Video, ResizeMode} from 'expo-av';
 import { auth } from '../../config/firebase';
 
 export default function Ensino({navigation}) {
+    const usuario = auth.currentUser;
+    const video = React.useRef(null);
+
     return <>
     <View style={style.topo}>
     </View>
