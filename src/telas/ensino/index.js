@@ -1,7 +1,6 @@
 import  React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity} from 'react-native';
 import {Video, ResizeMode} from 'expo-av';
-import * as Progress from 'react-native-progress';
 
 import { auth } from '../../config/firebase';
 
