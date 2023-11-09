@@ -25,8 +25,8 @@ const pontuacao = (score, setScore)=>{
           <TouchableOpacity onPress={() => navigation.navigate('Modulos')}>
             <Text style={{ fontSize: 40, color: 'white' }}>{"X"}</Text>
           </TouchableOpacity>
-          <Progress.Bar progress={score} width={300} height={20} />
         </View>
+        <Progress.Bar progress={score} width={300} height={20} />
         <Text>ESte é o sinal de "Esse livro é bom"</Text>
         {/* função de video */}
         <Video
