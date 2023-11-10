@@ -198,3 +198,10 @@ async function IncrementarFrequencia(usuario, frequencia) {
         console.log(erro);
     }  
 }
+
+export async function AumentarBarra(usuario) {
+    const usuarioDocRef = doc(db, "usuarios", usuario.uid)
+    const subColecaoModulosRef = collection(usuarioDocRef, 'modulos') //dentro da referencia do usuario, pega a coleção modulos
+    const queryUser = await getDocs(subColecaoModulosRef) //pega todos os documentos da referencia dos modulos
+    await updateDoc()
+}

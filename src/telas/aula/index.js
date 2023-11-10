@@ -17,7 +17,7 @@ import style from './style_aula';
 export default function Aula ({navigation}){
 
     const usuario = auth.currentUser;
-    const video = React.useRef(null);
+    const video = React.useRef(null);W
     const [score, setScore] = useState(0);
     const [vel, setVel] = useState(1);
     const [cor, setCor] = useState('blue');

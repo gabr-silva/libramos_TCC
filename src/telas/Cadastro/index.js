@@ -4,7 +4,7 @@ import { EntradaTexto } from "../../components/EntradaTexto";
 import { cadastrar} from "../../servicos/requisicoes";
 import { Alerta } from "../../components/Alerta";
 import * as Progress from 'react-native-progress';
-import style from "./style";
+import style from "./style_cadastro";
 
 export default function Cadastro({navigation}) {
   const [nome, setNome] = useState('')

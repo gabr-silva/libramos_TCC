@@ -61,6 +61,7 @@ const Menu = ({ navigation }) => {
   }, [atualizaAuto]);
 
   const VerificarProgresso = (progresso) => {
+    console.log(progresso);
     if(progresso == 0) {
       navigation.navigate("Ensino")
     } else {
@@ -92,13 +93,13 @@ const Menu = ({ navigation }) => {
             <>
               <Frequencia frequencia={frequencia} />
               {modulos.map((modulo) => {
-                barra = modulo.aulas_concluida / modulo.aula_total;
+                barra_Modulo = modulo.aulas_concluida / modulo.aula_total;
                 return (
                   <Modulo
                     nome={modulo.nome}
-                    barra={barra}
+                    barra={barra_Modulo}
                     imagemOrigem={modulo.imagem}
-                    onPress={() => navigation.navigate('Aula')}
+                    onPress={() => VerificarProgresso(modulo.aulas_concluida)}
                     key={modulo.id}
                   />
                 );

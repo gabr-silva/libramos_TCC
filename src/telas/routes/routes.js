@@ -15,6 +15,7 @@ import Inicio from '../inicial';
 import Login from '../login';
 import Menu from '../modulos/index';
 import RedefSenha from '../redefSenha';
+import Ensino from '../ensino';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -45,7 +46,7 @@ function ModuloTabs() {
       <Tab.Navigator>
         <Tab.Screen name="Modulos" component={Menu} options={{ headerShown: false }}/>
         <Tab.Screen name="Dicionario" component={Dicionario} options={{ headerShown: false }}/>
-        <Tab.Screen name="Mascote" component={Mascote} options={{ headerShown: false }}/>
+        <Tab.Screen name="Loja" component={Login} options={{ headerShown: false }}/>
         <Tab.Screen name="Ranking" component={Ranking} options={{ headerShown: false }}/>
       </Tab.Navigator>
     );
@@ -61,6 +62,7 @@ function ModuloTabs() {
           <Stack.Screen name="RedefSenha" component={RedefSenha} options={{ headerShown: false }}/>
           <Stack.Screen name="Modulo" component={ModuloTabs} options={{ headerShown: false }}/>
           <Stack.Screen name="Aula" component={Aula} options={{ headerShown: false }}/>
+          <Stack.Screen name="Ensino" component={Ensino} options={{headerShown: false}}/>
           <Stack.Screen name="Perfil" component={Perfil} options={{ headerShown: false }}/>
         </Stack.Navigator>
       </NavigationContainer>

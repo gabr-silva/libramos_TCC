@@ -18,6 +18,7 @@ export default function Ensino({navigation}) {
 const pontuacao = (score, setScore)=>{    
         setScore(score + 0.2)
     };
+    
     return <>
     <SafeAreaView style={style.SafeArea}>
       <View style={style.fundo}>
