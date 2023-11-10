@@ -1,8 +1,7 @@
-import { auth} from "../config/firebase";
-import { db } from "../config/firebase";
-import { getAuth, createUserWithEmailAndPassword, AuthErrorCodes, signInWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, signInWithGoogle} from "firebase/auth";
-import { collection, setDoc, query, doc, where, getDocs,} from "firebase/firestore";
 import { sub } from "date-fns";
+import { AuthErrorCodes, createUserWithEmailAndPassword, getAuth, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
+import { collection, doc, getDocs, query, setDoc, where, } from "firebase/firestore";
+import { auth, db } from "../config/firebase";
 
 function VerificaoErros(error){
     let mensagem ='';

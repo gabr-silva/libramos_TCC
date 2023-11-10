@@ -70,14 +70,14 @@ const Menu = ({ navigation }) => {
 
   return (
     <>
-    <SafeAreaView>
-      <View style={style_modulo.topo}>
-        <Text style={{color: 'white'}}>Olá, {nome}.</Text>
-        <BotaoPerfil
-        imagemPerfil={require('../../../assets/capivaraTeste.png')}
-        onPress={() => navigation.navigate('Perfil')}
-        />
-      </View>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={style_modulo.topo}>
+          <Text style={{ color: 'white' }}>Olá, {nome}.</Text>
+          <BotaoPerfil
+            imagemPerfil={require('../../../assets/capivaraTeste.png')}
+            onPress={() => navigation.navigate('Perfil')}
+          />
+        </View>
 
       <ScrollView
       refreshControl={
@@ -93,23 +93,27 @@ const Menu = ({ navigation }) => {
               <Frequencia frequencia={frequencia} />
               {modulos.map((modulo) => {
                 barra = modulo.aulas_concluida / modulo.aula_total;
-
                 return (
                   <Modulo
                     nome={modulo.nome}
                     barra={barra}
                     imagemOrigem={modulo.imagem}
-                    onPress={() => VerificarProgresso(modulo.aulas_concluida)}
+                    onPress={() => navigation.navigate('Aula')}
                     key={modulo.id}
                   />
                 );
               })}
             </>
             )}
+          </View>
+        </ScrollView>
+
+        <View>
+          {/* Conteúdo da barra inferior */}
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </SafeAreaView>
     </>
   );
 }
+
 export default Menu;
