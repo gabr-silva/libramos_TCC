@@ -195,13 +195,23 @@ async function IncrementarFrequencia(usuario, frequencia) {
             return frequencia
         }
     }catch(erro) {
-        console.log(erro);
+        return null
     }  
 }
 
-export async function AumentarBarra(usuario) {
-    const usuarioDocRef = doc(db, "usuarios", usuario.uid)
-    const subColecaoModulosRef = collection(usuarioDocRef, 'modulos') //dentro da referencia do usuario, pega a coleção modulos
-    const queryUser = await getDocs(subColecaoModulosRef) //pega todos os documentos da referencia dos modulos
-    await updateDoc()
+export async function AumentarBarra(usuario, modulo_id) {
+    try {
+        const usuarioDocRef = doc(db, "usuarios", usuario.uid);
+        const subColecaoModulosRef = collection(usuarioDocRef, 'modulos');
+        const moduloDocRef = doc(subColecaoModulosRef, modulo_id);
+
+        const moduloDados = await getDoc(moduloDocRef);
+        const progressoAula = moduloDados.data().aulas_concluida;
+
+        await updateDoc(moduloDocRef, {
+            "aulas_concluida": progressoAula + 1
+        });;
+    } catch (error) {
+        console.error("Erro ao aumentar a barra de progresso: ", error);
+    }
 }

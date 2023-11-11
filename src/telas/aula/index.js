@@ -9,14 +9,15 @@ import BotaoResposta from '../../components/Botaoresposta';
 import AulaConcluida from '../../components/aula/AulaConcluida';
 import AvançarBarra from '../../components/aula/AvançarBarra';
 import GameOver from '../../components/aula/GameOver';
-import { PegarFrequencia } from '../../servicos/firestore';
+import { PegarFrequencia, AumentarBarra } from '../../servicos/firestore';
 import { cameraLenta, palavras, pontuacao } from './script_aula';
 import style from './style_aula';
 
 
-export default function Aula ({navigation}){
+export default function Aula ({navigation, route}){
 
     const usuario = auth.currentUser;
+    const {id_modulo} = route.params
     const video = React.useRef(null);
     const [score, setScore] = useState(0);
     const [vel, setVel] = useState(1);
@@ -40,6 +41,7 @@ export default function Aula ({navigation}){
         // Chame a função PegarFrequencia quando necessário
         if (vida >= 0 && Math.abs(score - 1) < 0.0001) {
           PegarFrequencia(usuario, 2);
+          AumentarBarra(usuario, id_modulo)
         }
       }, [vida, score, usuario]);
 

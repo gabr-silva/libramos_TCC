@@ -3,20 +3,27 @@ import { View, Text, TouchableOpacity, SafeAreaView} from 'react-native';
 import {Video, ResizeMode} from 'expo-av';
 import { cameraLenta } from '../aula/script_aula';
 import * as Progress from 'react-native-progress';
+import { AumentarBarra, PegarFrequencia } from '../../servicos/firestore';
 import style from './style_ensino';
 
 import { auth } from '../../config/firebase';
 
-export default function Ensino({navigation}) {
+export default function Ensino({navigation, route}) {
 
     const usuario = auth.currentUser;
+    const { id_modulo } = route.params;
     const video = React.useRef(null);
     const [vel, setVel] = useState(1);
     const [cor, setCor] = useState('blue');
     const [score, setScore] = useState(0);
 
 const pontuacao = (score, setScore)=>{    
-        setScore(score + 0.2)
+       setScore(score + 0.2)
+        if(score == 1) {
+          AumentarBarra(usuario, id_modulo)
+          PegarFrequencia(usuario, 2);
+          navigation.navigate('Modulos')
+        }
     };
     
     return <>

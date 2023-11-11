@@ -10,7 +10,7 @@ import Frequencia from "../../components/Frequencia";
 import { CriarModulos, PegarDados, PegarFrequencia, PegarModulos } from "../../servicos/firestore";
 import style_modulo from "./style_modulos";
 
-const Menu = ({ navigation }) => {
+const Menu = ({navigation}) => {
   const usuario = auth.currentUser;
   const [nome, setNome] = useState('')
   const [modulos, setModulos] = useState([])
@@ -24,7 +24,7 @@ const Menu = ({ navigation }) => {
     setCarregando(true)
     setAtualizaManual(true);
     carregarDados()
-    PegarFrequencia(usuario)
+    PegarFrequencia(usuario, 1)
     setAtualizaManual(false);
   }, [PegarModulos]);
 
@@ -60,12 +60,11 @@ const Menu = ({ navigation }) => {
 
   }, [atualizaAuto]);
 
-  const VerificarProgresso = (progresso) => {
-    console.log(progresso);
+  const VerificarProgresso = (progresso, id) => {
     if(progresso == 0) {
-      navigation.navigate("Ensino")
+      navigation.navigate("Ensino", {id_modulo: id})
     } else {
-      navigation.navigate("Aula")
+      navigation.navigate("Aula", {id_modulo: id})
     }
   }
 
@@ -99,7 +98,7 @@ const Menu = ({ navigation }) => {
                     nome={modulo.nome}
                     barra={barra_Modulo}
                     imagemOrigem={modulo.imagem}
-                    onPress={() => VerificarProgresso(modulo.aulas_concluida)}
+                    onPress={() => VerificarProgresso(modulo.aulas_concluida, modulo.id)}
                     key={modulo.id}
                   />
                 );
