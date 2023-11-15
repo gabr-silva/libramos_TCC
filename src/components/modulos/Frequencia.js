@@ -10,7 +10,7 @@ const Frequencia = ({frequencia}) => {
         <View style={style.frequenciaContainer}>
           <Image 
             style={style.fogo}
-            source={require('../../assets/fogo.png')}
+            source={require('../../../assets/fogo.png')}
           />
           <Text>{frequencia}</Text>
         </View>

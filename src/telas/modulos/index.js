@@ -4,9 +4,11 @@ import { Image, RefreshControl, SafeAreaView, ScrollView, Text, View } from 'rea
 import { auth } from "../../config/firebase";
 
 import AnimacaoCarregando from '../../../assets/AnimacaoCarregando.gif';
-import { Modulo } from "../../components/BotaoModulos";
-import BotaoPerfil from "../../components/BotaoPerfil";
-import Frequencia from "../../components/Frequencia";
+
+import { Modulo } from "../../components/modulos/BotaoModulos";
+import BotaoPerfil from "../../components/modulos/BotaoPerfil";
+import Frequencia from "../../components/modulos/Frequencia";
+import ModalModulo from "../../components/modulos/modal";
 import { CriarModulos, PegarDados, PegarFrequencia, PegarModulos } from "../../servicos/firestore";
 import style_modulo from "./style_modulos";
 
@@ -14,6 +16,9 @@ const Menu = ({navigation}) => {
   const usuario = auth.currentUser;
   const [nome, setNome] = useState('')
   const [modulos, setModulos] = useState([])
+  const [modalVisivel, setModalVisivel] = useState(false);
+  const [progressoModal, setProgressoModal] = useState(0);
+  const [idModulo, setIdModulo] = useState(null)
   const [frequencia, setFrequencia] = useState(0)
   const [atualizaManual, setAtualizaManual] = useState(false)
   const [atualizaAuto, setAtualizaAuto] = useState(true)
@@ -33,6 +38,12 @@ const Menu = ({navigation}) => {
     const modulosFireStore = await PegarModulos(usuario);
     setModulos(modulosFireStore);
     CriarModulos(usuario);
+  }
+
+  const AbrirModal = (idModulo, progresso) => {
+     setProgressoModal(progresso);
+     setIdModulo(idModulo)
+    setModalVisivel(true)
   }
 
   async function carregarDados() {
@@ -60,25 +71,18 @@ const Menu = ({navigation}) => {
 
   }, [atualizaAuto]);
 
-  const VerificarProgresso = (progresso, id) => {
-    if(progresso == 0) {
-      navigation.navigate("Ensino", {id_modulo: id})
-    } else {
-      navigation.navigate("Aula", {id_modulo: id})
-    }
-  }
-
   return (
     <>
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={style_modulo.topo}>
-          <Text style={{ color: 'white' }}>Olá, {nome}.</Text>
-          <BotaoPerfil
-            imagemPerfil={require('../../../assets/capivaraTeste.png')}
-            onPress={() => navigation.navigate('Perfil')}
-          />
-        </View>
-
+        <View style={{ flex: 1 }}>
+          <View style={style_modulo.topo}>
+            <Text style={{ color: 'white' }}>Olá, {nome}.</Text>
+            <BotaoPerfil
+              imagemPerfil={require('../../../assets/capivaraTeste.png')}
+              onPress={() => navigation.navigate('Perfil')}
+            />
+          </View>
+    
       <ScrollView
       refreshControl={
         <RefreshControl refreshing={atualizaManual} onRefresh={onRefresh} />
@@ -98,18 +102,30 @@ const Menu = ({navigation}) => {
                     nome={modulo.nome}
                     barra={barra_Modulo}
                     imagemOrigem={modulo.imagem}
-                    onPress={() => VerificarProgresso(modulo.aulas_concluida, modulo.id)}
+                    onPress={() => {AbrirModal(modulo.id, modulo.aulas_concluida)}}
                     key={modulo.id}
                   />
                 );
               })}
             </>
             )}
+
           </View>
         </ScrollView>
-
+        
+        
+        {modalVisivel?(
+          <ModalModulo
+              modalVisivel={modalVisivel}
+              onClose={() => setModalVisivel(false)}
+              navigation={navigation}
+              progresso={progressoModal}
+              idModulo={idModulo}
+          />
+        ):null}
         <View>
           {/* Conteúdo da barra inferior */}
+        </View>
         </View>
       </SafeAreaView>
     </>
