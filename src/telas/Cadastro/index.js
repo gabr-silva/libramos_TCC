@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
 import {View, TouchableOpacity, Text, Alert, TouchableWithoutFeedback } from "react-native";
 import { EntradaTexto } from "../../components/EntradaTexto";
 import { cadastrar} from "../../servicos/requisicoes";

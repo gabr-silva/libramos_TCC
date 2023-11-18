@@ -215,3 +215,23 @@ export async function AumentarBarra(usuario, modulo_id) {
         console.error("Erro ao aumentar a barra de progresso: ", error);
     }
 }
+
+export async function PegarAula(matrizTeste, setMatriz) {
+    const dados = {
+        video: 'https://firebasestorage.googleapis.com/v0/b/libramos-teste.appspot.com/o/Libras%20-%20Qual%20seu%20nome_(360P)%20(1).mp4?alt=media&token=95c12691-2c72-4574-a75c-9332e8a6854b',
+        pergunta: 'Qual o seu nome',
+        resposta: 'sim',
+        tipo: 2,
+    }
+
+    setMatriz((prevMatriz) => [...prevMatriz, dados]);
+
+    const dados2 = {
+        video: 'https://firebasestorage.googleapis.com/v0/b/libramos-teste.appspot.com/o/Libras%20-%20Qual%20seu%20nome_(360P)%20(1).mp4?alt=media&token=95c12691-2c72-4574-a75c-9332e8a6854b',
+        pergunta: 'Qual o seu nome',
+        resposta: 'Qual o seu nome',
+        tipo: 1,
+    }
+
+    setMatriz((prevMatriz) => [...prevMatriz, dados2]);
+}

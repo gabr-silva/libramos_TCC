@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-const AvançarBarra = ({ modalVisivel, onClose, ponto }) => {
+export default function AvançarBarra({ modalVisivel, onClose, ponto ,avançarLicao }){
     return (
         <Modal
             animationType="slide"
@@ -14,7 +14,7 @@ const AvançarBarra = ({ modalVisivel, onClose, ponto }) => {
                         {ponto}
                     </Text>
                     {/* Botão */}
-                    <TouchableOpacity onPress={onClose}>
+                    <TouchableOpacity onPress={() =>{avançarLicao(), onClose()}}>
                         <Text style={style.BotaoFechar}>{"->"}</Text>
                     </TouchableOpacity>
                 </View>
@@ -42,5 +42,3 @@ const style = StyleSheet.create({
         fontSize: 50
     },
 })
-
-export default AvançarBarra;

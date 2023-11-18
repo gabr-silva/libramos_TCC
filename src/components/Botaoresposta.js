@@ -1,6 +1,6 @@
 import { Text, TouchableOpacity, StyleSheet} from 'react-native';
 
-const BotaoResposta = ({ escolha, alternativa, setAlternativa }) => {
+export default function BotaoResposta({ escolha, alternativa, setAlternativa }){
     const opcoesSelecionadas = (opcao) => {
       if (alternativa.includes(opcao)) {
         const atualizarResposta = alternativa.filter((item) => item !== opcao);
@@ -49,6 +49,4 @@ const style = StyleSheet.create({
        backgroundColor: 'green'
     }
     }
-);
-
-export default BotaoResposta;
+)

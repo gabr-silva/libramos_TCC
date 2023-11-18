@@ -1,16 +1,27 @@
-import React, {useState} from "react";
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-
 //Função de verificar resposta
-export const pontuacao = (score, setScore, opcoesSelecionadas, setPonto, vida,  setVida)=>{    
-    const palavraResposta = opcoesSelecionadas.join(' ')
-    if (palavraResposta === "qual o seu nome?") {
-         setScore(score + 0.1);
-         setPonto('Correto')
-    } else {
-        setPonto('Errado')
-        setVida(vida - 1)
-    }   
+export const pontuacao = (score, setScore, tipo, resposta,setPonto, vida,  setVida, opcoesSelecionadas, botaoDuasEscolha)=>{    
+
+    switch (tipo) {
+        case 1:
+            const palavraResposta = opcoesSelecionadas.join(' ')
+            if (palavraResposta === resposta) {
+                setScore(score + 0.1);
+                setPonto('Correto')
+           } else {
+               setPonto('Errado')
+               setVida(vida - 1)
+           } 
+            break;
+        case 2:
+            if (botaoDuasEscolha === resposta) {
+                setScore(score + 0.1);
+                setPonto('Correto')
+           } else {
+               setPonto('Errado')
+               setVida(vida - 1)
+           } 
+            break;
+    }  
 };
 
 //função de mudança de velocidade de video
