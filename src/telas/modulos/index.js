@@ -14,6 +14,7 @@ import style_modulo from "./style_modulos";
 
 const Menu = ({navigation}) => {
   const usuario = auth.currentUser;
+  const [dados, setDados] = useState([])
   const [nome, setNome] = useState('')
   const [modulos, setModulos] = useState([])
   const [modalVisivel, setModalVisivel] = useState(false);
@@ -46,11 +47,15 @@ const Menu = ({navigation}) => {
     setModalVisivel(true)
   }
 
+  useEffect(() => {
+    setDados(PegarDados(usuario))
+    CriarModulos(usuario)
+    setNome(dados.nome)
+  }, []);
+
   async function carregarDados() {
-      const dados = await PegarDados(usuario)
+      
       setFrequencia(dados.frequencia)
-      setNome(dados.nome)
-      await CriarModulos(usuario)
       PegarFrequencia(usuario, 1)
       const modulosFireStore = await PegarModulos(usuario)
       setModulos(modulosFireStore)
@@ -63,7 +68,7 @@ const Menu = ({navigation}) => {
       carregarDados();
       setCarregando(false)
     }
-  }, 10000); // atualiza a cada 10 segundos
+  }, 100000); // atualiza a cada 10 segundos
 
   return() =>{
     clearInterval(autoRefreshingInterval);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from "react";
-import {View, TouchableOpacity, Text, Alert, TouchableWithoutFeedback } from "react-native";
+import {View, TouchableOpacity, Text, Alert, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { EntradaTexto } from "../../components/EntradaTexto";
 import { cadastrar} from "../../servicos/requisicoes";
 import { Alerta } from "../../components/Alerta";

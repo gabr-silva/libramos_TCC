@@ -30,11 +30,11 @@ export default function DuasEscolha ({vel, urlvideo, pergunta, botaoDuasEscolha,
                 rate={vel} //rate para acelerar e diminuir velocidade do video
             />
             <View style={style.alternativas}> 
-                <TouchableOpacity onPress={()=> clicarBotao('sim')} 
+                <TouchableOpacity onPress={()=> clicarBotao(TabRouter)} 
                 style={[botaoDuasEscolha == 'sim' ? style.selecionado : style.botao]}>
                     <Text>Sim</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => clicarBotao('nao')} 
+                <TouchableOpacity onPress={() => clicarBotao(false)} 
                 style={[botaoDuasEscolha == 'nao' ? style.selecionado : style.botao]}>
                     <Text>Nao</Text>
                 </TouchableOpacity>
@@ -44,6 +44,7 @@ export default function DuasEscolha ({vel, urlvideo, pergunta, botaoDuasEscolha,
 }
 
 import { StyleSheet } from "react-native";
+import { TabRouter } from '@react-navigation/native';
 
 
 export const style = StyleSheet.create({

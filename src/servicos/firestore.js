@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs, orderBy, query, setDoc, updateDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, orderBy, query, setDoc, updateDoc, writeBatch } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { sub } from "date-fns";
 
@@ -46,6 +46,8 @@ export async function CriarModulos(usuario){
 
         const querySnapshot = await getDocs(moduloColecaoRef);
 
+        const batch = writeBatch(db)
+
         //forEach = repete sobre cada modulo da lista o codigo
         querySnapshot.forEach(async (modulo) => {
             const moduloID = modulo.id //armazena o id do modulo
@@ -56,7 +58,7 @@ export async function CriarModulos(usuario){
             //exist() verifica se já existe o modulo no documento do usuário, se não existir cria
             if (!moduloDocSnapshot.exists()) {
                 // O módulo ainda não foi adicionado, então adicionamos agora
-                await setDoc(moduloDocRef, {
+                batch.set(moduloDocRef, {
                     id: moduloID,
                     aulas_concluida: 0
                 });
@@ -64,6 +66,7 @@ export async function CriarModulos(usuario){
                 modulosAdicionados.push(moduloID) // rastreia quais modulos foram adicionados
             }
           });
+          await batch.commit()
     }catch(error){
         console.log(error)
         return "erro"
