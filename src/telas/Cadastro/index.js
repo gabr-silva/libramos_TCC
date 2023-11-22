@@ -1,9 +1,9 @@
-import React, { useState, useEffect} from "react";
-import {View, TouchableOpacity, Text, Alert, TouchableWithoutFeedback } from "react-native";
-import { EntradaTexto } from "../../components/EntradaTexto";
-import { cadastrar} from "../../servicos/requisicoes";
-import { Alerta } from "../../components/Alerta";
+import React, { useEffect, useState } from "react";
+import { Alert, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import * as Progress from 'react-native-progress';
+import { Alerta } from "../../components/Alerta";
+import { EntradaTexto } from "../../components/EntradaTexto";
+import { cadastrar } from "../../servicos/requisicoes";
 import style from "./style_cadastro";
 
 export default function Cadastro({navigation}) {
@@ -197,8 +197,8 @@ const corBarra =(forcaSenha) => {
           error={statusError == 'firebase'}
           setError={setStatusError}
         />
-        <TouchableOpacity style={botaoCadastrar ? style.botaoCadastrar : style.botaoCadastrarDisponivel} onPress={() => realizarCadastro()} disabled={!botaoCadastrar}>
-          <Text>Cadastrar</Text>
+        <TouchableOpacity style={botaoCadastrar ? style.botaoCadastrarAtivo : style.botaoCadastrarInativo} onPress={() => realizarCadastro()} disabled={!botaoCadastrar}>
+          <Text style={style.textoBotaoCadastrar}>Cadastrar</Text>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate("Login")}>

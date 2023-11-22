@@ -74,20 +74,25 @@ const Menu = ({navigation}) => {
   return (
     <>
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={{ flex: 1 }}>
-          <View style={style_modulo.topo}>
-            <Text style={{ color: 'white' }}>Olá, {nome}.</Text>
-            <BotaoPerfil
-              imagemPerfil={require('../../../assets/capivaraTeste.png')}
-              onPress={() => navigation.navigate('Perfil')}
-            />
-          </View>
+      <View style={{ flex: 1}}>
+      <View style={style_modulo.topo}>
+        <Text style={style_modulo.textoBoasVindas}>Olá, {nome}! 👋</Text>
+        <Text style={style_modulo.textoNivel}>{"\n"}Nível 1</Text>
+        <BotaoPerfil
+          style={style_modulo.imgPerfil}
+          imagemPerfil={require('../../../assets/icon.png')}
+          onPress={() => navigation.navigate('Perfil')}
+        />
+        
+      </View>
+
+
     
       <ScrollView
       refreshControl={
         <RefreshControl refreshing={atualizaManual} onRefresh={onRefresh} />
       }>
-        <View style={style_modulo.modulo}>
+        <View style={style_modulo.container}>
           {carregando ? ( // Renderizar tela de carregamento se carregando for verdadeiro
             <View style={style_modulo.containerAnimacao}>
               <Image source={AnimacaoCarregando} style={style_modulo.imagem} />
@@ -123,6 +128,7 @@ const Menu = ({navigation}) => {
               idModulo={idModulo}
           />
         ):null}
+
         <View>
           {/* Conteúdo da barra inferior */}
         </View>

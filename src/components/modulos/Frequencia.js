@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
-import { View, Image, Text, Dimensions, StyleSheet } from "react-native";
+import React from "react";
+import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 
 const { width, height } = Dimensions.get('window');
 
@@ -13,7 +13,7 @@ const Frequencia = ({frequencia}) => {
             source={require('../../../assets/fogo.png')}
           />
           <Text>{frequencia}</Text>
-        </View>
+        </View> 
         </>
     );
 };

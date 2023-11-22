@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, View, Text, TouchableOpacity, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { Modal, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 
 
 const VerificarProgresso = ({navigation},progresso, id) => {
@@ -40,7 +40,7 @@ const style = StyleSheet.create({
         backgroundColor: 'transparent',
     },
     ModalConteudo:{
-        backgroundColor: '#303049',
+        backgroundColor: '#87ABFF',
         width: 342,
         height: 60,
         borderRadius: 20,
