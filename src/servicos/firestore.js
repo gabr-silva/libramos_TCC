@@ -46,27 +46,22 @@ export async function CriarModulos(usuario){
 
         const querySnapshot = await getDocs(moduloColecaoRef);
 
-        const batch = writeBatch(db)
-
-        //forEach = repete sobre cada modulo da lista o codigo
-        querySnapshot.forEach(async (modulo) => {
-            const moduloID = modulo.id //armazena o id do modulo
-
-            const moduloDocRef = doc(usuarioDocRef, "modulos", moduloID); //cria uma nova referencia ao documento modulo dentro do documento do usuario
+        const batch = writeBatch(db);
+            for (const modulo of querySnapshot.docs) {
+            const moduloID = modulo.id;
+            const moduloDocRef = doc(usuarioDocRef, "modulos", moduloID);
             const moduloDocSnapshot = await getDoc(moduloDocRef);
-    
-            //exist() verifica se já existe o modulo no documento do usuário, se não existir cria
+
             if (!moduloDocSnapshot.exists()) {
-                // O módulo ainda não foi adicionado, então adicionamos agora
                 batch.set(moduloDocRef, {
                     id: moduloID,
                     aulas_concluida: 0
                 });
 
-                modulosAdicionados.push(moduloID) // rastreia quais modulos foram adicionados
+                modulosAdicionados.push(moduloID);
             }
-          });
-          await batch.commit()
+            }
+            await batch.commit();
     }catch(error){
         console.log(error)
         return "erro"

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Image, RefreshControl, SafeAreaView, ScrollView, Text, View } from 'react-native';
+import { Image, SafeAreaView, ScrollView, Text, View } from 'react-native';
 
 import { auth } from "../../config/firebase";
 
@@ -21,24 +21,15 @@ const Menu = ({navigation}) => {
   const [progressoModal, setProgressoModal] = useState(0);
   const [idModulo, setIdModulo] = useState(null)
   const [frequencia, setFrequencia] = useState(0)
-  const [atualizaManual, setAtualizaManual] = useState(false)
   const [atualizaAuto, setAtualizaAuto] = useState(true)
   const [carregando, setCarregando] = useState(true)
 
-  //função de atualização manual
-  const onRefresh = React.useCallback(async () => {
-    setCarregando(true)
-    setAtualizaManual(true);
-    carregarDados()
-    PegarFrequencia(usuario, 1)
-    setAtualizaManual(false);
-  }, [PegarModulos]);
 
   //função de atualização automatica
   const onAutoRefresh = async () => {
-    const modulosFireStore = await PegarModulos(usuario);
-    setModulos(modulosFireStore);
-    CriarModulos(usuario);
+    const modulos = await PegarModulos(usuario)
+    PegarFrequencia(usuario, 1)
+    setModulos(modulos);
   }
 
   const AbrirModal = (idModulo, progresso) => {
@@ -48,27 +39,27 @@ const Menu = ({navigation}) => {
   }
 
   useEffect(() => {
-    setDados(PegarDados(usuario))
-    CriarModulos(usuario)
-    setNome(dados.nome)
-  }, []);
-
-  async function carregarDados() {
-      
-      setFrequencia(dados.frequencia)
-      PegarFrequencia(usuario, 1)
-      const modulosFireStore = await PegarModulos(usuario)
-      setModulos(modulosFireStore)
-  }
+    const carregarDadosIniciais = async () => {
+       try {
+          CriarModulos(usuario);
+          const dadosCarregados = await PegarDados(usuario);
+          setDados(dadosCarregados)
+          setNome(dadosCarregados.nome);
+          //setFrequencia(dados.frequencia)
+       } catch (error) {
+          console.error('Erro ao carregar dados iniciais:', error);
+       }
+    };
+    carregarDadosIniciais();
+ }, []);
 
   useEffect(() => {
   const autoRefreshingInterval = setInterval(() => {
     if (atualizaAuto){
       onAutoRefresh();
-      carregarDados();
       setCarregando(false)
     }
-  }, 100000); // atualiza a cada 10 segundos
+  }, 10000); // atualiza a cada 10 segundos
 
   return() =>{
     clearInterval(autoRefreshingInterval);
@@ -88,10 +79,7 @@ const Menu = ({navigation}) => {
             />
           </View>
     
-      <ScrollView
-      refreshControl={
-        <RefreshControl refreshing={atualizaManual} onRefresh={onRefresh} />
-      }>
+      <ScrollView>
         <View style={style_modulo.modulo}>
           {carregando ? ( // Renderizar tela de carregamento se carregando for verdadeiro
             <View style={style_modulo.containerAnimacao}>
