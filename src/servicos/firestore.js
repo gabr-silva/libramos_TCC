@@ -214,8 +214,22 @@ export async function AumentarBarra(usuario, modulo_id) {
     }
 }
 
-export async function PegarAula(matrizTeste, setMatriz) {
-    const dados = {
+export async function PegarAula(matrizTeste, setMatriz, idModulo) {
+    try {
+        const moduloIdRef = doc(db, "modulos", idModulo)
+        //const aulasRef = collection(moduloIdRef, 'aula_1')
+        const aulaQuery = query(collection(moduloIdRef, "aula_1"), orderBy('nome', 'asc'))
+        const conteudoAula = await getDocs(aulaQuery);
+
+        conteudoAula.forEach(doc => {
+            setMatriz((prevMatriz) => [...prevMatriz, doc.data()]);
+        })
+
+    } catch (error) {
+        console.log(error);
+    }
+    
+    /*const dados = {
         video: 'https://firebasestorage.googleapis.com/v0/b/libramos-teste.appspot.com/o/Libras%20-%20Qual%20seu%20nome_(360P)%20(1).mp4?alt=media&token=95c12691-2c72-4574-a75c-9332e8a6854b',
         pergunta: 'Qual o seu nome',
         resposta: 'sim',
@@ -231,5 +245,5 @@ export async function PegarAula(matrizTeste, setMatriz) {
         tipo: 1,
     }
 
-    setMatriz((prevMatriz) => [...prevMatriz, dados2]);
+    setMatriz((prevMatriz) => [...prevMatriz, dados2]);*/
 }

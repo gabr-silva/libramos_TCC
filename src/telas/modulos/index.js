@@ -8,7 +8,7 @@ import AnimacaoCarregando from '../../../assets/AnimacaoCarregando.gif';
 import { Modulo } from "../../components/modulos/BotaoModulos";
 import BotaoPerfil from "../../components/modulos/BotaoPerfil";
 import Frequencia from "../../components/modulos/Frequencia";
-import ModalModulo from "../../components/modulos/modal";
+import ModalConfirmacao from "../../components/modulos/modal";
 import { CriarModulos, PegarDados, PegarFrequencia, PegarModulos } from "../../servicos/firestore";
 import style_modulo from "./style_modulos";
 
@@ -108,12 +108,11 @@ const Menu = ({navigation}) => {
         
         
         {modalVisivel?(
-          <ModalModulo
+          <ModalConfirmacao
+              texto={"Deseja ir para a aula"}
               modalVisivel={modalVisivel}
-              onClose={() => setModalVisivel(false)}
-              navigation={navigation}
-              progresso={progressoModal}
-              idModulo={idModulo}
+              onClose={() => {setModalVisivel(false)}}
+              tela={() => navigation.navigate('Aula', {id_modulo: idModulo})}
           />
         ):null}
         <View>

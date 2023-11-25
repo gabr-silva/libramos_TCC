@@ -2,15 +2,7 @@ import React from 'react';
 import { Modal, View, Text, TouchableOpacity, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 
 
-const VerificarProgresso = ({navigation},progresso, id) => {
-    if(progresso == 0) {
-      navigation.navigate("Ensino", {id_modulo: id})
-    } else {
-      navigation.navigate("Aula", {id_modulo: id})
-    }
-  }
-
-export default function ModalModulo({ modalVisivel, onClose, navigation, progresso, idModulo}){
+export default function ModalConfirmacao({texto ,modalVisivel, onClose, tela }){
     return (
         <Modal
             animationType="none"
@@ -21,8 +13,8 @@ export default function ModalModulo({ modalVisivel, onClose, navigation, progres
             <View style={[style.ModalContainer]}>
                 {/* Conteúdo da modal */}
                 <View style={[style.ModalConteudo]}>
-                    <Text>Deseja ir para a próxima tela?</Text>      
-                    <TouchableOpacity onPress={() => {onClose, VerificarProgresso({navigation}, progresso, idModulo)}}>
+                    <Text>{texto}</Text>      
+                    <TouchableOpacity onPress={() => {onClose(); tela()}}>
                             <Text>Continuar</Text>
                     </TouchableOpacity>
                 </View>

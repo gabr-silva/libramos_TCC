@@ -5,12 +5,23 @@ import BotaoResposta from '../../Botaoresposta';
 
 import {ResizeMode, Video } from 'expo-av';
 
-export default function MultiplaAlternativas({urlvideo, vel, resposta, opcoes, opcoesSelecionadas, setOpcoes, setOpcoesSelecionadas}) {
+
+export default function MultiplaAlternativas({urlvideo, vel, opcoes, opcoesSelecionadas, setOpcoes, setOpcoesSelecionadas}) {
 
     const video = React.useRef(null)
 
+    const embaralharAltern = (alternativas) => {
+    
+        for (let i = alternativas.length - 1; i > 0; i--) { 
+            const j = Math.floor(Math.random() * (i + 1)); 
+            [alternativas[i], alternativas[j]] = [alternativas[j], alternativas[i]]; 
+        }
+        const novaLista = alternativas
+        return novaLista
+    }
+
     useEffect(() => {
-        setOpcoes(palavras(resposta));
+        setOpcoes(embaralharAltern(opcoes));
       }, []);
 
     return<>

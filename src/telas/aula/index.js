@@ -6,7 +6,9 @@ import { auth } from '../../config/firebase';
 
 import AulaConcluida from '../../components/aula/AulaConcluida';
 import AvançarBarra from '../../components/aula/AvançarBarra';
+import ModalConfirmacao from '../../components/modulos/modal';
 import GameOver from '../../components/aula/GameOver';
+import Informativo from '../../components/aula/telas/telaInformativo';
 import DuasEscolha from '../../components/aula/telas/telaDuasAlter';
 import MultiplaAlternativas from '../../components/aula/telas/telaMultipla';
 import { PegarFrequencia, AumentarBarra, PegarAula } from '../../servicos/firestore';
@@ -28,10 +30,15 @@ export default function Aula ({navigation, route}){
 
     const [opcoes, setOpcoes] = useState([])
     const [opcoesSelecionadas, setOpcoesSelecionadas] = useState([])
-    const [ponto, setPonto] = useState(false)
+    const [ponto, setPonto] = useState('')
     const [vida, setVida] = useState(3)
     const [modalVisivel, setModalVisivel] = useState(false)
+    const [modalSair, setModalSair] = useState(false)
 
+
+    const AbrirModal = () => {
+       setModalSair(true)
+     }
 
     const AvancarLicao = () => {
         setBotaoDuasEscolha(null),
@@ -41,7 +48,7 @@ export default function Aula ({navigation, route}){
     }
 
     useEffect(() => {
-        PegarAula(conteudos, setConteudos);
+        PegarAula(conteudos, setConteudos, id_modulo);
       }, []);
 
       useEffect(() => {
@@ -55,7 +62,7 @@ export default function Aula ({navigation, route}){
     return <>
         <SafeAreaView style={style.safeArea}>
             <View style={{flexDirection: "row"}}>
-                <TouchableOpacity onPress={() => navigation.navigate('Modulos')}>
+                <TouchableOpacity onPress={() => AbrirModal()}>
                     <Text style={{fontSize:40, color: 'white'}}>{"<-"}</Text>
                 </TouchableOpacity>
                 <Progress.Bar progress={score} width={300} height={20}/>
@@ -65,30 +72,29 @@ export default function Aula ({navigation, route}){
             {conteudos.map((conteudo, index)=> {
                 if(index === licao) {
                     switch (conteudo.tipo) {
-                        case 1:
+                        
+                        case "Pergunta":
                             return (
                                 <MultiplaAlternativas
                                 key={index}
                                 vel={vel}
                                 urlvideo={conteudo.video}
                                 resposta={conteudo.resposta}
-                                opcoes={opcoes}
+                                opcoes={conteudo.alternativas}
                                 opcoesSelecionadas={opcoesSelecionadas}
                                 setOpcoes={setOpcoes}
                                 setOpcoesSelecionadas={setOpcoesSelecionadas}
                                 ></MultiplaAlternativas>
                             )
-                        case 2:
+                        case 'Informativo':
                             return (
-                                <DuasEscolha
+                                <Informativo
                                 key={index}
-                                vel = {vel}
+                                vel={vel}
                                 urlvideo={conteudo.video}
-                                pergunta={conteudo.pergunta}
-                                botaoDuasEscolha={botaoDuasEscolha}
-                                setBotao={setBotaoDuasEscolha}
-                                ></DuasEscolha>
-                            )
+                                conteudo={conteudo.conteudo}
+                                ></Informativo>
+                            )                          
                     }
                 } else {
                     return null;
@@ -142,6 +148,14 @@ export default function Aula ({navigation, route}){
                         />
                     )}
             </View>
+            {modalSair?(
+                <ModalConfirmacao
+                    texto={"Tem certeza de que deseja sair?"}
+                    modalVisivel={modalSair}
+                    onClose={() => setModalSair(false)}
+                    tela={() => navigation.navigate("Modulo")}
+                />
+            ):null}
         </SafeAreaView>
     </>    
 }
