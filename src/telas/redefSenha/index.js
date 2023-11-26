@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, TouchableOpacity, Text, CommonActions } from "react-native";
+import { View, TouchableOpacity, Text, CommonActions, SafeAreaView } from "react-native";
 import { EntradaTexto } from "../../components/EntradaTexto";
 import { redefinirSenha } from "../../servicos/requisicoes";
 import { auth } from "../../config/firebase";
@@ -28,18 +28,20 @@ export default function RedefSenha({navigation}) {
     }
 
     return (
-        <View>
-            <EntradaTexto
-                label="E-mail"
-                value={email}
-                onChangeText={texto => setEmail(texto)}
-                error={statusError == 'email'}
-                messageError={mensagemError}
-            />
-            
-            <TouchableOpacity onPress={() => redefinicaoSenha()}>
-            <Text>Redefinir senha</Text>
-            </TouchableOpacity>
-        </View>
+        <SafeAreaView style={{flex: 1, paddingTop: Platform.OS === 'android' ? 40 : 25}}>
+            <View>
+                <EntradaTexto
+                    label="E-mail"
+                    value={email}
+                    onChangeText={texto => setEmail(texto)}
+                    error={statusError == 'email'}
+                    messageError={mensagemError}
+                />
+                
+                <TouchableOpacity onPress={() => redefinicaoSenha()}>
+                <Text>Redefinir senha</Text>
+                </TouchableOpacity>
+            </View>
+        </SafeAreaView>
     )
 }

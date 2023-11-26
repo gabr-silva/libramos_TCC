@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs, orderBy, query, setDoc, updateDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, orderBy, query, setDoc, updateDoc, writeBatch } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { sub } from "date-fns";
 
@@ -46,24 +46,22 @@ export async function CriarModulos(usuario){
 
         const querySnapshot = await getDocs(moduloColecaoRef);
 
-        //forEach = repete sobre cada modulo da lista o codigo
-        querySnapshot.forEach(async (modulo) => {
-            const moduloID = modulo.id //armazena o id do modulo
-
-            const moduloDocRef = doc(usuarioDocRef, "modulos", moduloID); //cria uma nova referencia ao documento modulo dentro do documento do usuario
+        const batch = writeBatch(db);
+            for (const modulo of querySnapshot.docs) {
+            const moduloID = modulo.id;
+            const moduloDocRef = doc(usuarioDocRef, "modulos", moduloID);
             const moduloDocSnapshot = await getDoc(moduloDocRef);
-    
-            //exist() verifica se já existe o modulo no documento do usuário, se não existir cria
+
             if (!moduloDocSnapshot.exists()) {
-                // O módulo ainda não foi adicionado, então adicionamos agora
-                await setDoc(moduloDocRef, {
+                batch.set(moduloDocRef, {
                     id: moduloID,
                     aulas_concluida: 0
                 });
 
-                modulosAdicionados.push(moduloID) // rastreia quais modulos foram adicionados
+                modulosAdicionados.push(moduloID);
             }
-          });
+            }
+            await batch.commit();
     }catch(error){
         console.log(error)
         return "erro"
@@ -216,8 +214,23 @@ export async function AumentarBarra(usuario, modulo_id) {
     }
 }
 
-export async function PegarAula(matrizTeste, setMatriz) {
-    const dados = {
+export async function PegarAula(setXpBarra, setMatriz, idModulo) {
+    try {
+        const moduloIdRef = doc(db, "modulos", idModulo)
+        //const aulasRef = collection(moduloIdRef, 'aula_1')
+        const aulaQuery = query(collection(moduloIdRef, "aula_1"), orderBy('nome', 'asc'))
+        const conteudoAula = await getDocs(aulaQuery);
+        setXpBarra(conteudoAula.size)
+
+        conteudoAula.forEach(doc => {
+            setMatriz((prevMatriz) => [...prevMatriz, doc.data()]);
+        })
+
+    } catch (error) {
+        console.log(error);
+    }
+    
+    /*const dados = {
         video: 'https://firebasestorage.googleapis.com/v0/b/libramos-teste.appspot.com/o/Libras%20-%20Qual%20seu%20nome_(360P)%20(1).mp4?alt=media&token=95c12691-2c72-4574-a75c-9332e8a6854b',
         pergunta: 'Qual o seu nome',
         resposta: 'sim',
@@ -233,5 +246,5 @@ export async function PegarAula(matrizTeste, setMatriz) {
         tipo: 1,
     }
 
-    setMatriz((prevMatriz) => [...prevMatriz, dados2]);
+    setMatriz((prevMatriz) => [...prevMatriz, dados2]);*/
 }

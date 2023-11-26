@@ -29,12 +29,12 @@ export default function DuasEscolha ({vel, urlvideo, pergunta, botaoDuasEscolha,
                 rate={vel} //rate para acelerar e diminuir velocidade do video
             />
             <View style={style.alternativas}> 
-                <TouchableOpacity onPress={()=> clicarBotao('sim')} 
-                style={[botaoDuasEscolha == 'sim' ? style.selecionado : style.botao]}>
+                <TouchableOpacity onPress={()=> clicarBotao(true)} 
+                style={[botaoDuasEscolha == true ? style.selecionado : style.botao]}>
                     <Text>Sim</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => clicarBotao('nao')} 
-                style={[botaoDuasEscolha == 'nao' ? style.selecionado : style.botao]}>
+                <TouchableOpacity onPress={() => clicarBotao(false)} 
+                style={[botaoDuasEscolha == false ? style.selecionado : style.botao]}>
                     <Text>Nao</Text>
                 </TouchableOpacity>
             </View>

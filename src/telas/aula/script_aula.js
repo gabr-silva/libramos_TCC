@@ -1,11 +1,13 @@
 //Função de verificar resposta
-export const pontuacao = (score, setScore, tipo, resposta,setPonto, vida,  setVida, opcoesSelecionadas, botaoDuasEscolha)=>{    
+export const pontuacao = (score, setScore, tipo, resposta, setPonto, vida,  setVida, opcoesSelecionadas, botaoDuasEscolha, xpBarra)=>{    
 
+    const xp = 1 / xpBarra
+    console.log(xp);
     switch (tipo) {
-        case 1:
+        case "Pergunta":
             const palavraResposta = opcoesSelecionadas.join(' ')
             if (palavraResposta === resposta) {
-                setScore(score + 0.1);
+                setScore(score + xp);
                 setPonto('Correto')
            } else {
                setPonto('Errado')
@@ -14,13 +16,16 @@ export const pontuacao = (score, setScore, tipo, resposta,setPonto, vida,  setVi
             break;
         case 2:
             if (botaoDuasEscolha === resposta) {
-                setScore(score + 0.1);
+                setScore(score + xp);
                 setPonto('Correto')
            } else {
                setPonto('Errado')
                setVida(vida - 1)
            } 
             break;
+        case 'Informativo':
+            setScore(score + 0.1);
+            setPonto('Avançar')
     }  
 };
 
@@ -40,15 +45,3 @@ export const cameraLenta = (vel,  setcor, setVel)=>{
 /*Função que fara a coleta de palavras em embaralhar a sua ordem em um Array
     Obs:Mudar futuramente para a coletar no BD a palavra que contem resposta e outras aleatórias
 */
-export const palavras = (palavraCorreta) => {
-
-    listaPalavra = ["ola", "tchau" , "prazer", "alo", "tudo bem?", "até mais"]
-
-    for (let i = listaPalavra.length - 1; i > 0; i--) { 
-        const j = Math.floor(Math.random() * (i + 1)); 
-        [listaPalavra[i], listaPalavra[j]] = [listaPalavra[j], listaPalavra[i]]; 
-    }
-    const novaLista = listaPalavra.slice(0,3)
-    const campoAlternativa = [...novaLista, palavraCorreta]
-    return campoAlternativa
-}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import { Alert, Keyboard, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import * as Progress from 'react-native-progress';
 import { Alerta } from "../../components/Alerta";
 import { EntradaTexto } from "../../components/EntradaTexto";
@@ -12,7 +12,7 @@ export default function Cadastro({navigation}) {
   const [userName, setUserName] = useState('')
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-  const [forcaSenha, setForcaSenha] = useState(0) 
+  const [forcaSenha, setForcaSenha] = useState(0)
   const [confirmarSenha, setConfirmarSenha] = useState('');
   const [statusError, setStatusError] = useState('')
   const [mensagemError, setMensagemError] = useState('')
@@ -144,7 +144,7 @@ const corBarra =(forcaSenha) => {
           error={statusError == 'nome'}
           messageError={mensagemError}
         />
-        <EntradaTexto      
+        <EntradaTexto
           label="Sobrenome"
           value={Sobrenome}
           onChangeText={texto => setSobrenome(texto)}
