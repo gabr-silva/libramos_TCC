@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import { Image, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import * as Progress from 'react-native-progress';
 
 import { auth } from '../../config/firebase';
@@ -9,9 +9,12 @@ import AvançarBarra from '../../components/aula/AvançarBarra';
 import GameOver from '../../components/aula/GameOver';
 import DuasEscolha from '../../components/aula/telas/telaDuasAlter';
 import MultiplaAlternativas from '../../components/aula/telas/telaMultipla';
-import { PegarFrequencia, AumentarBarra, PegarAula } from '../../servicos/firestore';
+import { AumentarBarra, PegarAula, PegarFrequencia } from '../../servicos/firestore';
 import { cameraLenta, pontuacao } from './script_aula';
 import style from './style_aula';
+
+import CoracaoIcone from '../../../assets/img/icone-coracao.png';
+import XIcone from '../../../assets/img/icone-x.png';
 
 export default function Aula ({navigation, route}){
 
@@ -19,7 +22,7 @@ export default function Aula ({navigation, route}){
     const {id_modulo} = route.params
     const [score, setScore] = useState(0);
     const [vel, setVel] = useState(1);
-    const [cor, setCor] = useState('blue');
+    const [cor, setCor] = useState('#45aaf2');
     const [licao, setLicao] = useState(0);
 
     const [conteudos, setConteudos] = useState ([])
@@ -56,10 +59,24 @@ export default function Aula ({navigation, route}){
         <SafeAreaView style={style.safeArea}>
             <View style={{flexDirection: "row"}}>
                 <TouchableOpacity onPress={() => navigation.navigate('Modulos')}>
-                    <Text style={{fontSize:40, color: 'white'}}>{"<-"}</Text>
+                    <Image source={XIcone} style={style.iconeX} />
                 </TouchableOpacity>
-                <Progress.Bar progress={score} width={300} height={20}/>
-                <Text style={{backgroundColor: 'pink', fontSize: 20}}>{vida}</Text>
+                <View style={style.barraProgresso}>
+                <Progress.Bar
+                progress={score}
+                width={285}
+                height={10}
+                unfilledColor='#fff'
+                borderRadius={20}
+                borderWidth={1}
+                borderColor='#d2dae2'
+                color="#45aaf2" // Cor da barra de progresso
+                />
+                </View>
+                <View style={{flexDirection: 'column',}}>
+                    <Image source={CoracaoIcone} style={style.iconeCoracao} />
+                    <Text style={style.textoVidas}>{vida}</Text>
+                </View>
             </View>
 
             {conteudos.map((conteudo, index)=> {

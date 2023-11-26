@@ -1,7 +1,6 @@
+import { ResizeMode, Video } from 'expo-av';
 import React from 'react';
-import { Text, TouchableOpacity, View} from 'react-native';
-
-import {ResizeMode, Video } from 'expo-av';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 export default function DuasEscolha ({vel, urlvideo, pergunta, botaoDuasEscolha, setBotao}){
 
@@ -15,8 +14,8 @@ export default function DuasEscolha ({vel, urlvideo, pergunta, botaoDuasEscolha,
         }
     }
 
-    return <>
-        <View>
+    return (
+        <View style={style.container}>
             <Text style={style.texto}>Esse sinal é o "{pergunta} ?"</Text>
             {/* função de video */}
             <Video
@@ -24,9 +23,9 @@ export default function DuasEscolha ({vel, urlvideo, pergunta, botaoDuasEscolha,
                 source={{ uri:  urlvideo}}
                 resizeMode={ResizeMode.CONTAIN}
                 style={style.video}
-                shouldPlay = {true}
-                isLooping = {true}
-                isMuted = {false}
+                shouldPlay={true}
+                isLooping={true}
+                isMuted={false}
                 rate={vel} //rate para acelerar e diminuir velocidade do video
             />
             <View style={style.alternativas}> 
@@ -40,13 +39,16 @@ export default function DuasEscolha ({vel, urlvideo, pergunta, botaoDuasEscolha,
                 </TouchableOpacity>
             </View>
         </View>                
-    </>
+    );
 }
 
 import { StyleSheet } from "react-native";
 
-
 export const style = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff', 
+    },
     texto: {
         textAlign: 'center'
     },
@@ -79,5 +81,5 @@ export const style = StyleSheet.create({
         borderRadius: 50,
         alignItems: 'center',
     }
-    
 });
+

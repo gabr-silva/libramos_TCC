@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function AvançarBarra({ modalVisivel, onClose, ponto ,avançarLicao }){
     return (
@@ -9,11 +9,9 @@ export default function AvançarBarra({ modalVisivel, onClose, ponto ,avançarLi
             visible={modalVisivel}
             onRequestClose={onClose}>
                 <View style={style.Container}>            
-                    {/* Texto */}
                     <Text style={style.Texto}>
                         {ponto}
                     </Text>
-                    {/* Botão */}
                     <TouchableOpacity onPress={() =>{avançarLicao(), onClose()}}>
                         <Text style={style.BotaoFechar}>{"->"}</Text>
                     </TouchableOpacity>
@@ -22,23 +20,25 @@ export default function AvançarBarra({ modalVisivel, onClose, ponto ,avançarLi
 };
 
 const style = StyleSheet.create({
-    Container:{
+    Container: {
         flexDirection: 'row',
-        backgroundColor: '#303049',
+        backgroundColor: 'red', // Fundo transparente
         width: 342,
         height: 70,
         top: 600,
         left: 9,
         borderRadius: 30,
         alignItems: 'center',
-        textAlign: 'center'
+        textAlign: 'center',
     },
-    Texto:{
+    Texto: {
         fontSize: 32,
         textAlign: 'center',
+        color: '#3498db', // Cor do texto (azul)
     },
     BotaoFechar: {
         marginStart: 20,
-        fontSize: 50
+        fontSize: 50,
+        color: '#3498db', // Cor do botão de fechar (azul)
     },
 })

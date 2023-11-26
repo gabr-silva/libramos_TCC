@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet} from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import { palavras } from '../../../telas/aula/script_aula';
 import BotaoResposta from '../../Botaoresposta';
 
-import {ResizeMode, Video } from 'expo-av';
+import { ResizeMode, Video } from 'expo-av';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function MultiplaAlternativas({urlvideo, vel, resposta, opcoes, opcoesSelecionadas, setOpcoes, setOpcoesSelecionadas}) {
 
@@ -14,53 +15,58 @@ export default function MultiplaAlternativas({urlvideo, vel, resposta, opcoes, o
       }, []);
 
     return<>
+        <SafeAreaView style={style.container}>
+            <View>
+                <Text>O que significa esse sinal?</Text>
+                {/* função de video */}
+                <Video
+                    ref={video}
+                    source={{ uri:  urlvideo}}
+                    resizeMode={ResizeMode.CONTAIN}
+                    style={style.video}
+                    shouldPlay = {true}
+                    isLooping = {true}
+                    isMuted = {true}
+                    rate={vel}
+                />
     
-        <View>
-            <Text>O que significa esse sinal?</Text>
-              {/* função de video */}
-            <Video
-                  ref={video}
-                  source={{ uri:  urlvideo}}
-                  resizeMode={ResizeMode.CONTAIN}
-                  style={style.video}
-                  shouldPlay = {true}
-                  isLooping = {true}
-                  isMuted = {true}
-                  rate={vel}
-            />
-  
-  
-            {/*campo onde fica o testo que o usuario clicou*/}
-            <View style={style.selecaoOpcao}>
-                <Text>{opcoesSelecionadas.join(' ')}</Text>
+    
+                {/*campo onde fica o texto que o usuario clicou*/}
+                <View style={style.selecaoOpcao}>
+                    <Text>{opcoesSelecionadas.join(' ')}</Text>
+                </View>
+
+                {/*Campos onde fica as alternativas */}
+                <View style={style.footer}>
+                    <BotaoResposta
+                    escolha={opcoes[0]}
+                    alternativa={opcoesSelecionadas}
+                    setAlternativa={setOpcoesSelecionadas}/>
+
+                    <BotaoResposta
+                    escolha={opcoes[1]}
+                    alternativa={opcoesSelecionadas}
+                    setAlternativa={setOpcoesSelecionadas}/>
+                </View>
+                <View style={style.footer}>
+                    <BotaoResposta escolha={opcoes[2]}
+                    alternativa={opcoesSelecionadas}
+                    setAlternativa={setOpcoesSelecionadas}/>
+
+                    <BotaoResposta escolha={opcoes[3]}
+                    alternativa={opcoesSelecionadas}
+                    setAlternativa={setOpcoesSelecionadas}/>
+                </View>            
             </View>
-
-            {/*Campos onde fica as alternativas */}
-            <View style={style.footer}>
-                <BotaoResposta
-                escolha={opcoes[0]}
-                alternativa={opcoesSelecionadas}
-                setAlternativa={setOpcoesSelecionadas}/>
-
-                <BotaoResposta
-                escolha={opcoes[1]}
-                alternativa={opcoesSelecionadas}
-                setAlternativa={setOpcoesSelecionadas}/>
-            </View>
-            <View style={style.footer}>
-                <BotaoResposta escolha={opcoes[2]}
-                alternativa={opcoesSelecionadas}
-                setAlternativa={setOpcoesSelecionadas}/>
-
-                <BotaoResposta escolha={opcoes[3]}
-                alternativa={opcoesSelecionadas}
-                setAlternativa={setOpcoesSelecionadas}/>
-            </View>            
-        </View>
-    </>
+        </SafeAreaView>
+        </>
 }
 
 export const style = StyleSheet.create({
+    container: {
+        backgroundColor: "#fff",
+    },
+
     texto: {
         textAlign: 'center'
     },

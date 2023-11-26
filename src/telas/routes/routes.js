@@ -4,12 +4,14 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { Image, View } from 'react-native';
 
+//telas de navegação
 import Cadastro from '../Cadastro';
 import Dicionario from '../Dicionario/index';
 import Loja from '../Loja';
 import Perfil from '../Perfil/index';
 import Ranking from '../Ranking/index';
 import Aula from '../aula/index';
+import Ensino from '../ensino/index';
 import Inicio from '../inicial';
 import Login from '../login';
 import Menu from '../modulos/index';
@@ -119,22 +121,23 @@ function ModuloTabs() {
       />
     </Tab.Navigator>
   );
+  }
+  
+  function rotas() {
+    return (
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Inicio" component={Inicio} options={{ headerShown: false }}/>
+          <Stack.Screen name="Cadastro" component={Cadastro} options={{ headerShown: false }}/>
+          <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}/>
+          <Stack.Screen name="RedefSenha" component={RedefSenha} options={{ headerShown: false }}/>
+          <Stack.Screen name="Modulo" component={ModuloTabs} options={{ headerShown: false }}/>
+          <Stack.Screen name="Aula" component={Aula} options={{ headerShown: false }}/>
+          <Stack.Screen name="Ensino" component={Ensino} options={{headerShown: false}}/>
+          <Stack.Screen name="Perfil" component={Perfil} options={{ headerShown: false }}/>
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
 }
 
-function rotas() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Inicio" component={Inicio} options={{ headerShown: false }} />
-        <Stack.Screen name="Cadastro" component={Cadastro} options={{ headerShown: false }} />
-        <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
-        <Stack.Screen name="RedefSenha" component={RedefSenha} options={{ headerShown: false }} />
-        <Stack.Screen name="Modulo" component={ModuloTabs} options={{ headerShown: false }} />
-        <Stack.Screen name="Aula" component={Aula} options={{ headerShown: false }} />
-        <Stack.Screen name="Perfil" component={Perfil} options={{ headerShown: false }} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-}
-
-export default rotas;
+export default rotas
