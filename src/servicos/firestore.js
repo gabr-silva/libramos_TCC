@@ -214,12 +214,13 @@ export async function AumentarBarra(usuario, modulo_id) {
     }
 }
 
-export async function PegarAula(matrizTeste, setMatriz, idModulo) {
+export async function PegarAula(setXpBarra, setMatriz, idModulo) {
     try {
         const moduloIdRef = doc(db, "modulos", idModulo)
         //const aulasRef = collection(moduloIdRef, 'aula_1')
         const aulaQuery = query(collection(moduloIdRef, "aula_1"), orderBy('nome', 'asc'))
         const conteudoAula = await getDocs(aulaQuery);
+        setXpBarra(conteudoAula.size)
 
         conteudoAula.forEach(doc => {
             setMatriz((prevMatriz) => [...prevMatriz, doc.data()]);

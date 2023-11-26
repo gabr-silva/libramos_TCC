@@ -1,11 +1,13 @@
 //Função de verificar resposta
-export const pontuacao = (score, setScore, tipo, resposta, setPonto, vida,  setVida, opcoesSelecionadas, botaoDuasEscolha)=>{    
+export const pontuacao = (score, setScore, tipo, resposta, setPonto, vida,  setVida, opcoesSelecionadas, botaoDuasEscolha, xpBarra)=>{    
 
+    const xp = 1 / xpBarra
+    console.log(xp);
     switch (tipo) {
         case "Pergunta":
             const palavraResposta = opcoesSelecionadas.join(' ')
             if (palavraResposta === resposta) {
-                setScore(score + 0.1);
+                setScore(score + xp);
                 setPonto('Correto')
            } else {
                setPonto('Errado')
@@ -14,7 +16,7 @@ export const pontuacao = (score, setScore, tipo, resposta, setPonto, vida,  setV
             break;
         case 2:
             if (botaoDuasEscolha === resposta) {
-                setScore(score + 0.1);
+                setScore(score + xp);
                 setPonto('Correto')
            } else {
                setPonto('Errado')

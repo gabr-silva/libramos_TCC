@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TouchableOpacity, View} from 'react-native';
+import { Text, View, StyleSheet} from 'react-native';
 
 import {ResizeMode, Video } from 'expo-av';
 
@@ -24,9 +24,6 @@ export default function Informativo ({vel, urlvideo, conteudo,}){
         </View>                
     </>
 }
-
-import { StyleSheet } from "react-native";
-
 
 export const style = StyleSheet.create({
     texto: {

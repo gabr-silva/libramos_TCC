@@ -20,6 +20,7 @@ export default function Aula ({navigation, route}){
     const usuario = auth.currentUser;
     const {id_modulo} = route.params
     const [score, setScore] = useState(0);
+    const [xpBarra, setXpBarra] = useState(0)
     const [vel, setVel] = useState(1);
     const [cor, setCor] = useState('blue');
     const [licao, setLicao] = useState(0);
@@ -35,7 +36,6 @@ export default function Aula ({navigation, route}){
     const [modalVisivel, setModalVisivel] = useState(false)
     const [modalSair, setModalSair] = useState(false)
 
-
     const AbrirModal = () => {
        setModalSair(true)
      }
@@ -48,7 +48,7 @@ export default function Aula ({navigation, route}){
     }
 
     useEffect(() => {
-        PegarAula(conteudos, setConteudos, id_modulo);
+        PegarAula(setXpBarra, setConteudos, id_modulo);
       }, []);
 
       useEffect(() => {
@@ -91,7 +91,7 @@ export default function Aula ({navigation, route}){
                                 <Informativo
                                 key={index}
                                 vel={vel}
-                                urlvideo={conteudo.video}
+                                urlvideo={"https://drive.google.com/uc?id=15HD1VaJ9csa6QQXCvq8aaJgFuwGAM3Ti"}
                                 conteudo={conteudo.conteudo}
                                 ></Informativo>
                             )                          
@@ -119,7 +119,8 @@ export default function Aula ({navigation, route}){
                         vida,
                         setVida,
                         opcoesSelecionadas,
-                        botaoDuasEscolha
+                        botaoDuasEscolha,
+                        xpBarra
                     );} setModalVisivel(!modalVisivel)}}
                 >
                     <Text style={style.btnConfirmar}>Confirmar</Text>
