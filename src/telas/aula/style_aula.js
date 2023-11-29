@@ -26,8 +26,12 @@ const style = StyleSheet.create({
         left: 0,
         right: 0,
     },
-    btnConfirmar: {
-        color: "blue"
+    btnAtivo: {
+        color: "green"
+    },
+    btnInativo: {
+        color: 'red',
+        opacity: 0.5
     },
     botaoVel: {
         padding: 10,

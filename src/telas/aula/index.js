@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState, useCallback } from 'react';
+import { SafeAreaView, Text, TouchableOpacity, View, BackHandler } from 'react-native';
 import * as Progress from 'react-native-progress';
 
 import { auth } from '../../config/firebase';
@@ -31,6 +31,7 @@ export default function Aula ({navigation, route}){
 
     const [opcoes, setOpcoes] = useState([])
     const [opcoesSelecionadas, setOpcoesSelecionadas] = useState([])
+    const [botaoConfirmar, setBotaoConfirmar] = useState()
     const [ponto, setPonto] = useState('')
     const [vida, setVida] = useState(3)
     const [modalVisivel, setModalVisivel] = useState(false)
@@ -40,24 +41,46 @@ export default function Aula ({navigation, route}){
        setModalSair(true)
      }
 
-    const AvancarLicao = () => {
+    const AvancarLicao = useCallback(() => {
         setBotaoDuasEscolha(null),
         setOpcoes([])
         setOpcoesSelecionadas([])
+        setBotaoConfirmar(false)
         setLicao((prevIndex) => (prevIndex + 1) % conteudos.length)
-    }
+    })
 
     useEffect(() => {
+        const onPressVoltar = () => {
+            if(modalSair){
+                setModalSair(false)
+            } else {
+                setModalSair(true)
+            }    
+        }; 
+        
         PegarAula(setXpBarra, setConteudos, id_modulo);
-      }, []);
 
-      useEffect(() => {
-        // Chame a função PegarFrequencia quando o score for alterado
-        if (vida >= 0 && Math.abs(score - 1) < 0.0001) {
-          PegarFrequencia(usuario, 2);
-          AumentarBarra(usuario, id_modulo)
+        BackHandler.addEventListener('hardwareBackPress', onPressVoltar)
+
+        return () => {BackHandler.removeEventListener('hardwareBackPress', onPressVoltar)}
+    }, []);
+
+    useEffect(() => {
+        if (opcoesSelecionadas.length !==0 || botaoDuasEscolha !== null || conteudos[licao].tipo === 'Informativo') {
+            setBotaoConfirmar(true)
         }
-      }, [score, vida]);
+        else {
+            setBotaoConfirmar(false)
+        }
+    }, [opcoesSelecionadas, botaoDuasEscolha])
+
+    useEffect(() => {
+    // Chame a função PegarFrequencia quando o score for alterado
+    if (vida >= 0 && Math.abs(score - 1) < 0.0001) {
+        PegarFrequencia(usuario, 2);
+        AumentarBarra(usuario, id_modulo)
+    }
+    }, [score, vida]);
 
     return <>
         <SafeAreaView style={style.safeArea}>
@@ -72,13 +95,12 @@ export default function Aula ({navigation, route}){
             {conteudos.map((conteudo, index)=> {
                 if(index === licao) {
                     switch (conteudo.tipo) {
-                        
-                        case "Pergunta":
+                        case "pergunta_multipla":
                             return (
                                 <MultiplaAlternativas
                                 key={index}
                                 vel={vel}
-                                urlvideo={conteudo.video}
+                                urlvideo={'https://libramos-teste.b-cdn.net/teste_letra_a.mp4'}
                                 resposta={conteudo.resposta}
                                 opcoes={conteudo.alternativas}
                                 opcoesSelecionadas={opcoesSelecionadas}
@@ -86,12 +108,23 @@ export default function Aula ({navigation, route}){
                                 setOpcoesSelecionadas={setOpcoesSelecionadas}
                                 ></MultiplaAlternativas>
                             )
+                        case "pergunta_sim_nao":
+                            return (
+                                <DuasEscolha 
+                                key={index}
+                                vel={vel}
+                                urlvideo={"https://libramos-teste.b-cdn.net/letra_a_pb.mp4"}
+                                pergunta={conteudo.conteudo}
+                                botaoDuasEscolha={botaoDuasEscolha}
+                                setBotao={setBotaoDuasEscolha}
+                                />
+                            )
                         case 'Informativo':
                             return (
                                 <Informativo
                                 key={index}
                                 vel={vel}
-                                urlvideo={"https://drive.google.com/uc?id=15HD1VaJ9csa6QQXCvq8aaJgFuwGAM3Ti"}
+                                urlvideo={"https://libramos-teste.b-cdn.net/letra_a_pb.mp4" }
                                 conteudo={conteudo.conteudo}
                                 ></Informativo>
                             )                          
@@ -122,8 +155,9 @@ export default function Aula ({navigation, route}){
                         botaoDuasEscolha,
                         xpBarra
                     );} setModalVisivel(!modalVisivel)}}
+                    disabled={!botaoConfirmar}
                 >
-                    <Text style={style.btnConfirmar}>Confirmar</Text>
+                    <Text style={botaoConfirmar ? style.btnAtivo : style.btnInativo}>Confirmar</Text>
                 </TouchableOpacity>
 
                 {/* Componente para verificar quantas vidas o usúario tem*/}
