@@ -57,22 +57,25 @@ export default function Aula ({navigation, route}){
                 setModalSair(true)
             }    
         }; 
-        
-        PegarAula(setXpBarra, setConteudos, id_modulo);
 
+        PegarAula(setXpBarra, setConteudos, id_modulo);
+    
         BackHandler.addEventListener('hardwareBackPress', onPressVoltar)
 
         return () => {BackHandler.removeEventListener('hardwareBackPress', onPressVoltar)}
     }, []);
 
     useEffect(() => {
-        if (opcoesSelecionadas.length !==0 || botaoDuasEscolha !== null || conteudos[licao].tipo === 'Informativo') {
-            setBotaoConfirmar(true)
+        if (
+            opcoesSelecionadas.length !== 0 ||
+            botaoDuasEscolha !== null ||
+            (conteudos.length > 0 && conteudos[licao] && conteudos[licao].tipo === 'Informativo')
+        ) {
+            setBotaoConfirmar(true);
+        } else {
+            setBotaoConfirmar(false);
         }
-        else {
-            setBotaoConfirmar(false)
-        }
-    }, [opcoesSelecionadas, botaoDuasEscolha])
+    }, [opcoesSelecionadas, botaoDuasEscolha, licao]);
 
     useEffect(() => {
     // Chame a função PegarFrequencia quando o score for alterado
