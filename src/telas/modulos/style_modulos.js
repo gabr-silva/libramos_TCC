@@ -4,15 +4,12 @@ const { width, height } = Dimensions.get('window');
 
 const style_modulo = StyleSheet.create({
     container: {
-        backgroundColor: "#fff",
+        backgroundColor: "red",
         flex: 1,
         justifyContent: 'center',
-        //alignItems: 'flex-start',
         width: width,
         height: height,
         flexDirection: 'row',
-        //position: 'relative',
-        //paddingHorizontal: 20,
     },
 
     topo: {
@@ -36,20 +33,27 @@ const style_modulo = StyleSheet.create({
 
     },
 
-    scrollViewContent: {
+    scrollViewContent1: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        //justifyContent: 'center',
-        //alignItems: 'center',
-        //paddingHorizontal: 10,
+        justifyContent: 'center',
+        //marginHorizontal: 55
+      },
+
+    scrollViewContent2: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+        marginHorizontal: 55
       },
     
       moduloContainer: {
-        margin: 5,
+        //margin: 5,
         justifyContent: 'space-evenly',
         //alignItems: 'center',
         flex: 1,
         flexDirection: 'row',
+        marginBottom: 10,
     },
     
 

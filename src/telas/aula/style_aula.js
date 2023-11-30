@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native";
 
-
 const style = StyleSheet.create({
     safeArea: {
         flex: 1,
@@ -50,7 +49,7 @@ const style = StyleSheet.create({
     pontuacao: {
         paddingVertical: 10,
         fontSize: 20,
-        color: 'white'
+        color: 'white',
         backgroundColor: "#4b7bec",
 
     },
@@ -66,7 +65,7 @@ const style = StyleSheet.create({
         right: 0,
     },
 
-    textoBotaoConfirmar: {
+    textoBotaoAtivo: {
         fontSize: 14,
         color: "#4B7BEC",
         marginTop: 5

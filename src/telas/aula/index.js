@@ -9,14 +9,16 @@ import AvançarBarra from '../../components/aula/AvançarBarra';
 import GameOver from '../../components/aula/GameOver';
 import Informativo from '../../components/aula/telas/telaInformativo';
 import MultiplaAlternativas from '../../components/aula/telas/telaMultipla';
-//import ModalConfirmacao from '../../components/modulos/modal';
+import ModalConfirmacao from '../../components/modulos/modal';
 import { AumentarBarra, PegarAula, PegarFrequencia } from '../../servicos/firestore';
 import { cameraLenta, pontuacao } from './script_aula';
 import style from './style_aula';
 
 import CoracaoIcone from '../../../assets/img/icone-coracao.png';
+import iconeSeta from '../../../assets/img/icone-seta.png';
 import XIcone from '../../../assets/img/icone-x.png';
 import iconeLento from '../../../assets/img/icone_lento.png';
+
 
 export default function Aula ({navigation, route}){
 
@@ -69,13 +71,16 @@ export default function Aula ({navigation, route}){
     }, []);
 
     useEffect(() => {
-        if (opcoesSelecionadas.length !==0 || botaoDuasEscolha !== null || conteudos[licao].tipo === 'Informativo') {
-            setBotaoConfirmar(true)
+        if (
+            opcoesSelecionadas.length !== 0 ||
+            botaoDuasEscolha !== null ||
+            (conteudos.length > 0 && conteudos[licao] && conteudos[licao].tipo === 'Informativo')
+        ) {
+            setBotaoConfirmar(true);
+        } else {
+            setBotaoConfirmar(false);
         }
-        else {
-            setBotaoConfirmar(false)
-        }
-    }, [opcoesSelecionadas, botaoDuasEscolha])
+    }, [opcoesSelecionadas, botaoDuasEscolha]);
 
     useEffect(() => {
     // Chame a função PegarFrequencia quando o score for alterado
@@ -83,7 +88,7 @@ export default function Aula ({navigation, route}){
         PegarFrequencia(usuario, 2);
         AumentarBarra(usuario, id_modulo)
     }
-    }, [score, vida]);
+    }, [score, vida])
 
     return <>
         <SafeAreaView style={style.safeArea}>
@@ -182,7 +187,11 @@ export default function Aula ({navigation, route}){
                     );} setModalVisivel(!modalVisivel)}}
                     disabled={!botaoConfirmar}
                 >
-                    {/*<Text style={botaoConfirmar ? style.btnAtivo : style.btnInativo}>Confirmar</Text> */}
+
+                    <View style={style.iconeConfirmarContainer}>
+                    <Image source={iconeSeta} style={style.iconeConfirmar} />
+                    </View>
+                    <Text style={botaoConfirmar ? style.textoBotaoAtivo : style.btnInativo}>Confirmar</Text>
 
                 </TouchableOpacity>
 
