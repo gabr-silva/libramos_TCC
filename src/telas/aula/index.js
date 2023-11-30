@@ -15,7 +15,9 @@ import { cameraLenta, pontuacao } from './script_aula';
 import style from './style_aula';
 
 import CoracaoIcone from '../../../assets/img/icone-coracao.png';
+import iconeSeta from '../../../assets/img/icone-seta.png';
 import XIcone from '../../../assets/img/icone-x.png';
+import iconeLento from '../../../assets/img/icone_lento.png';
 
 export default function Aula ({navigation, route}){
 
@@ -102,29 +104,36 @@ export default function Aula ({navigation, route}){
                                 setOpcoes={setOpcoes}
                                 setOpcoesSelecionadas={setOpcoesSelecionadas}
                                 ></MultiplaAlternativas>
-                            )
-                        case 'Informativo':
-                            return (
-                                <Informativo
-                                key={index}
-                                vel={vel}
-                                urlvideo={"https://drive.google.com/uc?id=15HD1VaJ9csa6QQXCvq8aaJgFuwGAM3Ti"}
-                                conteudo={conteudo.conteudo}
-                                ></Informativo>
-                            )                          
-                    }
+                                )
+                            case 'Informativo':
+                                return (
+                                    <Informativo
+                                    key={index}
+                                    vel={vel}
+                                    urlvideo={"https://drive.google.com/uc?id=15HD1VaJ9csa6QQXCvq8aaJgFuwGAM3Ti"}
+                                    conteudo={conteudo.conteudo}
+                                    ></Informativo>
+                                )
+                        }
                 } else {
                     return null;
                 }
             })}
             
-            <View style={style.conteinerCamLenta}>
+            <View style={style.containerCamLenta}>
                 <TouchableOpacity
-                    style={[style.botaoVel, {backgroundColor: cor}]}
                     onPress={() => cameraLenta(vel, setCor, setVel)} //função para diminuir a velocidade do video e mudar a cor do botao
+                    
                 >
-                    <Text style={style.botaoTexto}>cameraLenta</Text>
+  
+
+                    <View style={style.circuloIconeLento}>
+                    <Image source={iconeLento} style={style.iconeLento} />
+                    </View>
+                    <Text style={style.textoLento}>Velocidade</Text>
+
                 </TouchableOpacity>
+
                 <TouchableOpacity
                 onPress={() => {if (conteudos[licao]) {
                     pontuacao(
@@ -140,7 +149,11 @@ export default function Aula ({navigation, route}){
                         xpBarra
                     );} setModalVisivel(!modalVisivel)}}
                 >
-                    <Text style={style.btnConfirmar}>Confirmar</Text>
+
+                    <View style={style.iconeConfirmarContainer}>
+                    <Image source={iconeSeta} style={style.iconeConfirmar} />
+                    </View>
+                    <Text style={style.textoBotaoConfirmar}>Confirmar</Text>
                 </TouchableOpacity>
 
                 {/* Componente para verificar quantas vidas o usúario tem*/}

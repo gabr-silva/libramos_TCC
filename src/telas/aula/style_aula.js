@@ -32,20 +32,19 @@ const style = StyleSheet.create({
     iconeCoracao: {
         width: 30,
         height: 30,
+        bottom: 24,
         marginLeft: 310,
-        marginBottom: 25,
-        alignItems: 'flex-end',
-        justifyContent: 'flex-end',
         position: 'absolute'
     },
 
     textoVidas: {
         fontSize: 17,
         justifyContent: 'flex-end',
-        marginLeft: 319,
+        marginLeft: 320,
         marginTop: 25,
         fontWeight: 'bold',
-        color: '#408AED'
+        color: '#408AED',
+        bottom: 3
     },
 
     pontuacao: {
@@ -54,7 +53,7 @@ const style = StyleSheet.create({
         color: 'white'
     },
 
-    conteinerCamLenta: {
+    containerCamLenta: {
         position: 'absolute',
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -65,23 +64,86 @@ const style = StyleSheet.create({
         right: 0,
     },
 
-    btnConfirmar: {
-        color: "blue"
+    textoBotaoConfirmar: {
+        fontSize: 14,
+        color: "#4B7BEC",
+        marginTop: 5
+    },
+
+    iconeConfirmarContainer: {
+        width: 70,
+        height: 70,
+        borderRadius: 20,
+        borderColor: "transparent",
+        backgroundColor: "#4B7BEC",
+        borderWidth: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        elevation: 2,
+        marginTop: 18
+    },
+
+    iconeConfirmar: {
+            width: 40,
+            height: 40,
+            resizeMode: 'contain',
+            flex: 1
+    
     },
 
     botaoVel: {
         padding: 10,
         width: "25%",
         height: 50,
-        borderRadius: 5,
+        borderRadius: 20,
         marginHorizontal: 5,
         alignItems: 'center',
-        color: 'white'
+        backgroundColor: "#4b7bec",
     },
 
-    textoElemento: {
-        fontSize: 20
+    textoLento: {
+        fontSize: 14,
+        color: "#4B7BEC",
+        marginTop: 5
     },
+
+    iconeLento: {
+        width: 40,
+        height: 40,
+        resizeMode: 'contain',
+        flex: 1
+    },
+
+    circuloIconeLento: {
+        width: 70, 
+        height: 70,
+        borderRadius: 20,
+        borderColor: "#CBCCCE",
+        backgroundColor: "#fff",
+        borderWidth: 1,
+        alignItems: 'center',
+        elevation: 2,
+        justifyContent: 'center',
+      },
+
+    textoConteudo: {
+        fontSize: 25,
+        color: "red"
+    },
+
+    informativoVideoContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+
+      informativoVideo: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%', 
+        height: '100%', 
+      },
     
 });
 export default style; 

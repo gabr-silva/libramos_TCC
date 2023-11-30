@@ -8,7 +8,7 @@ export default function AvançarBarra({ modalVisivel, onClose, ponto ,avançarLi
             transparent={true}
             visible={modalVisivel}
             onRequestClose={onClose}>
-                <View style={style.Container}>            
+                <View style={style.Container}>
                     <Text style={style.Texto}>
                         {ponto}
                     </Text>
