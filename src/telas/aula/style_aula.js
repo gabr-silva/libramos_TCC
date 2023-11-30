@@ -51,6 +51,8 @@ const style = StyleSheet.create({
         paddingVertical: 10,
         fontSize: 20,
         color: 'white'
+        backgroundColor: "#4b7bec",
+
     },
 
     containerCamLenta: {
@@ -98,7 +100,6 @@ const style = StyleSheet.create({
         borderRadius: 20,
         marginHorizontal: 5,
         alignItems: 'center',
-        backgroundColor: "#4b7bec",
     },
 
     textoLento: {
@@ -146,4 +147,5 @@ const style = StyleSheet.create({
       },
     
 });
+
 export default style; 
