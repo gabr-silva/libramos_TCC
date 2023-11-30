@@ -129,7 +129,7 @@ export default function Aula ({navigation, route}){
                                 <MultiplaAlternativas
                                 key={index}
                                 vel={vel}
-                                urlvideo={'https://libramos-teste.b-cdn.net/teste_letra_a.mp4'}
+                                urlvideo={conteudo.video}
                                 resposta={conteudo.resposta}
                                 opcoes={conteudo.alternativas}
                                 opcoesSelecionadas={opcoesSelecionadas}
@@ -142,7 +142,7 @@ export default function Aula ({navigation, route}){
                                 <DuasEscolha 
                                 key={index}
                                 vel={vel}
-                                urlvideo={"https://libramos-teste.b-cdn.net/letra_a_pb.mp4"}
+                                urlvideo={conteudo.video}
                                 pergunta={conteudo.conteudo}
                                 botaoDuasEscolha={botaoDuasEscolha}
                                 setBotao={setBotaoDuasEscolha}
@@ -153,7 +153,7 @@ export default function Aula ({navigation, route}){
                                 <Informativo
                                 key={index}
                                 vel={vel}
-                                urlvideo={"https://libramos-teste.b-cdn.net/letra_a_pb.mp4" }
+                                urlvideo={conteudo.video}
                                 conteudo={conteudo.conteudo}
                                 ></Informativo>
                             )                          
