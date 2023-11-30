@@ -12,7 +12,7 @@ const Frequencia = ({frequencia}) => {
             style={style.fogo}
             source={require('../../../assets/fogo.png')}
           />
-          <Text>{frequencia}</Text>
+          <Text style={style.texto}>{frequencia}</Text>
         </View> 
         </>
     );
@@ -24,13 +24,18 @@ const style = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         top: 120,
-        left: 300,
+        left: 327,
         },
         
         fogo: {
-        width: width * 0.16, // Largura proporcional à largura da tela
-        height: width * 0.16, // Altura proporcional à largura da tela
-        }, 
+        width: width * 0.13, // Largura proporcional à largura da tela
+        height: width * 0.13, // Altura proporcional à largura da tela
+      }, 
+
+      texto: {
+        color: '#ff6348',
+        fontWeight: 'bold'
+      }
 })
 
 export default Frequencia

@@ -79,9 +79,10 @@ const Menu = ({navigation}) => {
           imagemPerfil={require('../../../assets/icon.png')}
           onPress={() => navigation.navigate('Perfil')}
         />
-        
       </View>
     
+      <Frequencia frequencia={frequencia} />
+
       <ScrollView>
             <View>
               {carregando ? (
@@ -90,7 +91,6 @@ const Menu = ({navigation}) => {
                 </View>
               ) : (
                 <>
-                  <Frequencia frequencia={frequencia} />
 
                   {/* Renderizar o primeiro módulo sozinho no centro */}
                   <View style={style_modulo.scrollViewContent1}>
@@ -126,7 +126,7 @@ const Menu = ({navigation}) => {
         
         {modalVisivel?(
           <ModalConfirmacao
-              texto={"Deseja ir para a aula"}
+              texto={"Deseja ir para a aula?"}
               modalVisivel={modalVisivel}
               onClose={() => {setModalVisivel(false)}}
               tela={() => navigation.navigate('Aula', {id_modulo: idModulo})}

@@ -47,15 +47,7 @@ const style_modulo = StyleSheet.create({
         marginHorizontal: 55
       },
     
-      moduloContainer: {
-        //margin: 5,
-        justifyContent: 'space-evenly',
-        //alignItems: 'center',
-        flex: 1,
-        flexDirection: 'row',
-        marginBottom: 10,
-    },
-    
+
 
     containerAnimacao:{
         flex: 1,
