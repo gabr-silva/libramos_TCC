@@ -11,6 +11,7 @@ export default function Informativo ({vel, urlvideo, conteudo,}){
         <View>
             <Text style={style.texto}>{conteudo}</Text>
             {/* função de video */}
+            <View style={style.videoContainer}>
             <Video
                 ref={video}
                 source={{ uri:  urlvideo}}
@@ -21,6 +22,7 @@ export default function Informativo ({vel, urlvideo, conteudo,}){
                 isMuted = {true}
                 rate={vel} //rate para acelerar e diminuir velocidade do video
             />
+            </View>
         </View>
     </>
 }
@@ -32,11 +34,18 @@ export const style = StyleSheet.create({
         marginLeft: 20,
     },
 
-    video: {
-        width: 300,
-        height: 200,
-        marginTop: 50,
+    videoContainer: {
+        width: 550,
+        height: 450,
         borderRadius: 10,
-        marginHorizontal: 50
+        overflow: 'hidden', // Certifique-se de que o conteúdo não ultrapasse as bordas do container
+        marginTop: 30,
+        alignSelf: 'center',
+        bottom: 25,
+    },
+
+    video: {
+        width: '100%', // Use '100%' para preencher todo o container
+        height: '100%',
     },
 });

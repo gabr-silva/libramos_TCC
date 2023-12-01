@@ -1,5 +1,8 @@
 import React from 'react';
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+import capivaraLagoa from '../../../assets/img/capivara-lagoa.png';
+import iconeSeta from '../../../assets/img/icone-seta.png';
 
 export default function AvançarBarra({ modalVisivel, onClose, ponto ,avançarLicao }){
     return (
@@ -13,7 +16,9 @@ export default function AvançarBarra({ modalVisivel, onClose, ponto ,avançarLi
                         {ponto}
                     </Text>
                     <TouchableOpacity onPress={() =>{avançarLicao(), onClose()}}>
-                        <Text style={style.BotaoFechar}>{"->"}</Text>
+                        <Image source={iconeSeta} style={style.imgSeta} />
+                        <Text style={style.BotaoFechar}>■</Text>
+                        <Image source={capivaraLagoa} style={style.imgCapivara} />
                     </TouchableOpacity>
                 </View>
             </Modal>);
@@ -22,23 +27,46 @@ export default function AvançarBarra({ modalVisivel, onClose, ponto ,avançarLi
 const style = StyleSheet.create({
     Container: {
         flexDirection: 'row',
-        backgroundColor: 'red', // Fundo transparente
-        width: 342,
-        height: 70,
-        top: 600,
+        backgroundColor: '#408AED', 
+        width: 365,
+        height: 75,
+        top: 640,
         left: 9,
         borderRadius: 30,
         alignItems: 'center',
         textAlign: 'center',
+        elevation: 5
     },
+
     Texto: {
-        fontSize: 32,
+        fontSize: 34,
         textAlign: 'center',
-        color: '#3498db', // Cor do texto (azul)
+        color: '#fff',
+        left: 110,
+        bottom: 3
     },
+
     BotaoFechar: {
         marginStart: 20,
         fontSize: 50,
-        color: '#3498db', // Cor do botão de fechar (azul)
+        color: 'transparent', // Cor do botão de fechar (azul)
+        left: 100
     },
+
+    imgCapivara: {
+        width: 60,
+        height: 60,
+        position: 'absolute',
+        bottom: 8,
+        right: 110
+    },
+
+    imgSeta: {
+        width: 50,
+        height: 50,
+        position: 'absolute',
+        bottom: 10,
+        left: 150,
+    },
+
 })

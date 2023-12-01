@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, BackHandler, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, BackHandler, Image, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import * as Progress from 'react-native-progress';
 
 import { auth } from '../../config/firebase';
@@ -218,7 +218,7 @@ export default function Aula ({navigation, route}){
                     <View style={style.iconeConfirmarContainer}>
                     <Image source={iconeSeta} style={style.iconeConfirmar} />
                     </View>
-                    <Text style={botaoConfirmar ? style.textoBotaoAtivo : style.btnInativo}>Confirmar</Text>
+                    <Text style={botaoConfirmar ? style.textoBotaoAtivo : style.btnInativo}>Continuar</Text>
 
                 </TouchableOpacity>
 

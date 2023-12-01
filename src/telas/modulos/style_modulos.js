@@ -96,8 +96,6 @@ const style_modulo = StyleSheet.create({
         width: 120,
         elevation: 2,
         textAlign: 'center',
-        borderWidth: 1,
-        borderColor: '#4AA4EE',
       }
 })
 

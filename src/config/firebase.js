@@ -26,6 +26,7 @@ const firebaseConfig = {
 };*/
 
 //banco da isa
+/*
 const firebaseConfig = {
     apiKey: "AIzaSyB-PwQjqA05kwdqEVwzhiy8slOfT1OVOQk",
     authDomain: "libramos-bd.firebaseapp.com",
@@ -35,9 +36,10 @@ const firebaseConfig = {
     appId: "1:1094313246508:web:26991f4712528ea005f689",
     measurementId: "G-2E4M0NSL3S"
 };
+*/
 
 //banco oficial
-/*const firebaseConfig = {
+const firebaseConfig = {
     apiKey: "AIzaSyBp1FkFOfNFmKs2x4pOg33sqkthwJ-RYas",
     authDomain: "libramos-teste.firebaseapp.com",
     projectId: "libramos-teste",
@@ -45,7 +47,7 @@ const firebaseConfig = {
     messagingSenderId: "647027211396",
     appId: "1:647027211396:web:2d817b62b288ec79e256d1",
     measurementId: "G-4QEMS2YHEK"
-};*/
+};
 
 const app = initializeApp(firebaseConfig);
 

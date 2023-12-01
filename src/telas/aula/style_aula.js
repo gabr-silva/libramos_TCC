@@ -79,9 +79,10 @@ const style = StyleSheet.create({
         backgroundColor: "#4B7BEC",
         borderWidth: 1,
         alignItems: 'center',
-        justifyContent: 'center',
         elevation: 2,
-        marginTop: 18
+        marginTop: 18,
+        padding: 16,
+
     },
 
     iconeConfirmar: {
@@ -104,7 +105,9 @@ const style = StyleSheet.create({
     textoLento: {
         fontSize: 14,
         color: "#4B7BEC",
-        marginTop: 5
+        marginTop: 5,
+        top: 8
+
     },
 
     iconeLento: {
@@ -124,6 +127,7 @@ const style = StyleSheet.create({
         alignItems: 'center',
         elevation: 2,
         justifyContent: 'center',
+        top: 8
       },
 
     textoConteudo: {
