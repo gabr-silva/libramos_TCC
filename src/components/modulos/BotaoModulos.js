@@ -28,7 +28,6 @@ const Modulo = ({nome, barra, imagemOrigem, onPress}) => {
 
   return (
     <View style={styles.container}>
-    <View style={styles.containerModulos}>
     <Text style={styles.textoNome}>{nome}</Text>
     <Svg style={styles.circunferencia} >
 
@@ -54,30 +53,22 @@ const Modulo = ({nome, barra, imagemOrigem, onPress}) => {
         
         </Svg>
         <BotaoImagem onPress={onPress} imagemOrigem={imagemOrigem} />
-        </View>
     </View>
 
   );
 };
 
+
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 75,
+    marginTop: 45,
     marginBottom: 10,
-    marginHorizontal: 7,
-
-  },
-
-  containerModulos: {
-    justifyContent: 'center',
-    alignItems: 'center',
     width: size,
     height: size,
-    //marginTop: 20,
-    //marginBottom: 25,
     marginHorizontal: 7,
+
   },
 
   circunferencia: {
@@ -109,7 +100,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     width: size,
-    marginBottom: 3
+    marginBottom: 3,
   }
 });
 

@@ -4,6 +4,7 @@ import { Image, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { auth } from "../../config/firebase";
 
 import AnimacaoCarregando from '../../../assets/AnimacaoCarregando.gif';
+import bandeiraInicio from '../../../assets/img/bandeira-inicio.png';
 
 import { Modulo } from "../../components/modulos/BotaoModulos";
 import BotaoPerfil from "../../components/modulos/BotaoPerfil";
@@ -79,15 +80,23 @@ const Menu = ({navigation}) => {
           imagemPerfil={require('../../../assets/icon.png')}
           onPress={() => navigation.navigate('Perfil')}
         />
+
+      <Frequencia frequencia={frequencia} />
+      
       </View>
     
-      <Frequencia frequencia={frequencia} />
 
-      <ScrollView>
-            <View>
+      <ScrollView style={style_modulo.scrollView}>
+
+            <View style={style_modulo.containerBandeira}>
+              <Image source={bandeiraInicio} style={style_modulo.imagemBandeira} />
+              <Text style={style_modulo.textoBandeira}>Básico 1</Text>
+            </View>
+
+            <View style={style_modulo.container}>
               {carregando ? (
                 <View style={style_modulo.containerAnimacao}>
-                  <Image source={AnimacaoCarregando} style={style_modulo.imagem} />
+                  <Image source={AnimacaoCarregando} style={style_modulo.imagemCarregando} />
                 </View>
               ) : (
                 <>

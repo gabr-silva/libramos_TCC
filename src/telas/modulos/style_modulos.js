@@ -4,40 +4,28 @@ const { width, height } = Dimensions.get('window');
 
 const style_modulo = StyleSheet.create({
     container: {
-        backgroundColor: "red",
-        flex: 1,
-        justifyContent: 'center',
-        width: width,
-        height: height,
-        flexDirection: 'row',
+        marginTop: 40,
+        marginBottom: 10,
     },
 
     topo: {
         flexDirection: 'row',
-        //justifyContent: 'flex-start',
-        //alignItems: 'auto',
         width: width,
         height: height - 850,
         backgroundColor: '#fff',
         elevation: 10,
         zIndex: 1,
-        //shadowOpacity: 0.8,
-        //borderBottomColor: "black",
-        //borderBottomWidth: 2
     },
 
     scrollView: {
         flex: 1,
-        //alignItems: 'center',
-        //justifyContent: 'center',
-
+        backgroundColor: '#F9F8FA'
     },
 
     scrollViewContent1: {
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'center',
-        //marginHorizontal: 55
       },
 
     scrollViewContent2: {
@@ -46,8 +34,6 @@ const style_modulo = StyleSheet.create({
         justifyContent: 'space-between',
         marginHorizontal: 55
       },
-    
-
 
     containerAnimacao:{
         flex: 1,
@@ -55,11 +41,20 @@ const style_modulo = StyleSheet.create({
         justifyContent: 'center'
     },
 
-    imagem: {
-        width: width,
-        height: height
+    imagemBandeira: {
+        width: 100,
+        height: 100,
     },
 
+    containerBandeira:{
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    imagemCarregando: {
+        width: width,
+        height: height,
+    },
 
     imgPerfil: {
         width: 40,
@@ -74,8 +69,7 @@ const style_modulo = StyleSheet.create({
 
     textoBoasVindas: {
         fontSize: 20,
-        //alignSelf: "center",
-        marginTop: 35,
+        marginTop: 37,
         marginLeft: 15,
         justifyContent: "flex-start",
         color: "black",
@@ -86,11 +80,25 @@ const style_modulo = StyleSheet.create({
     textoNivel: {
         fontSize: 15,
         color: "#808e9b",
-        marginTop: 42,
+        marginTop: 44,
         marginLeft: 15,
         justifyContent: 'flex-start',
         position: 'relative',
-    }
+    },
+
+    textoBandeira: {
+        fontSize: 17,
+        color: '#fff',
+        fontWeight: 'bold',
+        backgroundColor: '#52B1FF',
+        padding: 5,
+        borderRadius: 10,
+        width: 120,
+        elevation: 2,
+        textAlign: 'center',
+        borderWidth: 1,
+        borderColor: '#4AA4EE',
+      }
 })
 
 export default style_modulo

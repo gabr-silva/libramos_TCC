@@ -23,8 +23,8 @@ const style = StyleSheet.create({
         position: 'absolute',
         flexDirection: 'column',
         alignItems: 'center',
-        top: 120,
-        left: 327,
+        top: 170,
+        left: 325,
         },
         
         fogo: {
