@@ -1,5 +1,5 @@
 import { sub } from "date-fns";
-import { AuthErrorCodes, createUserWithEmailAndPassword, getAuth, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
+import { AuthErrorCodes, createUserWithEmailAndPassword, getAuth, sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import { collection, doc, getDocs, query, setDoc, where, } from "firebase/firestore";
 import { auth, db } from "../config/firebase";
 
