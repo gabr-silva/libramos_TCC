@@ -38,8 +38,8 @@ export default function DuasEscolha ({vel, urlvideo, pergunta, botaoDuasEscolha,
                     <Text>Nao</Text>
                 </TouchableOpacity>
             </View>
-        </View>                
-    );
+        </View>
+        </>
 }
 
 import { StyleSheet } from "react-native";
