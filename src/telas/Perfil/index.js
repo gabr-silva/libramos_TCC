@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, Button, TouchableOpacity, Image, SafeAreaView, TouchableWithoutFeedback, Keyboard } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Image, Keyboard, SafeAreaView, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import { EntradaTexto } from "../../components/EntradaTexto";
-import style from "./style";
 import { auth } from "../../config/firebase";
+import style from "./style";
+
+import XIcone from '../../../assets/img/icone-x.png';
+
 import { PegarDados } from "../../servicos/firestore";
 
 export default function Perfil({navigation}){
@@ -43,14 +46,12 @@ export default function Perfil({navigation}){
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View>
           <View>
-            <View style={style.textoPerfil}>
+
+            <View style={{flexDirection: 'row'}}>
               <TouchableOpacity onPress={() => navigation.navigate('Modulos')}>
-                <Text>X</Text>
+                    <Image source={XIcone} style={style.iconeX} />
               </TouchableOpacity>
-              <Text>Perfil de usuario</Text>
-              <TouchableOpacity>
-                <Text>Salvar</Text>
-              </TouchableOpacity>
+              <Text style={style.textoUsuario}>Perfil de usuário</Text>
             </View>
 
             <View style={style.container}>
@@ -91,11 +92,21 @@ export default function Perfil({navigation}){
         <TouchableOpacity
           style={style.botaoEsqueceuSenha}
           onPress={() => navigation.navigate("RedefSenha")}>
-          <Text style={{ alignSelf: "flex-end", marginBottom: 3, marginTop: 2, paddingRight: 3, backgroundColor: 'gray'}}>
-            Mudar senha
+          <Text style={style.textoSenha}>
+          ✏️ Alterar minha senha 
           </Text>
         </TouchableOpacity>
-              <Button title="Logout" onPress={deslogar} />
+        
+
+          <TouchableOpacity style={style.botaoSalvar}>
+            <Text style={style.textoBotaoSalvar}>Salvar</Text>
+          </TouchableOpacity>
+
+          
+          <TouchableOpacity onPress={deslogar} style={style.botaoSair}>
+          <Text>🚪🏃‍♂️💨</Text><Text style={style.textoBotaoSair}>Sair da minha conta</Text>
+          </TouchableOpacity>
+
             </View>
           </View>
         </View>

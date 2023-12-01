@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet} from 'react-native';
-import { palavras } from '../../../telas/aula/script_aula';
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import BotaoResposta from '../../Botaoresposta';
 
-import {ResizeMode, Video } from 'expo-av';
+import { ResizeMode, Video } from 'expo-av';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 export default function MultiplaAlternativas({urlvideo, vel, opcoes, opcoesSelecionadas, setOpcoes, setOpcoesSelecionadas}) {
@@ -25,62 +25,72 @@ export default function MultiplaAlternativas({urlvideo, vel, opcoes, opcoesSelec
       }, []);
 
     return<>
+        <SafeAreaView style={style.container}>
+            <View>
+                <Text style={style.texto}>O que significa esse sinal?</Text>
+                {/* função de video */}
+                <Video
+                    ref={video}
+                    source={{ uri:  urlvideo}}
+                    resizeMode={ResizeMode.CONTAIN}
+                    style={style.video}
+                    shouldPlay = {true}
+                    isLooping = {true}
+                    isMuted = {true}
+                    rate={vel}
+                />
     
-        <View>
-            <Text>O que significa esse sinal?</Text>
-              {/* função de video */}
-            <Video
-                  ref={video}
-                  source={{ uri:  urlvideo}}
-                  resizeMode={ResizeMode.CONTAIN}
-                  style={style.video}
-                  shouldPlay = {true}
-                  isLooping = {true}
-                  isMuted = {true}
-                  rate={vel}
-            />
-  
-  
-            {/*campo onde fica o testo que o usuario clicou*/}
-            <View style={style.selecaoOpcao}>
-                <Text>{opcoesSelecionadas.join(' ')}</Text>
+    
+                {/*campo onde fica o texto que o usuario clicou*/}
+                <View style={style.selecaoOpcao}>
+                    <Text>{opcoesSelecionadas.join(' ')}</Text>
+                </View>
+
+                {/*Campos onde fica as alternativas */}
+                <View style={style.footer}>
+                    <BotaoResposta
+                    escolha={opcoes[0]}
+                    alternativa={opcoesSelecionadas}
+                    setAlternativa={setOpcoesSelecionadas}/>
+
+                    <BotaoResposta
+                    escolha={opcoes[1]}
+                    alternativa={opcoesSelecionadas}
+                    setAlternativa={setOpcoesSelecionadas}/>
+                </View>
+                <View style={style.footer}>
+                    <BotaoResposta escolha={opcoes[2]}
+                    alternativa={opcoesSelecionadas}
+                    setAlternativa={setOpcoesSelecionadas}/>
+
+                    <BotaoResposta escolha={opcoes[3]}
+                    alternativa={opcoesSelecionadas}
+                    setAlternativa={setOpcoesSelecionadas}/>
+                </View>            
             </View>
-
-            {/*Campos onde fica as alternativas */}
-            <View style={style.footer}>
-                <BotaoResposta
-                escolha={opcoes[0]}
-                alternativa={opcoesSelecionadas}
-                setAlternativa={setOpcoesSelecionadas}/>
-
-                <BotaoResposta
-                escolha={opcoes[1]}
-                alternativa={opcoesSelecionadas}
-                setAlternativa={setOpcoesSelecionadas}/>
-            </View>
-            <View style={style.footer}>
-                <BotaoResposta escolha={opcoes[2]}
-                alternativa={opcoesSelecionadas}
-                setAlternativa={setOpcoesSelecionadas}/>
-
-                <BotaoResposta escolha={opcoes[3]}
-                alternativa={opcoesSelecionadas}
-                setAlternativa={setOpcoesSelecionadas}/>
-            </View>            
-        </View>
-    </>
+        </SafeAreaView>
+        </>
 }
 
 export const style = StyleSheet.create({
+    container: {
+        backgroundColor: "#fff",
+    },
+
     texto: {
-        textAlign: 'center'
+        fontSize: 20,
+        justifyContent: "flex-start",
+        marginLeft: 20,
+        bottom: 25
     },
     video: {
-        width: 300,
-        height: 200,
-        marginTop: 50,
+        width: 400,
+        height: 300,
+        //marginTop: 50,
         borderRadius: 10,
-        marginHorizontal: 50
+        marginHorizontal: 50,
+        alignSelf: 'center',
+        bottom: 20
     },
     footer: {
         flexDirection: 'row',
@@ -90,18 +100,21 @@ export const style = StyleSheet.create({
         borderTopColor: '#ccc',
     },
     botaoAlternativas: {
-        backgroundColor: '#4285F4',
+        backgroundColor: '#1868D9',
         padding: 10,
         width: 150,
         height: 50,
-        borderRadius: 5,
+        borderRadius: 15,
         marginHorizontal: 5,
         alignItems: 'center',
+
     },
+
     botaoTexto: {
         color: '#fff',
         fontSize: 20,
     },
+
     selecaoOpcao:{
         width: "100%",
         height: 25,

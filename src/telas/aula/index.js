@@ -1,19 +1,25 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { SafeAreaView, Text, TouchableOpacity, View, BackHandler, ActivityIndicator } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, BackHandler, Image, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import * as Progress from 'react-native-progress';
 
 import { auth } from '../../config/firebase';
 
 import AulaConcluida from '../../components/aula/AulaConcluida';
 import AvançarBarra from '../../components/aula/AvançarBarra';
-import ModalConfirmacao from '../../components/modulos/modal';
 import GameOver from '../../components/aula/GameOver';
-import Informativo from '../../components/aula/telas/telaInformativo';
 import DuasEscolha from '../../components/aula/telas/telaDuasAlter';
+import Informativo from '../../components/aula/telas/telaInformativo';
 import MultiplaAlternativas from '../../components/aula/telas/telaMultipla';
-import { PegarFrequencia, PegarAula } from '../../servicos/firestore';
+import ModalConfirmacao from '../../components/modulos/modal';
+import { PegarAula, PegarFrequencia } from '../../servicos/firestore';
 import { cameraLenta, pontuacao } from './script_aula';
 import style from './style_aula';
+
+import CoracaoIcone from '../../../assets/img/icone-coracao.png';
+import iconeSeta from '../../../assets/img/icone-seta.png';
+import XIcone from '../../../assets/img/icone-x.png';
+import iconeLento from '../../../assets/img/icone_lento.png';
+
 
 export default function Aula ({navigation, route}){
     const usuario = auth.currentUser;
@@ -23,7 +29,7 @@ export default function Aula ({navigation, route}){
     const [score, setScore] = useState(0);
     const [xpBarra, setXpBarra] = useState(0)
     const [vel, setVel] = useState(1);
-    const [cor, setCor] = useState('blue');
+    const [cor, setCor] = useState('#45aaf2');
     const [licao, setLicao] = useState(0);
 
     const [conteudos, setConteudos] = useState ([])
@@ -115,10 +121,25 @@ export default function Aula ({navigation, route}){
         <SafeAreaView style={style.safeArea}>
             <View style={{flexDirection: "row"}}>
                 <TouchableOpacity onPress={() => AbrirModal()}>
-                    <Text style={{fontSize:40, color: 'white'}}>{"<-"}</Text>
+                    <Image source={XIcone} style={style.iconeX} />
                 </TouchableOpacity>
-                <Progress.Bar progress={score} width={300} height={20}/>
-                <Text style={{backgroundColor: 'pink', fontSize: 20}}>{vida}</Text>
+
+                <View style={style.barraProgresso}>
+                <Progress.Bar
+                progress={score}
+                width={285}
+                height={10}
+                unfilledColor='#fff'
+                borderRadius={20}
+                borderWidth={1}
+                borderColor='#d2dae2'
+                color="#45aaf2" // Cor da barra de progresso
+                />
+                </View>
+                <View style={{flexDirection: 'column',}}>
+                    <Image source={CoracaoIcone} style={style.iconeCoracao} />
+                    <Text style={style.textoVidas}>{vida}</Text>
+                </View>
             </View>
 
             {conteudos.map((conteudo, index)=> {
@@ -139,7 +160,7 @@ export default function Aula ({navigation, route}){
                             )
                         case "pergunta_sim_nao":
                             return (
-                                <DuasEscolha 
+                                <DuasEscolha
                                 key={index}
                                 vel={vel}
                                 urlvideo={conteudo.video}
@@ -156,20 +177,27 @@ export default function Aula ({navigation, route}){
                                 urlvideo={conteudo.video}
                                 conteudo={conteudo.conteudo}
                                 ></Informativo>
-                            )                          
+                            )
                     }
                 } else {
                     return null;
                 }
             })}
             
-            <View style={style.conteinerCamLenta}>
+            <View style={style.containerCamLenta}>
                 <TouchableOpacity
-                    style={[style.botaoVel, {backgroundColor: cor}]}
                     onPress={() => cameraLenta(vel, setCor, setVel)} //função para diminuir a velocidade do video e mudar a cor do botao
+                    
                 >
-                    <Text style={style.botaoTexto}>cameraLenta</Text>
+  
+
+                    <View style={style.circuloIconeLento}>
+                    <Image source={iconeLento} style={style.iconeLento} />
+                    </View>
+                    <Text style={style.textoLento}>Velocidade</Text>
+
                 </TouchableOpacity>
+
                 <TouchableOpacity
                 onPress={() => {if (conteudos[licao]) {
                     pontuacao(
@@ -187,7 +215,12 @@ export default function Aula ({navigation, route}){
                     );} setModalVisivel(!modalVisivel)}}
                     disabled={!botaoConfirmar}
                 >
-                    <Text style={botaoConfirmar ? style.btnAtivo : style.btnInativo}>Confirmar</Text>
+
+                    <View style={style.iconeConfirmarContainer}>
+                    <Image source={iconeSeta} style={style.iconeConfirmar} />
+                    </View>
+                    <Text style={botaoConfirmar ? style.textoBotaoAtivo : style.btnInativo}>Continuar</Text>
+
                 </TouchableOpacity>
 
                 {/* Componente para verificar quantas vidas o usúario tem*/}

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-export const style = StyleSheet.create({
+const style = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
@@ -10,6 +10,18 @@ export const style = StyleSheet.create({
         alignItems: "center",
         marginTop: 5,    
     },
+
+    imagem: {
+        width: 40,
+        height: 40,
+        justifyContent: 'center',
+        marginTop: 5,
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.5,
+        shadowRadius: 2,
+        elevation: 5,
+      }
  
   });
 

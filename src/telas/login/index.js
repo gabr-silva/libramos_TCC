@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Image, Text, TouchableOpacity, View, TouchableWithoutFeedback, Keyboard } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Image, Keyboard, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import FacebookIcon from '../../../assets/img/facebook_logo.png';
 import GoogleIcon from '../../../assets/img/google_logo.png';
 import MicrosoftIcon from '../../../assets/img/microsoft_logo.png';
@@ -83,7 +83,7 @@ export default function Login({ navigation }) {
 
         <Alerta mensagem={mensagemError} error={statusError === "firebase"} setError={setStatusError} />
 
-        <TouchableOpacity style={botaoLogar ? style.botaoEntrar : style.botaoEntrarDisponivel} onPress={() => realizarLogin()} activeOpacity={0.8} disabled={!botaoLogar}>
+        <TouchableOpacity style={botaoLogar ? style.botaoEntrarAtivo : style.botaoEntrarInativo} onPress={() => realizarLogin()} activeOpacity={0.8} disabled={!botaoLogar}>
           <Text style={style.textoBotaoEntrar}>Entrar</Text>
         </TouchableOpacity>
 

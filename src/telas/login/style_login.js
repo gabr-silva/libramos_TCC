@@ -22,7 +22,7 @@ const style = StyleSheet.create({
     marginBottom: 15,
   },
 
-  botaoEntrar: {
+  botaoEntrarAtivo: {
     backgroundColor: "#54a0ff",
     borderRadius: 25,
     padding: 10,
@@ -33,8 +33,9 @@ const style = StyleSheet.create({
     elevation: 5
   },
 
-  botaoEntrarDisponivel: {
-    backgroundColor: "red",
+  botaoEntrarInativo: {
+    backgroundColor: "#54a0ff",
+    opacity: 0.5,
     borderRadius: 25,
     padding: 10,
     alignItems: "center",

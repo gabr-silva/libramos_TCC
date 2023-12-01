@@ -28,14 +28,14 @@ const Modulo = ({nome, barra, imagemOrigem, onPress}) => {
 
   return (
     <View style={styles.container}>
-    <Text>{nome}</Text>
+    <Text style={styles.textoNome}>{nome}</Text>
     <Svg style={styles.circunferencia} >
 
       <Circle
         cx={size / 2}
         cy={size / 2}
         r={radius}
-        stroke="#fff" // separação entre as circunferencias
+        stroke="#d1d8e0" // separação entre as circunferencias
         strokeWidth={10}
         strokeDasharray={[circumference]}
         fill="transparent"/>
@@ -44,55 +44,64 @@ const Modulo = ({nome, barra, imagemOrigem, onPress}) => {
         cx={size / 2}
         cy={size / 2}
         r={radius}
-        stroke="#3481D9" // cor do progresso
-        strokeWidth={5}
+        stroke="#4b7bec" // cor do progresso
+        strokeWidth={10}
         strokeDasharray={[circumference]}
         strokeDashoffset={circumference * (1 - progresso)}
+        strokeLinecap="round"
         fill="transparent" />
         
         </Svg>
-        <BotaoImagem
-        onPress={onPress}
-        imagemOrigem={imagemOrigem} />
+        <BotaoImagem onPress={onPress} imagemOrigem={imagemOrigem} />
     </View>
 
   );
 };
 
+
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 45,
+    marginBottom: 10,
     width: size,
     height: size,
-    marginTop: 70,
-    marginBottom: 25,
-  },
+    marginHorizontal: 7,
 
-  button: {
-    //position: 'relative',
-    justifyContent: 'center',
-    alignItems: 'center',
-    left: 0,
-    bottom: 95,
-    width: size - 20,
-    height: size - 20,
   },
-    
 
   circunferencia: {
     width: size,
     height: size,
-    position: 'absolute'
+    position: 'relative',
   },
 
+  button: {
+    position: 'relative',
+    justifyContent: 'center',
+    alignItems: 'center',
+    bottom: 95,
+    width: size - 20,
+    height: size - 20,
+  },
+  
   image: {
-    width: size - 15,
-    height: size - 15,
+    width: size - 17,
+    height: size - 17,
     resizeMode: 'contain',
     borderRadius: size / 2,
     overflow: 'hidden',
+    position: 'absolute',
+    justifyContent: "center"
   },
+  
+  textoNome: {
+    textAlign: 'center',
+    fontSize: 18,
+    width: size,
+    marginBottom: 3,
+  }
 });
 
 export { BotaoImagem, Modulo };

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Text, View, StyleSheet} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
-import {ResizeMode, Video } from 'expo-av';
+import { ResizeMode, Video } from 'expo-av';
 
 export default function Informativo ({vel, urlvideo, conteudo,}){
 
@@ -11,6 +11,7 @@ export default function Informativo ({vel, urlvideo, conteudo,}){
         <View>
             <Text style={style.texto}>{conteudo}</Text>
             {/* função de video */}
+            <View style={style.videoContainer}>
             <Video
                 ref={video}
                 source={{ uri:  urlvideo}}
@@ -21,19 +22,29 @@ export default function Informativo ({vel, urlvideo, conteudo,}){
                 isMuted = {true}
                 rate={vel} //rate para acelerar e diminuir velocidade do video
             />
-        </View>                
+            </View>
+        </View>
     </>
 }
 
 export const style = StyleSheet.create({
     texto: {
-        textAlign: 'center'
+        fontSize: 20,
+        justifyContent: "flex-start",
+        marginLeft: 20,
     },
+
+    videoContainer: {
+        width: 550,
+        height: 450,
+        overflow: 'hidden', // Certifique-se de que o conteúdo não ultrapasse as bordas do container
+        marginTop: 30,
+        alignSelf: 'center',
+        bottom: 15
+    },
+
     video: {
-        width: 300,
-        height: 200,
-        marginTop: 50,
-        borderRadius: 10,
-        marginHorizontal: 50
+        width: '100%',
+        height: '100%',
     },
 });

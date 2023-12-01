@@ -41,7 +41,7 @@ export const cameraLenta = (vel,  setcor, setVel)=>{
         setVel(1);
         setcor("blue");
       }
-}
+};
 
 /*Função que fara a coleta de palavras em embaralhar a sua ordem em um Array
     Obs:Mudar futuramente para a coletar no BD a palavra que contem resposta e outras aleatórias

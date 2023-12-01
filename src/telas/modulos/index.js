@@ -4,6 +4,7 @@ import { Image, SafeAreaView, ScrollView, Text, View } from 'react-native';
 import { auth } from "../../config/firebase";
 
 import AnimacaoCarregando from '../../../assets/AnimacaoCarregando.gif';
+import bandeiraInicio from '../../../assets/img/bandeira-inicio.png';
 
 import { Modulo } from "../../components/modulos/BotaoModulos";
 import BotaoPerfil from "../../components/modulos/BotaoPerfil";
@@ -71,54 +72,77 @@ const Menu = ({navigation}) => {
   return (
     <>
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={{ flex: 1 }}>
-          <View style={style_modulo.topo}>
-            <Text style={{ color: 'white' }}>Olá, {nome}.</Text>
-            <BotaoPerfil
-              imagemPerfil={require('../../../assets/capivaraTeste.png')}
-              onPress={() => navigation.navigate('Perfil')}
-            />
-          </View>
-    
-      <ScrollView>
-        <View style={style_modulo.modulo}>
-          {carregando ? ( // Renderizar tela de carregamento se carregando for verdadeiro
-            <View style={style_modulo.containerAnimacao}>
-              <Image source={AnimacaoCarregando} style={style_modulo.imagem} />
-            </View>
-          ) : (
-            <>
-              <Frequencia frequencia={frequencia} />
-              {modulos.map((modulo) => {
-                barra_Modulo = modulo.aulas_concluida / modulo.aula_total;
-                return (
-                  <Modulo
-                    nome={modulo.nome}
-                    barra={barra_Modulo}
-                    imagemOrigem={modulo.imagem}
-                    onPress={() => {AbrirModal(modulo.id, modulo.aulas_concluida)}}
-                    key={modulo.id}
-                  />
-                );
-              })}
-            </>
-            )}
+      <View style={{ flex: 1}}>
+      <View style={style_modulo.topo}>
+        <Text style={style_modulo.textoBoasVindas}>Olá, {nome}! 👋</Text>
+        <Text style={style_modulo.textoNivel}>{"\n"}Nível 1</Text>
+        <BotaoPerfil
+          style={style_modulo.imgPerfil}
+          imagemPerfil={require('../../../assets/icon.png')}
+          onPress={() => navigation.navigate('Perfil')}
+        />
 
-          </View>
-        </ScrollView>
+      <Frequencia frequencia={frequencia} />
+      
+      </View>
+    
+
+      <ScrollView style={style_modulo.scrollView}>
+
+            <View style={style_modulo.containerBandeira}>
+              <Image source={bandeiraInicio} style={style_modulo.imagemBandeira} />
+              <Text style={style_modulo.textoBandeira}>Básico 1</Text>
+            </View>
+
+            <View style={style_modulo.container}>
+              {carregando ? (
+                <View style={style_modulo.containerAnimacao}>
+                  <Image source={AnimacaoCarregando} style={style_modulo.imagemCarregando} />
+                </View>
+              ) : (
+                <>
+
+                  {/* Renderizar o primeiro módulo sozinho no centro */}
+                  <View style={style_modulo.scrollViewContent1}>
+                  {modulos.length > 0 && (
+                    <Modulo
+                      nome={modulos[0].nome}
+                      barra={modulos[0].aulas_concluida / modulos[0].aula_total}
+                      imagemOrigem={modulos[0].imagem}
+                      onPress={() => { AbrirModal(modulos[0].id, modulos[0].aulas_concluida) }}
+                      key={modulos[0].id}
+                    />
+                  )}
+                  </View>
+
+
+                  {/* Renderizar os demais módulos em duas colunas */}
+                  <View style={style_modulo.scrollViewContent2}>
+                    {modulos.slice(1).map((modulo, index) => (
+                      <Modulo
+                        nome={modulo.nome}
+                        barra={modulo.aulas_concluida / modulo.aula_total}
+                        imagemOrigem={modulo.imagem}
+                        onPress={() => { AbrirModal(modulo.id, modulo.aulas_concluida) }}
+                        key={modulo.id}
+                      />
+                    ))}
+                  </View>
+                </>
+              )}
+            </View>
+          </ScrollView>
         
         
         {modalVisivel?(
           <ModalConfirmacao
-              texto={"Deseja ir para a aula"}
+              texto={"Deseja ir para a aula?"}
               modalVisivel={modalVisivel}
               onClose={() => {setModalVisivel(false)}}
               tela={() => navigation.navigate('Aula', {id_modulo: idModulo})}
           />
         ):null}
-        <View>
-          {/* Conteúdo da barra inferior */}
-        </View>
+
         </View>
       </SafeAreaView>
     </>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, View, Text, TouchableOpacity, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { Modal, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 
 
 export default function ModalConfirmacao({texto ,modalVisivel, onClose, tela }){
@@ -13,9 +13,11 @@ export default function ModalConfirmacao({texto ,modalVisivel, onClose, tela }){
             <View style={[style.ModalContainer]}>
                 {/* Conteúdo da modal */}
                 <View style={[style.ModalConteudo]}>
-                    <Text>{texto}</Text>      
+                    <Text style={style.texto1}>{texto}</Text>      
                     <TouchableOpacity onPress={() => {onClose(); tela()}}>
-                            <Text>Continuar</Text>
+                        <View style={style.texto2Container}>
+                            <Text style={style.texto2}>Começar +25 XP</Text>
+                        </View>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -30,19 +32,50 @@ const style = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'transparent',
+        
     },
+
     ModalConteudo:{
-        backgroundColor: '#303049',
+        backgroundColor: '#3867d6',
         width: 342,
-        height: 60,
+        height: 100,
         borderRadius: 20,
         alignItems: 'center',
-        textAlign: 'center'
+        textAlign: 'center',
+        borderRadius: 20,
+        elevation: 5,
+
     },
-    Texto:{
+
+    texto1:{
       fontSize: 20,
       textAlign: 'center',
+      color: "#fff",
+      marginTop: 7,
+      marginBottom: 1
     },
+
+    texto2:{
+        fontSize: 17,
+        textAlign: 'center',
+        color: "#3867d6",
+        fontWeight: 'bold',
+        marginTop: 5,
+        marginBottom: 5,
+  
+    },
+
+    texto2Container:{
+        backgroundColor: "#fff",
+        //flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 300,
+        height: 40,
+        borderRadius: 12,
+        marginTop: 5
+    },
+
     BotaoFechar:{
         fontSize: 20,
         color: "blue"

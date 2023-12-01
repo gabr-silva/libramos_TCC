@@ -1,10 +1,14 @@
-import React, { useState, useEffect} from "react";
-import {View, TouchableOpacity, Text, Alert, TouchableWithoutFeedback, Keyboard } from "react-native";
-import { EntradaTexto } from "../../components/EntradaTexto";
-import { cadastrar} from "../../servicos/requisicoes";
-import { Alerta } from "../../components/Alerta";
+import React, { useEffect, useState } from "react";
+import { Alert, Image, Keyboard, ScrollView, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import * as Progress from 'react-native-progress';
+import { Alerta } from "../../components/Alerta";
+import { EntradaTexto } from "../../components/EntradaTexto";
+import { cadastrar } from "../../servicos/requisicoes";
 import style from "./style_cadastro";
+
+import FacebookIcon from '../../../assets/img/facebook_logo.png';
+import GoogleIcon from '../../../assets/img/google_logo.png';
+import MicrosoftIcon from '../../../assets/img/microsoft_logo.png';
 
 export default function Cadastro({navigation}) {
   const [nome, setNome] = useState('')
@@ -12,7 +16,7 @@ export default function Cadastro({navigation}) {
   const [userName, setUserName] = useState('')
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-  const [forcaSenha, setForcaSenha] = useState(0) 
+  const [forcaSenha, setForcaSenha] = useState(0)
   const [confirmarSenha, setConfirmarSenha] = useState('');
   const [statusError, setStatusError] = useState('')
   const [mensagemError, setMensagemError] = useState('')
@@ -25,7 +29,7 @@ export default function Cadastro({navigation}) {
       } else {
         setBotaoCadastrar(false);
     }
-  }, [nome,Sobrenome, userName, email, senha, confirmarSenha]);
+  }, [nome, Sobrenome, userName, email, senha, confirmarSenha]);
 
 const validarNome = (nome) => {
 
@@ -114,7 +118,7 @@ const corBarra =(forcaSenha) => {
     
     //após todos os campos estarem corretos
     else {
-        const resultado = await cadastrar(nome, userName, email, senha)
+        const resultado = await cadastrar(nome, Sobrenome, userName, email, senha)
         if(resultado === "sucesso"){
           Alert.alert('Cadastro concluido', 'Um e-mail de confirmação foi enviado!!')
           setNome('')
@@ -135,8 +139,15 @@ const corBarra =(forcaSenha) => {
   }
 
   return (
+    <ScrollView style={style.scrollView}>
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={style.container}>
+      <Image source={require("../../../assets/capivaraTeste.png")} style={style.imagem} />
+      <Text style={style.textoBoasVindas}>Nunca te vi por aqui antes!</Text>
+      <Text style={style.textoBoasVindas2}>
+        Você pode se cadastrar abaixo 😄👇
+      </Text>
+
         <EntradaTexto
           label="Nome"
           value={nome}
@@ -144,7 +155,7 @@ const corBarra =(forcaSenha) => {
           error={statusError == 'nome'}
           messageError={mensagemError}
         />
-        <EntradaTexto      
+        <EntradaTexto
           label="Sobrenome"
           value={Sobrenome}
           onChangeText={texto => setSobrenome(texto)}
@@ -197,9 +208,34 @@ const corBarra =(forcaSenha) => {
           error={statusError == 'firebase'}
           setError={setStatusError}
         />
-        <TouchableOpacity style={botaoCadastrar ? style.botaoCadastrar : style.botaoCadastrarDisponivel} onPress={() => realizarCadastro()} disabled={!botaoCadastrar}>
-          <Text>Cadastrar</Text>
+        <TouchableOpacity style={botaoCadastrar ? style.botaoCadastrarAtivo : style.botaoCadastrarInativo} onPress={() => realizarCadastro()} disabled={!botaoCadastrar}>
+          <Text style={style.textoBotaoCadastrar}>Cadastrar</Text>
         </TouchableOpacity>
+
+        <Text style={{ color: "#ccc", marginTop: 15, marginBottom: 15 }}>
+          ───────<Text style={{ color: "#7f7e7f" }}> ou Cadastre-se com </Text>
+          <Text style={{ color: "#ccc" }}>────────</Text>
+        </Text>
+
+        <View style={style.conjuntoIconesAutenticacao}>
+          <TouchableOpacity style={style.iconeCirculo} activeOpacity={0.8}>
+            <View>
+              <Image source={GoogleIcon} style={style.iconeAutenticacao} />
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={style.iconeCirculo} activeOpacity={0.8}>
+            <View>
+              <Image source={FacebookIcon} style={style.iconeAutenticacao} />
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={style.iconeCirculo} activeOpacity={0.8}>
+            <View>
+              <Image source={MicrosoftIcon} style={style.iconeAutenticacao} />
+            </View>
+          </TouchableOpacity>
+        </View>
 
         <TouchableOpacity onPress={() => navigation.navigate("Login")}>
         <Text style={{ marginTop: 20, marginBottom: 15, color: "#2359AF" }}>
@@ -207,12 +243,9 @@ const corBarra =(forcaSenha) => {
         </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity>
-          <View>
-            <Text>Google</Text>
-          </View>
-        </TouchableOpacity>
+
     </View>
     </TouchableWithoutFeedback>
+    </ScrollView>
     );
 }

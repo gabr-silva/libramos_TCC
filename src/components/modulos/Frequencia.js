@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
-import { View, Image, Text, Dimensions, StyleSheet } from "react-native";
+import React from "react";
+import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 
 const { width, height } = Dimensions.get('window');
 
@@ -12,8 +12,8 @@ const Frequencia = ({frequencia}) => {
             style={style.fogo}
             source={require('../../../assets/fogo.png')}
           />
-          <Text>{frequencia}</Text>
-        </View>
+          <Text style={style.texto}>{frequencia}</Text>
+        </View> 
         </>
     );
 };
@@ -23,14 +23,19 @@ const style = StyleSheet.create({
         position: 'absolute',
         flexDirection: 'column',
         alignItems: 'center',
-        top: 120,
-        left: 300,
+        top: 170,
+        left: 325,
         },
         
         fogo: {
-        width: width * 0.16, // Largura proporcional à largura da tela
-        height: width * 0.16, // Altura proporcional à largura da tela
-        }, 
+        width: width * 0.13, // Largura proporcional à largura da tela
+        height: width * 0.13, // Altura proporcional à largura da tela
+      }, 
+
+      texto: {
+        color: '#ff6348',
+        fontWeight: 'bold'
+      }
 })
 
 export default Frequencia
