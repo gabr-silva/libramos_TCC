@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { palavras } from '../../../telas/aula/script_aula';
 import BotaoResposta from '../../Botaoresposta';
 
 import { ResizeMode, Video } from 'expo-av';
@@ -28,7 +27,7 @@ export default function MultiplaAlternativas({urlvideo, vel, opcoes, opcoesSelec
     return<>
         <SafeAreaView style={style.container}>
             <View>
-                <Text>O que significa esse sinal?</Text>
+                <Text style={style.texto}>O que significa esse sinal?</Text>
                 {/* função de video */}
                 <Video
                     ref={video}
@@ -79,14 +78,19 @@ export const style = StyleSheet.create({
     },
 
     texto: {
-        textAlign: 'center'
+        fontSize: 20,
+        justifyContent: "flex-start",
+        marginLeft: 20,
+        bottom: 25
     },
     video: {
-        width: 300,
-        height: 200,
-        marginTop: 50,
+        width: 400,
+        height: 300,
+        //marginTop: 50,
         borderRadius: 10,
-        marginHorizontal: 50
+        marginHorizontal: 50,
+        alignSelf: 'center',
+        bottom: 20
     },
     footer: {
         flexDirection: 'row',
@@ -96,18 +100,21 @@ export const style = StyleSheet.create({
         borderTopColor: '#ccc',
     },
     botaoAlternativas: {
-        backgroundColor: '#4285F4',
+        backgroundColor: '#1868D9',
         padding: 10,
         width: 150,
         height: 50,
-        borderRadius: 5,
+        borderRadius: 15,
         marginHorizontal: 5,
         alignItems: 'center',
+
     },
+
     botaoTexto: {
         color: '#fff',
         fontSize: 20,
     },
+
     selecaoOpcao:{
         width: "100%",
         height: 25,

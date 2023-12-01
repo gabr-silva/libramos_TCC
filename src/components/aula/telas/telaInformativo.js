@@ -37,15 +37,14 @@ export const style = StyleSheet.create({
     videoContainer: {
         width: 550,
         height: 450,
-        borderRadius: 10,
         overflow: 'hidden', // Certifique-se de que o conteúdo não ultrapasse as bordas do container
         marginTop: 30,
         alignSelf: 'center',
-        bottom: 25,
+        bottom: 15
     },
 
     video: {
-        width: '100%', // Use '100%' para preencher todo o container
+        width: '100%',
         height: '100%',
     },
 });

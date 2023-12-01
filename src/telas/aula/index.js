@@ -7,6 +7,7 @@ import { auth } from '../../config/firebase';
 import AulaConcluida from '../../components/aula/AulaConcluida';
 import AvançarBarra from '../../components/aula/AvançarBarra';
 import GameOver from '../../components/aula/GameOver';
+import DuasEscolha from '../../components/aula/telas/telaDuasAlter';
 import Informativo from '../../components/aula/telas/telaInformativo';
 import MultiplaAlternativas from '../../components/aula/telas/telaMultipla';
 import ModalConfirmacao from '../../components/modulos/modal';

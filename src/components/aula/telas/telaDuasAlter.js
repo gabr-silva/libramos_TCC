@@ -18,6 +18,7 @@ export default function DuasEscolha ({vel, urlvideo, pergunta, botaoDuasEscolha,
         <View>
             <Text style={style.texto}>{pergunta}"</Text>
             {/* função de video */}
+            <View style={style.videoContainer}>
             <Video
                 ref={video}
                 source={{ uri:  urlvideo}}
@@ -28,14 +29,16 @@ export default function DuasEscolha ({vel, urlvideo, pergunta, botaoDuasEscolha,
                 isMuted={false}
                 rate={vel} //rate para acelerar e diminuir velocidade do video
             />
+            </View>
+
             <View style={style.alternativas}> 
                 <TouchableOpacity onPress={()=> clicarBotao("Sim")} 
                 style={[botaoDuasEscolha == "Sim" ? style.selecionado : style.botao]}>
-                    <Text>Sim</Text>
+                    <Text style={style.textoBotoes}>Sim</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => clicarBotao("Nao")} 
                 style={[botaoDuasEscolha == "Nao" ? style.selecionado : style.botao]}>
-                    <Text>Nao</Text>
+                    <Text style={style.textoBotoes}>Não</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -49,37 +52,62 @@ export const style = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff', 
     },
+
     texto: {
-        textAlign: 'center'
+        fontSize: 20,
+        justifyContent: "flex-start",
+        marginLeft: 20,
     },
-    video: {
-        width: 300,
-        height: 200,
-        marginTop: 50,
+
+    videoContainer: {
+        width: 500,
+        height: 400,
         borderRadius: 10,
-        marginHorizontal: 50
+        overflow: 'hidden', // Certifique-se de que o conteúdo não ultrapasse as bordas do container
+        marginTop: 30,
+        alignSelf: 'center',
+        bottom: 35,
     },
+
+    video: {
+        width: '100%', // Use '100%' para preencher todo o container
+        height: '100%',
+    },
+
     alternativas: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingVertical: 50,
         paddingHorizontal: 60,
+        bottom: 40
     },
+
     botao: {
-        backgroundColor: '#4285F4',
+        backgroundColor: '#1868D9',
         padding: 10,
-        width: 50,
-        height: 50,
+        width: 80,
+        height: 80,
         borderRadius: 50,
         alignItems: 'center',
+        justifyContent: 'center'
     },
+
     selecionado: {
-        backgroundColor: 'red',
+        backgroundColor: '#1868D9',
+        borderColor: '#FFCE3D',
+        borderWidth: 5,
         padding: 10,
-        width: 50,
-        height: 50,
+        width: 80,
+        height: 80,
         borderRadius: 50,
         alignItems: 'center',
-    }
+        justifyContent: 'center'
+    },
+
+    textoBotoes: {
+        color: '#fff',
+        fontSize: 25,
+        fontWeight: '500'
+    },
 });
 
