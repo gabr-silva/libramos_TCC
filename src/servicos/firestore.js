@@ -104,7 +104,7 @@ export async function PegarModulos(usuario) {
 }
 
 //função para pegar a frequencia do usuario
-export async function PegarFrequencia(usuario, tipo){
+export async function PegarFrequencia(usuario, tipo, modulo_id){
     const usuarioDocRef = doc(db, "usuarios", usuario.uid)
     try { 
         const usuariodados = await getDoc(usuarioDocRef);
@@ -115,7 +115,7 @@ export async function PegarFrequencia(usuario, tipo){
                 const frequencia = await VerificarFrequencia(usuario, frequenciaBanco);
                 return frequencia;
             case 2:
-                await IncrementarFrequencia(usuario, frequenciaBanco);
+                await IncrementarFrequencia(usuario, frequenciaBanco, modulo_id);
                 break;
         }
     }catch(erro){
@@ -155,11 +155,21 @@ async function VerificarFrequencia(usuario, frequencia) {
 }
 
 //função para incrementtar a frequencia após o termino de uma aula
-async function IncrementarFrequencia(usuario, frequencia) {
+async function IncrementarFrequencia(usuario, frequencia, modulo_id) {
 
     let valor = false
     const usuarioDocRef = doc(db, "usuarios", usuario.uid)
     try {
+        const subColecaoModulosRef = collection(usuarioDocRef, 'modulos');
+        const moduloDocRef = doc(subColecaoModulosRef, modulo_id);
+
+        const moduloDados = await getDoc(moduloDocRef);
+        const progressoAula = moduloDados.data().aulas_concluida;
+
+        await updateDoc(moduloDocRef, {
+            "aulas_concluida": progressoAula + 1
+        });;
+
         const usuarioDados = await getDoc(usuarioDocRef)
         let ultimoRegistro = usuarioDados.data().ultimoRegistro
         const registro = ultimoRegistro.toDate()
@@ -168,7 +178,6 @@ async function IncrementarFrequencia(usuario, frequencia) {
         if(frequencia == 0) {
             valor = true
         }
-
         // Crie uma data para a data atual
         const dataAtual = new Date();
         dataAtual.setHours(0, 0, 0, 0);
@@ -176,7 +185,6 @@ async function IncrementarFrequencia(usuario, frequencia) {
         // Use a função 'sub' para subtrair um dia
         const dataOntem = sub(new Date(), {days: 1})
         dataOntem.setHours(0, 0, 0);
-
 
         // Verifique se a última atualização foi antes de ontem
         if (registro <= dataAtual && (registro >= dataOntem || valor)) {
@@ -193,25 +201,8 @@ async function IncrementarFrequencia(usuario, frequencia) {
             return frequencia
         }
     }catch(erro) {
-        return null
+        consoçe.log('Erro ao concluir a aula: ', erro)
     }  
-}
-
-export async function AumentarBarra(usuario, modulo_id) {
-    try {
-        const usuarioDocRef = doc(db, "usuarios", usuario.uid);
-        const subColecaoModulosRef = collection(usuarioDocRef, 'modulos');
-        const moduloDocRef = doc(subColecaoModulosRef, modulo_id);
-
-        const moduloDados = await getDoc(moduloDocRef);
-        const progressoAula = moduloDados.data().aulas_concluida;
-
-        await updateDoc(moduloDocRef, {
-            "aulas_concluida": progressoAula + 1
-        });;
-    } catch (error) {
-        console.error("Erro ao aumentar a barra de progresso: ", error);
-    }
 }
 
 export async function PegarAula(setXpBarra, setMatriz, idModulo) {

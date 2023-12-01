@@ -14,9 +14,9 @@ export default function DuasEscolha ({vel, urlvideo, pergunta, botaoDuasEscolha,
         }
     }
 
-    return (
-        <View style={style.container}>
-            <Text style={style.texto}>Esse sinal é o "{pergunta} ?"</Text>
+    return <>
+        <View>
+            <Text style={style.texto}>{pergunta}"</Text>
             {/* função de video */}
             <Video
                 ref={video}
@@ -29,12 +29,12 @@ export default function DuasEscolha ({vel, urlvideo, pergunta, botaoDuasEscolha,
                 rate={vel} //rate para acelerar e diminuir velocidade do video
             />
             <View style={style.alternativas}> 
-                <TouchableOpacity onPress={()=> clicarBotao(true)} 
-                style={[botaoDuasEscolha == true ? style.selecionado : style.botao]}>
+                <TouchableOpacity onPress={()=> clicarBotao("Sim")} 
+                style={[botaoDuasEscolha == "Sim" ? style.selecionado : style.botao]}>
                     <Text>Sim</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => clicarBotao(false)} 
-                style={[botaoDuasEscolha == false ? style.selecionado : style.botao]}>
+                <TouchableOpacity onPress={() => clicarBotao("Nao")} 
+                style={[botaoDuasEscolha == "Nao" ? style.selecionado : style.botao]}>
                     <Text>Nao</Text>
                 </TouchableOpacity>
             </View>

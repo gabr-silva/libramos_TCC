@@ -29,8 +29,9 @@ const Menu = ({navigation}) => {
   //função de atualização automatica
   const onAutoRefresh = async () => {
     const modulos = await PegarModulos(usuario)
-    PegarFrequencia(usuario, 1)
+    const frequencia = await PegarFrequencia(usuario, 1, null)
     setModulos(modulos);
+    setFrequencia(frequencia)
   }
 
   const AbrirModal = (idModulo, progresso) => {
@@ -60,7 +61,7 @@ const Menu = ({navigation}) => {
       onAutoRefresh();
       setCarregando(false)
     }
-  }, 10000); // atualiza a cada 10 segundos
+  }, 1000); // atualiza a cada 10 segundos
 
   return() =>{
     clearInterval(autoRefreshingInterval);

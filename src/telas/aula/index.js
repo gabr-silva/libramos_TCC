@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { BackHandler, Image, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, BackHandler, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import * as Progress from 'react-native-progress';
 
 import { auth } from '../../config/firebase';
@@ -10,7 +10,7 @@ import GameOver from '../../components/aula/GameOver';
 import Informativo from '../../components/aula/telas/telaInformativo';
 import MultiplaAlternativas from '../../components/aula/telas/telaMultipla';
 import ModalConfirmacao from '../../components/modulos/modal';
-import { AumentarBarra, PegarAula, PegarFrequencia } from '../../servicos/firestore';
+import { PegarAula, PegarFrequencia } from '../../servicos/firestore';
 import { cameraLenta, pontuacao } from './script_aula';
 import style from './style_aula';
 
@@ -21,9 +21,10 @@ import iconeLento from '../../../assets/img/icone_lento.png';
 
 
 export default function Aula ({navigation, route}){
-
     const usuario = auth.currentUser;
     const {id_modulo} = route.params
+    const [carregamento, setCarregamendo] = useState(true);
+
     const [score, setScore] = useState(0);
     const [xpBarra, setXpBarra] = useState(0)
     const [vel, setVel] = useState(1);
@@ -46,13 +47,33 @@ export default function Aula ({navigation, route}){
        setModalSair(true)
      }
 
-    const AvancarLicao = useCallback(() => {
+    const AvancarLicao = () => {
         setBotaoDuasEscolha(null),
         setOpcoes([])
         setOpcoesSelecionadas([])
         setBotaoConfirmar(false)
         setLicao((prevIndex) => (prevIndex + 1) % conteudos.length)
-    })
+    }
+
+    const RepetirLicao = () => {
+        const arrayAula = [...conteudos]
+        const aulaRepetida = conteudos[licao]
+        arrayAula.push(aulaRepetida);
+
+        setConteudos(arrayAula)
+    }
+
+    console.log(conteudos[licao]);
+
+    useEffect(() => {
+        const carregarAula = async () => {
+            await PegarAula(setXpBarra, setConteudos, id_modulo);
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            setCarregamendo(false)
+        }
+
+        carregarAula()
+    }, []);
 
     useEffect(() => {
         const onPressVoltar = () => {
@@ -62,9 +83,7 @@ export default function Aula ({navigation, route}){
                 setModalSair(true)
             }    
         }; 
-        
-        PegarAula(setXpBarra, setConteudos, id_modulo);
-
+    
         BackHandler.addEventListener('hardwareBackPress', onPressVoltar)
 
         return () => {BackHandler.removeEventListener('hardwareBackPress', onPressVoltar)}
@@ -80,16 +99,23 @@ export default function Aula ({navigation, route}){
         } else {
             setBotaoConfirmar(false);
         }
-    }, [opcoesSelecionadas, botaoDuasEscolha]);
+    }, [opcoesSelecionadas, botaoDuasEscolha, conteudos]);
 
     useEffect(() => {
-    // Chame a função PegarFrequencia quando o score for alterado
-    if (vida >= 0 && Math.abs(score - 1) < 0.0001) {
-        PegarFrequencia(usuario, 2);
-        AumentarBarra(usuario, id_modulo)
-    }
-    }, [score, vida])
+        // Chame a função PegarFrequencia quando o score for alterado
+        if (vida >= 0 && Math.abs(score - 1) < 0.001) {
+            PegarFrequencia(usuario, 2, id_modulo);
+        }
+        }, [score, vida]);
 
+    if(carregamento) {
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+              <ActivityIndicator size="large" color="blue" />
+              <Text>Carregando...</Text>
+            </View>
+          );
+    }
     return <>
         <SafeAreaView style={style.safeArea}>
             <View style={{flexDirection: "row"}}>
@@ -123,7 +149,7 @@ export default function Aula ({navigation, route}){
                                 <MultiplaAlternativas
                                 key={index}
                                 vel={vel}
-                                urlvideo={'https://libramos-teste.b-cdn.net/teste_letra_a.mp4'}
+                                urlvideo={conteudo.video}
                                 resposta={conteudo.resposta}
                                 opcoes={conteudo.alternativas}
                                 opcoesSelecionadas={opcoesSelecionadas}
@@ -136,7 +162,7 @@ export default function Aula ({navigation, route}){
                                 <DuasEscolha
                                 key={index}
                                 vel={vel}
-                                urlvideo={"https://libramos-teste.b-cdn.net/letra_a_pb.mp4"}
+                                urlvideo={conteudo.video}
                                 pergunta={conteudo.conteudo}
                                 botaoDuasEscolha={botaoDuasEscolha}
                                 setBotao={setBotaoDuasEscolha}
@@ -147,7 +173,7 @@ export default function Aula ({navigation, route}){
                                 <Informativo
                                 key={index}
                                 vel={vel}
-                                urlvideo={"https://libramos-teste.b-cdn.net/letra_a_pb.mp4" }
+                                urlvideo={conteudo.video}
                                 conteudo={conteudo.conteudo}
                                 ></Informativo>
                             )
@@ -183,7 +209,8 @@ export default function Aula ({navigation, route}){
                         setVida,
                         opcoesSelecionadas,
                         botaoDuasEscolha,
-                        xpBarra
+                        xpBarra,
+                        RepetirLicao
                     );} setModalVisivel(!modalVisivel)}}
                     disabled={!botaoConfirmar}
                 >
@@ -202,7 +229,7 @@ export default function Aula ({navigation, route}){
                             onClose={() => setModalVisivel(false)}
                             navigation={navigation}
                         />
-                    ) : vida >= 0 && Math.abs(score - 1) < 0.0001 ?(
+                    ) :vida >= 0 && Math.abs(score - 1) < 0.001 ? (
                         <AulaConcluida
                             modalVisivel={modalVisivel}
                             onClose={() => setModalVisivel(false)}
