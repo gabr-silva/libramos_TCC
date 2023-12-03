@@ -54,7 +54,6 @@ export async function CriarModulos(usuario){
 
             if (!moduloDocSnapshot.exists()) {
                 batch.set(moduloDocRef, {
-                    id: moduloID,
                     aulas_concluida: 0
                 });
 
@@ -115,7 +114,7 @@ export async function PegarFrequencia(usuario, tipo, modulo_id){
                 const frequencia = await VerificarFrequencia(usuario, frequenciaBanco);
                 return frequencia;
             case 2:
-                await IncrementarFrequencia(usuario, frequenciaBanco, modulo_id);
+                await TerminarAula(usuario, frequenciaBanco, modulo_id);
                 break;
         }
     }catch(erro){
@@ -155,7 +154,7 @@ async function VerificarFrequencia(usuario, frequencia) {
 }
 
 //função para incrementtar a frequencia após o termino de uma aula
-async function IncrementarFrequencia(usuario, frequencia, modulo_id) {
+async function TerminarAula(usuario, frequencia, modulo_id) {
 
     let valor = false
     const usuarioDocRef = doc(db, "usuarios", usuario.uid)
@@ -165,9 +164,11 @@ async function IncrementarFrequencia(usuario, frequencia, modulo_id) {
 
         const moduloDados = await getDoc(moduloDocRef);
         const progressoAula = moduloDados.data().aulas_concluida;
+        const aula = moduloDados.data().aula
 
         await updateDoc(moduloDocRef, {
-            "aulas_concluida": progressoAula + 1
+            "aulas_concluida": progressoAula + 1,
+            "aula": aula + 1
         });;
 
         const usuarioDados = await getDoc(usuarioDocRef)
@@ -205,11 +206,25 @@ async function IncrementarFrequencia(usuario, frequencia, modulo_id) {
     }  
 }
 
-export async function PegarAula(setXpBarra, setMatriz, idModulo) {
+export async function PegarAula(setXpBarra, setMatriz, idModulo, usuario) {
+    const usuarioDocRef = doc(db, "usuarios", usuario.uid)
+    let valorAula
+
+    const subColecaoModulosRef = collection(usuarioDocRef, 'modulos');
+    const moduloDocRef = doc(subColecaoModulosRef, idModulo);
+    const moduloDados = await getDoc(moduloDocRef);
+    if (moduloDados.data().aula !== undefined) {
+        valorAula = moduloDados.data().aula
+    } else {
+        await updateDoc(moduloDocRef, {
+           "aula": 1,
+        });
+        valorAula = 1;
+    }
     try {
         const moduloIdRef = doc(db, "modulos", idModulo)
         //const aulasRef = collection(moduloIdRef, 'aula_1')
-        const aulaQuery = query(collection(moduloIdRef, "aula_1"), orderBy('nome', 'asc'))
+        const aulaQuery = query(collection(moduloIdRef, `aula_${valorAula}`), orderBy('nome', 'asc'))
         const conteudoAula = await getDocs(aulaQuery);
         setXpBarra(conteudoAula.size)
 
@@ -220,22 +235,4 @@ export async function PegarAula(setXpBarra, setMatriz, idModulo) {
     } catch (error) {
         console.log(error);
     }
-    
-    /*const dados = {
-        video: 'https://firebasestorage.googleapis.com/v0/b/libramos-teste.appspot.com/o/Libras%20-%20Qual%20seu%20nome_(360P)%20(1).mp4?alt=media&token=95c12691-2c72-4574-a75c-9332e8a6854b',
-        pergunta: 'Qual o seu nome',
-        resposta: 'sim',
-        tipo: 2,
-    }
-
-    setMatriz((prevMatriz) => [...prevMatriz, dados]);
-
-    const dados2 = {
-        video: 'https://firebasestorage.googleapis.com/v0/b/libramos-teste.appspot.com/o/Libras%20-%20Qual%20seu%20nome_(360P)%20(1).mp4?alt=media&token=95c12691-2c72-4574-a75c-9332e8a6854b',
-        pergunta: 'Qual o seu nome',
-        resposta: 'Qual o seu nome',
-        tipo: 1,
-    }
-
-    setMatriz((prevMatriz) => [...prevMatriz, dados2]);*/
 }
