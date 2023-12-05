@@ -24,7 +24,7 @@ export const pontuacao = (score, setScore, tipo, resposta, setPonto, vida,  setV
                RepetirLicao()
            } 
             break;
-        case 'Informativo':
+        case 'informativo':
             setScore(score + xp);
             setPonto('Avançar')
     }  

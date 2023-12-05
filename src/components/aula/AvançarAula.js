@@ -3,7 +3,7 @@ import { Image, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-na
 
 import iconeSeta from '../../../assets/img/icone-seta.png';
 
-export default function AvançarBarra({ modalVisivel, onClose, ponto ,avançarLicao }){
+export default function AvancarAula({ modalVisivel, onClose, ponto ,avançarLicao }){
     return (
         <Modal
             animationType="slide"

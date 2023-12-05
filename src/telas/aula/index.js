@@ -5,7 +5,7 @@ import * as Progress from 'react-native-progress';
 import { auth } from '../../config/firebase';
 
 import AulaConcluida from '../../components/aula/AulaConcluida';
-import AvançarBarra from '../../components/aula/AvançarBarra';
+import AvancarAula from '../../components/aula/AvançarAula';
 import GameOver from '../../components/aula/GameOver';
 import DuasEscolha from '../../components/aula/telas/telaDuasAlter';
 import Informativo from '../../components/aula/telas/telaInformativo';
@@ -64,11 +64,9 @@ export default function Aula ({navigation, route}){
         setConteudos(arrayAula)
     }
 
-    console.log(conteudos[licao]);
-
     useEffect(() => {
         const carregarAula = async () => {
-            await PegarAula(setXpBarra, setConteudos, id_modulo);
+            await PegarAula(setXpBarra, setConteudos, id_modulo, usuario);
             await new Promise(resolve => setTimeout(resolve, 2000));
             setCarregamendo(false)
         }
@@ -94,7 +92,7 @@ export default function Aula ({navigation, route}){
         if (
             opcoesSelecionadas.length !== 0 ||
             botaoDuasEscolha !== null ||
-            (conteudos.length > 0 && conteudos[licao] && conteudos[licao].tipo === 'Informativo')
+            (conteudos.length > 0 && conteudos[licao] && conteudos[licao].tipo === 'informativo')
         ) {
             setBotaoConfirmar(true);
         } else {
@@ -169,7 +167,7 @@ export default function Aula ({navigation, route}){
                                 setBotao={setBotaoDuasEscolha}
                                 />
                             )
-                        case 'Informativo':
+                        case 'informativo':
                             return (
                                 <Informativo
                                 key={index}
@@ -186,16 +184,12 @@ export default function Aula ({navigation, route}){
             
             <View style={style.containerCamLenta}>
                 <TouchableOpacity
-                    onPress={() => cameraLenta(vel, setCor, setVel)} //função para diminuir a velocidade do video e mudar a cor do botao
-                    
+                    onPress={() => cameraLenta(vel, setCor, setVel)} //função para diminuir a velocidade do video e mudar a cor do botao      
                 >
-  
-
                     <View style={style.circuloIconeLento}>
                     <Image source={iconeLento} style={style.iconeLento} />
                     </View>
                     <Text style={style.textoLento}>Velocidade</Text>
-
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -238,7 +232,7 @@ export default function Aula ({navigation, route}){
                             usuario={usuario}
                         />
                     ) : (
-                        <AvançarBarra
+                        <AvancarAula
                             modalVisivel={modalVisivel}
                             onClose={() => setModalVisivel(false)}
                             ponto={ponto}
