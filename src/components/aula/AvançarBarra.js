@@ -1,7 +1,6 @@
 import React from 'react';
 import { Image, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import capivaraLagoa from '../../../assets/img/capivara-lagoa.png';
 import iconeSeta from '../../../assets/img/icone-seta.png';
 
 export default function AvançarBarra({ modalVisivel, onClose, ponto ,avançarLicao }){
@@ -18,7 +17,6 @@ export default function AvançarBarra({ modalVisivel, onClose, ponto ,avançarLi
                     <TouchableOpacity onPress={() =>{avançarLicao(), onClose()}}>
                         <Image source={iconeSeta} style={style.imgSeta} />
                         <Text style={style.BotaoFechar}>■</Text>
-                        <Image source={capivaraLagoa} style={style.imgCapivara} />
                     </TouchableOpacity>
                 </View>
             </Modal>);
@@ -40,10 +38,11 @@ const style = StyleSheet.create({
 
     Texto: {
         fontSize: 34,
-        textAlign: 'center',
+        textAlign: 'left',
         color: '#fff',
-        left: 110,
-        bottom: 3
+        //left: 115,
+        bottom: 3,
+        left: 25
     },
 
     BotaoFechar: {
@@ -58,7 +57,8 @@ const style = StyleSheet.create({
         height: 60,
         position: 'absolute',
         bottom: 8,
-        right: 110
+        right: 90
+        
     },
 
     imgSeta: {
@@ -66,7 +66,6 @@ const style = StyleSheet.create({
         height: 50,
         position: 'absolute',
         bottom: 10,
-        left: 150,
+        left: 160,
     },
-
 })

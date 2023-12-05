@@ -83,7 +83,7 @@ export const style = StyleSheet.create({
     },
 
     botao: {
-        backgroundColor: '#1868D9',
+        backgroundColor: '#034FC9',
         padding: 10,
         width: 80,
         height: 80,
@@ -93,12 +93,14 @@ export const style = StyleSheet.create({
     },
 
     selecionado: {
-        backgroundColor: '#1868D9',
-        borderColor: '#FFCE3D',
+        backgroundColor: '#034FC9',
+        borderColor: '#7DEAF8',
         borderWidth: 5,
+        elevation: 5,
         padding: 10,
-        width: 80,
-        height: 80,
+        width: 100,
+        height: 100,
+        bottom: 4,
         borderRadius: 50,
         alignItems: 'center',
         justifyContent: 'center'

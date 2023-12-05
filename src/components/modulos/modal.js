@@ -16,7 +16,7 @@ export default function ModalConfirmacao({texto ,modalVisivel, onClose, tela }){
                     <Text style={style.texto1}>{texto}</Text>      
                     <TouchableOpacity onPress={() => {onClose(); tela()}}>
                         <View style={style.texto2Container}>
-                            <Text style={style.texto2}>Começar +25 XP</Text>
+                            <Text style={style.texto2}>Sim</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
