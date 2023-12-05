@@ -46,7 +46,7 @@ export default function MultiplaAlternativas({urlvideo, vel, opcoes, opcoesSelec
                     <Text>{opcoesSelecionadas.join(' ')}</Text>
                 </View>
 
-                {/*Campos onde fica as alternativas */}
+                {/*Campos onde ficam as alternativas */}
                 <View style={style.footer}>
                     <BotaoResposta
                     escolha={opcoes[0]}
@@ -83,6 +83,7 @@ export const style = StyleSheet.create({
         marginLeft: 20,
         bottom: 25
     },
+
     video: {
         width: 400,
         height: 300,
@@ -92,13 +93,16 @@ export const style = StyleSheet.create({
         alignSelf: 'center',
         bottom: 20
     },
+
     footer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingVertical: 20,
-        paddingHorizontal: 10,
+        paddingVertical: 15,
+        paddingHorizontal: 20,
         borderTopColor: '#ccc',
+        bottom: 10
     },
+
     botaoAlternativas: {
         backgroundColor: '#1868D9',
         padding: 10,
@@ -107,7 +111,6 @@ export const style = StyleSheet.create({
         borderRadius: 15,
         marginHorizontal: 5,
         alignItems: 'center',
-
     },
 
     botaoTexto: {
@@ -124,4 +127,14 @@ export const style = StyleSheet.create({
         color: 'black',
         marginTop: 20,
     },
+
+    botaoSelecionado: {
+        backgroundColor: '#ccc',
+        padding: 10,
+        width: 150,
+        height: 50,
+        borderRadius: 15,
+        marginHorizontal: 5,
+        alignItems: 'center',
+    }
 });

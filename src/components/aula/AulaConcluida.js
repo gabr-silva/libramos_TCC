@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const AulaConcluida = ({ modalVisivel, onClose, navigation }) => {
     return (
@@ -11,7 +11,7 @@ const AulaConcluida = ({ modalVisivel, onClose, navigation }) => {
             <View style={style.Container}>
                 {/* Texto */}
                 <Text style={style.Texto}>
-                   PARABENS
+                   Aula concluída, PARABÉNS!
                 </Text>
 
                 {/* Botão */}

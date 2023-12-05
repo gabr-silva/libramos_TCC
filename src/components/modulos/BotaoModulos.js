@@ -5,7 +5,7 @@ import { Circle, Svg } from 'react-native-svg';
 
 //calculo para o tamanho do circulo
 const {width} = Dimensions.get("window")
-const size = width - 280;
+const size = width - 270;
 const strokeWidth = 10;
 const radius = (size - strokeWidth) / 2
 const circumference = radius * 2 * Math.PI;
@@ -68,22 +68,23 @@ const styles = StyleSheet.create({
     width: size,
     height: size,
     marginHorizontal: 7,
-
   },
 
   circunferencia: {
     width: size,
     height: size,
     position: 'relative',
+    marginTop: 1
   },
 
   button: {
     position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
-    bottom: 95,
+    bottom: 105,
     width: size - 20,
     height: size - 20,
+    
   },
   
   image: {
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     borderRadius: size / 2,
     overflow: 'hidden',
-    position: 'absolute',
+    position: 'relative',
     justifyContent: "center"
   },
   
