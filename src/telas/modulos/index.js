@@ -78,7 +78,7 @@ const Menu = ({navigation}) => {
         <Text style={style_modulo.textoNivel}>{"\n"}Nível 1</Text>
         <BotaoPerfil
           style={style_modulo.imgPerfil}
-          imagemPerfil={require('../../../assets/icon.png')}
+          imagemPerfil={require('../../../assets/capivaraTeste.png')}
           onPress={() => navigation.navigate('Perfil')}
         />
 
