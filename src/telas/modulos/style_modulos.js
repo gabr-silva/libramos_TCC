@@ -32,7 +32,7 @@ const style_modulo = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
-        marginHorizontal: 55
+        marginHorizontal: 45
       },
 
     containerAnimacao:{
